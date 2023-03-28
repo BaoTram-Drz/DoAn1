@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Link as ScrollLink } from 'react-scroll';
 import styled from 'styled-components';
-import { useState, useEffect } from 'react';
+import { useState} from 'react';
 import { FaBars, FaEllipsisV } from 'react-icons/fa';
 
 
@@ -81,6 +82,34 @@ const NavLinkStyled = styled(Link)`
   }
 `;
 
+const NavScrollLink = styled(ScrollLink)`
+  width: 90px;
+  margin: 0.5%;
+  padding: 0.5% 0.5%;
+  text-align: center;
+  color: ${props => props.active ? '#ffc24b' : '#0e606b'};
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    transform: translateY(-4px) translateX(-2px);
+    color: #ffc24b;
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 70px; /* giảm giá trị từ 80px xuống 70px */
+    margin: 0.25%; /* giảm giá trị từ 0.5% xuống 0.25em */
+    padding: 0.5% 0.5%;
+    font-size: 0.8rem; /* giảm kích thước font chữ */
+  }
+    
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+`;
+
+
 const UserName = styled.span`
   width: 100px;
   margin: 0.5%;
@@ -140,9 +169,10 @@ const StyledFaEllipsisV = styled(FaEllipsisV)`
   border-radius:50%;
 `;
 
-function Header(props) {
+function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
 
   const handleLogout = () => {
     setIsLoggedIn(false);
@@ -151,29 +181,6 @@ function Header(props) {
   const handleDropdownClick = () => {
       setIsOpen(!isOpen);
   };
-  // const handleLogin = () => {
-  //   setIsLoggedIn(true);
-  // };
-  const { handleButtonClick } = props;
-  useEffect(() => {
-    const handleResize = () => {
-      const windowWidth = window.innerWidth;
-      if (windowWidth > 0 && windowWidth < 1080) {
-        handleButtonClick('home');
-      } else if (windowWidth >= 1080 && windowWidth < 2160) {
-        handleButtonClick('about');
-      } else {
-        handleButtonClick('courses');
-      }
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    // remove event listener on component unmount
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, [handleButtonClick]);
 
   return ( 
       <>
@@ -181,11 +188,48 @@ function Header(props) {
           <LogoImage />
           <LogoText>EngPlayground</LogoText>
           <NavMenuStyled>
-            <NavLinkStyled to="/" active={props.activeButton === 'home'} onClick={() => props.handleButtonClick('home')}>Home</NavLinkStyled>          
-            <NavLinkStyled to="/about" active={props.activeButton === 'about'} onClick={() => props.handleButtonClick('about')}>About</NavLinkStyled>
-            <NavLinkStyled to="/about" active={props.activeButton === 'courses'} onClick={() => props.handleButtonClick('courses')}>Courses</NavLinkStyled>
-            <NavLinkStyled to="/contact" active={props.activeButton === 'contact'} onClick={() => props.handleButtonClick('contact')}>Contact</NavLinkStyled>
-            <NavLinkStyled to="/threejs" active={props.activeButton === 'threejs'} onClick={() => props.handleButtonClick('threejs')}>Threejs</NavLinkStyled>
+            <NavLinkStyled 
+              to="/" 
+              active={ activeSection === 'home'} 
+              onClick={() => {
+                setActiveSection('home');
+              }}
+            >
+              Home
+            </NavLinkStyled>          
+            <NavScrollLink
+              activeClass="active"
+              active={ activeSection === 'about' }
+              to="about-section"
+              spy={true}
+              smooth={true}
+              duration={500}
+              onSetActive={() => setActiveSection('about')}
+            >
+              About
+            </NavScrollLink>
+            <NavScrollLink
+              activeClass="active"
+              active={activeSection === 'courses'}
+              to="courses-section"
+              spy={true}
+              smooth={true}
+              duration={500}
+              onSetActive={() => setActiveSection('courses')}
+            >
+              Courses
+            </NavScrollLink>
+            <NavScrollLink
+              activeClass="active"
+              active={activeSection === 'contact'}
+              to="contact-section"
+              spy={true}
+              smooth={true}
+              duration={500}
+              onSetActive={() => setActiveSection('contact')}
+            >
+              Contact
+            </NavScrollLink>
             {isLoggedIn ? (
                 <>
                   <UserName>UserName</UserName>
@@ -199,8 +243,24 @@ function Header(props) {
                 </>
               ) : (
                 <>
-                  <NavLinkStyled active={props.activeButton === 'signup'} onClick={() => props.handleButtonClick('signup')}>Sign Up</NavLinkStyled>
-                  <NavLinkStyled to="/login" active={props.activeButton === 'login'} onClick={() => props.handleButtonClick('login')} >Login</NavLinkStyled>              
+                  <NavLinkStyled 
+                    to="/signup" 
+                    active={ activeSection === 'signup'} 
+                    onClick={() => {
+                      setActiveSection('signup');
+                    }}
+                  >
+                    Sign Up
+                  </NavLinkStyled>
+                  <NavLinkStyled 
+                    to="/login" 
+                    active={ activeSection === 'login'} 
+                    onClick={() => {
+                      setActiveSection('login');
+                    }}
+                  >
+                    Login
+                  </NavLinkStyled>              
                 </>
               )}
             <StyledFaBars/>

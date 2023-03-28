@@ -1,89 +1,140 @@
 import React from 'react';
 import styled from 'styled-components';
 
+const Container = styled.div`
+
+`;
+
+const CoursesName = styled.div`
+  width: 50%;
+  height: 150px;
+  margin: 15% auto 3% auto;
+  background: #FFFFFF;
+  border: 5px dashed #FFC24B;
+  border-radius: 100px;
+  text-align: center;
+`;
+
+const CoursesNameText = styled.p`
+  margin-top: 5%;
+  font-family: 'Margarine';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 48px;
+  line-height: 45px;
+
+  color: #F47068;
+`;
+
 const CardListContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 20px;
-  width:80%;
-  float: right;
+  gap: 50px;
+  width:60%;
+  margin: auto;
   padding-top: 50px;
-  padding-bottom: 50px;
 `;
 
 const Card = styled.div`
-  width: 250px;
-  height: 300px;
-  background: #f0f0f0;
-  border-radius: 10px;
+  width: 30%;
+  height: 500px;
+  background: #FFF4F1;
+  border: 1px solid #F47068;
+  border-radius: 20px;
   text-align: center;
-  transition: all 0.5s;
-  &:hover {
-    box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.623);
-    background-color: #4bb8ff;
-  }
 `;
 
 const Blob = styled.div`
-  height: 10px;
-  width: 75%;
-  border-radius: 0 0 30px 30px;
+  width: 100%;
+  height: 200px;
   margin: 0 auto;
-  background-color: #4bb8ff;
+  background: #FFB3AE;
+  border-radius: 20px 20px 0px 0px;
+
   visibility: visible;
   transition: all 0.3s;
-  ${Card}:hover & {
-    height: 0;
-  }
 `;
 
-const Img = styled.span`
+const ImgContainer = styled.span`
   display: flex;
-  margin: 30px auto 10px auto;
-  width: 100px;
-  height: 100px;
-  background-color: #4bb8ff;
+  margin-top: 0%;
+  margin-left: 50%;
+  margin-bottom: -45%;
+  transform: translate(-50%, -60%);
+  width: 250px;
+  height: 250px;
+  background: #FFFFFF;
+  border: 5px dashed #FFC24B;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
   border-radius: 50%;
   font-size: 11px;
-  justify-content: center;
-  align-items: center;
+  background-image: url(${props => props.imageUrl});
+
   transition: all 0.5s;
+  
   ${Card}:hover & {
-    width: 100%;
+    width: 80%;
     height: 70%;
-    border-radius: 10px 0 0;
-    margin: 0 auto;
+    transform: translate(0%, -45%);
+    border-radius: 20px;
+    margin: 0 10% -40% 10%;
     background-image: url(${props => props.imageUrl});
     z-index: 99999;
   }
 `;
 
-const Name = styled.h2`
-  padding: 15px 10px;
-  font-size: 25px;
-  transition: all 0.1s;
-  z-index: -99;
-  line-height: 17px;
+const Img = styled.span`
+  display: flex;
+  width: 100%;
+  height: 100%;
+  background: #FFFFFF;
+  border-radius: 50%;
+  transition: all 0.5s;
+
+  background-image: url(${props => props.imageUrl});
   ${Card}:hover & {
-    opacity: 0;
+    border-radius: 20px;
+  }
+`;
+
+const Name = styled.h2`
+  font-family: 'Autour One';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 2rem;
+  color: #0E606B;
+  ${Card}:hover & {
     display: none;
-    position: absolute;
-    transition: all 0.5s;
   }
 `;
 
 const Description = styled.p`
-  opacity: 1;
-  transition: all 0.75s;
+  font-family: 'Autour One';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1rem;
+  color: #1697A6;
   ${Card}:hover & {
     display: none;
-    position: absolute;
-    bottom: 15px;
-    left: 35px;
-    opacity: 1;
-    transition: all 0.1s;
   }
+`;
+
+const LearnBtn = styled.div`
+  position: relative ;
+  width: 60%;
+  margin: auto !important;
+  background: #F47068;
+  border-radius: 20px;
+
+  font-family: 'Autour One';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 45px;
+  color: #FFFFFF;
+  cursor: pointer;
+
 `;
 function CardList() {
     const Info = [    
@@ -101,35 +152,30 @@ function CardList() {
       name: 'Product C',      
       image: 'https://via.placeholder.com/200x200.png',      
       des: 'This is product C description',    
-    },  
-    {      
-      name: 'Product A',      
-      image: 'https://via.placeholder.com/200x200.png',      
-      des: 'This is product A description',    
-    },    
-      {      
-      name: 'Product B',      
-      image: 'https://via.placeholder.com/200x200.png',      
-      des: 'This is product B description',    
-    },    
-      {      
-      name: 'Product C',      
-      image: 'https://via.placeholder.com/200x200.png',      
-      des: 'This is product C description',    
     },   
   ];
 
   return (
-    <CardListContainer>
-      {Info.map((item, index) => (
-        <Card key={index}>
-          <Blob />
-          <Img imageUrl={item.image} alt={item.name} />
-          <Name>{item.name}</Name>
-          <Description>{item.des}</Description>
-        </Card>
-      ))}
-    </CardListContainer>
+    <Container>
+      <CoursesName>
+        <CoursesNameText>Courses for You</CoursesNameText>
+        </CoursesName>
+      <CardListContainer>        
+        {Info.map((item, index) => (
+          <Card key={index}>
+            <Blob />
+            <ImgContainer>
+              <Img imageUrl={item.image} alt={item.name} />
+            </ImgContainer>
+            <Name>{item.name}</Name>
+            <Description>{item.des}</Description>
+            <LearnBtn>
+              Learn
+            </LearnBtn>
+          </Card>
+        ))}
+      </CardListContainer>
+    </Container>
   );
 }
 

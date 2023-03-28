@@ -5,11 +5,13 @@ import styled from 'styled-components';
 
 const SlideshowContainer = styled.div`
   display: flex;
+  width: 100%;
   margin-top: 6%;
-  height: 20%;
+  height: 600px;
   gap: 10px;
 
   > div {
+    min-width: 15%;
     position: relative;
     flex: 1;
     border-radius: 1rem;
@@ -21,7 +23,7 @@ const SlideshowContainer = styled.div`
     &.active {
       flex: 5;
       &::before {
-        background-color: rgba(128, 128, 128, 0); /* Xóa lớp màu xám gần trong suốt */
+        background-color: rgba(128, 128, 128, 0);
       }
     }
 
@@ -48,27 +50,19 @@ const Button = styled.button`
   position: absolute;
   cursor: pointer;
   z-index: 1;
-  width: 30%;
+  width: 40%;
+  min-width: 100px;
   bottom: 20%;
-  left: 35%;
-  right:35%;
+  left: 50%;
+  transform: translate(-50%, 0);
   padding: 5px 10px;
   font-family: 'Bungee Inline', cursive;
-  color: #1697a6;
+  color: #FFC24B;
   background-color: #fff4f1;
-  border: none;
+  border: 2px dashed #FFC24B;
   border-radius: 1rem;
-
-
 `;
 
-// const images = {
-//   image1: URL('./images/1_day.png'),
-//   image2: require('./path/to/image2.jpg').default,
-//   image3: require('./path/to/image3.jpg').default,
-//   image4: require('./path/to/image4.jpg').default,
-//   image5: require('./path/to/image5.jpg').default,
-// };
 
 function handleClick(e) {
   const target = e.target;
@@ -90,7 +84,7 @@ const Carousel = () => {
   return (
     <SlideshowContainer>
       <div style={{ 
-        backgroundImage: `url('./images/1_day.png')` }}
+        backgroundImage: `url('https://via.placeholder.com/200x200.png')` }}
         onMouseLeave={handleMouseLeave}
         >
           <Button onClick={handleClick}>Click Me</Button>
@@ -119,15 +113,7 @@ const Carousel = () => {
         > 
           <Button onClick={handleClick}>Click Me</Button>
       </div>
-      {/* {images.map((image, index) => (
-          <div key={index} style={{ 
-          backgroundImage: {image} }}
-          onMouseLeave={handleMouseLeave}
-        >
-            <Button onClick={handleClick}>Click Me</Button>
-          </div>
-        ))} 
-        */}
+
     </SlideshowContainer>
   );
 };

@@ -1,57 +1,54 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import RotatingMenu from '../Component/RotatingMenu/RotatingMenu';
-import Slider from '../Component/Carousel/Carousel';
 import CardList from '../Component/CoursesCard/CoursesCard';
 import About from '../About/About';
 import Contact from '../Contact/Contact';
+import { Element } from 'react-scroll';
+import Carousel from '../Component/Carousel/Carousel';
 // import Cube from '../Component/TestThree/Testthree';
 
 const Container = styled.div`
   overflow: hidden;
   width: 100%;
-  height: 3000px;
   margin: auto;
 `;
 
+const BigText = styled.p`
+  margin: 6% auto -3% auto;
+  text-align: center;
+  font-family: 'Bungee Inline';
+  font-weight: 400;
+  font-size: 3rem;
+  color: #F47068;
+  text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+`;
+const BigText2 = styled.p`
+  margin: 6% auto 3% auto;
+  text-align: center;
+  font-family: 'Bungee Inline';
+  font-weight: 400;
+  font-size: 3rem;
+  color: #F47068;
+  text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+`;
+
 function Home() {
-    const [isHome, setIsHome] = useState(true);
-    const [isAbout, setIsAbout] = useState(false);
-    const [isContact, setIsContact] = useState(false);
-    const [isMobile, setIsMobile] = useState(false);
-
-    const handleScroll = () => {
-        const scrollTop = window.pageYOffset;
-        setIsHome(scrollTop <= window.innerHeight);
-        setIsAbout(scrollTop > window.innerHeight && scrollTop <= 2 * window.innerHeight);
-        setIsContact(scrollTop > 2 * window.innerHeight && scrollTop <= 4 * window.innerHeight);
-    };
-
-    useEffect(() => {
-        window.addEventListener('scroll', handleScroll);
-        handleMobile();
-        window.addEventListener('resize', handleMobile);
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-            window.removeEventListener('resize', handleMobile);
-        };
-    }, []);
-
-    const handleMobile = () => {
-        if (window.innerWidth < 768) {
-            setIsMobile(true);
-        } else {
-            setIsMobile(false);
-        }
-    };
-
     return (
         <Container>
-            {!isMobile && <RotatingMenu showHome={isHome} showAbout={isAbout} showContact={isContact} />}
-            <Slider/>
-            <About/>
-            <CardList/>
-            <Contact/>
+            <BigText>Welcome to Engplaygrond</BigText>
+            <Carousel/>          
+            <Element name="about-section">
+                <About />
+            </Element>
+            <Element name="courses-section">
+                <CardList/>
+            </Element>
+            <Element name="contact-section">
+                <Contact/>
+            </Element>
+
+            <BigText2>Thanks for visited</BigText2>
+            
         </Container>
     );
 };

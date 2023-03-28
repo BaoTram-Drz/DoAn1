@@ -1,93 +1,70 @@
 import styled from "styled-components";
 
 const PageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: auto;
+  position: relative;
+  width: 100%;
+  height: 700px;
+  margin-top: 20%;
+  padding-top: 2.5%;
+  background: #FFB3AE;
+`;
+
+const BigContainer = styled.div`
+  width: 80%;
+  height: 95%;
+  margin-left: 15%;
+
+  background: #FFFFFF;
+  border: 5px dashed #1697A6;
+  border-radius: 189px;
+`;
+
+const BigDescription = styled.div`
   width: 60%;
-  margin-top: 100px;
+  margin: 8% auto 3% auto;
+  font-family: 'Margarine';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 48px;
+  line-height: 45px;
+  color: #FFC24B;
+  text-shadow: 0px 2px 2px  #FFF4F1;
 `;
 
-const TopSectionContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: 1fr;
-  overflow: hidden;
-  width: 100%;
-  height: 45%;
-  border-bottom-right-radius: 100px;
-  border-top-right-radius: 100px;
-  background-color: #fcb69f;
-`;
-
-const TopSectionImage = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-top-right-radius: 100px;
-  border-bottom-right-radius: 100px;
-  grid-row: 1;
-  grid-column: 1;
-`;
-
-const TopSectionDescription = styled.div`
-  padding: 20px;
-  border-radius: 10px;
+const SmallDescription = styled.div`
+  width: 60%;
+  margin: auto;
+  font-family: 'Autour One';
+  font-style: normal;
+  font-weight: 400;
   font-size: 24px;
-  color: #333;
-  max-width: 100%;
-  grid-row: 1;
-  grid-column: 2;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const BottomSection = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  height: calc(50% - 25px);
-  padding: 100px;
+  line-height: 45px;
 `;
 
 const RoundedImage = styled.img`
-  width: 40%;
-  height: 40%;
-  border-radius: 100%;
-  margin-left: auto;
-  margin-right: 50px;
+position: absolute;
+  box-sizing: border-box;
+  width: 20%;
+  height: 400px;
+  left: 2%;
+  top: 5%;
+
+  background-image: url('https://via.placeholder.com/200x200');
+  border: 25px solid #FFF4F1;
+  border-radius: 250px;
 `;
 
-const BottomDescription = styled.p`
-  font-size: 24px;
-  color: #333;
-  max-width: 50%;
-  text-align: right;
-`;
 
 function AboutPage() {
   return (
     <PageContainer>
-      <TopSectionContainer>
-        <TopSectionImage src="https://via.placeholder.com/600x400" alt="About Image" />
-        <TopSectionDescription>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras vel
-          convallis magna. Suspendisse euismod elit ut nulla fermentum, at
-          ultrices massa ullamcorper.
-        </TopSectionDescription>        
-      </TopSectionContainer>
-      <BottomSection>
-        <BottomDescription>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras vel
-          convallis magna. Suspendisse euismod elit ut nulla fermentum, at
-          ultrices massa ullamcorper.
-        </BottomDescription>
-        <RoundedImage src="https://via.placeholder.com/200x200" alt="About Image" />
-      </BottomSection>
+      <BigContainer>
+        <BigDescription>About Us - Best choice for you</BigDescription>
+        <SmallDescription>
+        « Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. »
+        </SmallDescription>
+      </BigContainer>
+      <RoundedImage/>
     </PageContainer>
   );
 };

@@ -42,21 +42,11 @@ const Input = styled.input`
     padding-left: 1rem;
   }
 `;
-const LinkForgot = styled(Link)`
-  align-self: flex-end;
-  padding-right: 10%;
-  font-family: 'Roboto';
-  font-weight: 400;
-  font-size: 1rem;
-  line-height: 28px;
-  color: #F47068;
-  text-decoration: none;
-`;
 
 const SubmitButton = styled.button`
   width: 80%;
   height: 55px;
-  margin: 3%;
+  margin: 8%;
   background: #FFC24B;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
   border: none;
@@ -78,7 +68,6 @@ const Line = styled.label`
   font-style: normal;
   font-weight: 400;
   font-size: 1rem;
-  line-height: 28px;
   color: #F47068;
 `;
 
@@ -88,7 +77,7 @@ const SubmitGGButton = styled.button`
   align-items: center;
   width: 80%;
   height: 40px;
-  margin: 5% auto 10% auto;
+  margin: 5% auto 15% auto;
   background: #FFFFFF;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
@@ -110,24 +99,23 @@ const StyledFaGooglePlusG = styled(FaGooglePlusG)`
   color: red;
 `;
 
-const Login = () => {
+const SignUp = () => {
   return (
     <FormWrapper>
-      <BigText>welcome back</BigText>
+      <BigText>Sign Up</BigText>
       <Input type="text" id="nome" name="nome"  placeholder="Email"/>
       <Input type="email" id="email" name="email" placeholder="Password"/>
-      <LinkForgot to="/forgot">Forgot Passwword</LinkForgot>
-      <SubmitButton to="/">
-        <LinkLoginBtn>
-        Send
+      <SubmitButton>
+        <LinkLoginBtn  to="/">
+        Sign Up
         </LinkLoginBtn>
       </SubmitButton> 
       <Line>--------------------or--------------------</Line>
       
-      <SubmitGGButton><StyledFaGooglePlusG/><LinkLoginGG>&ensp;Login with Google</LinkLoginGG></SubmitGGButton>
+      <SubmitGGButton><StyledFaGooglePlusG/><LinkLoginGG>&ensp;Continue with Google</LinkLoginGG></SubmitGGButton>
             {/*  set giá trị của header là có người dùng  */}
     </FormWrapper>
   );
 };
 
-export default Login;
+export default SignUp;
