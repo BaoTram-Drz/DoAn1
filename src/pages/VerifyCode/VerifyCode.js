@@ -1,7 +1,19 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from 'react-router-dom';
+import image from './image.png'
 
+const Image = styled.div`
+  width: 45%;
+  height: 500px;
+  float: left;
+  background-image: url(${(props) => props.bgImage});
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center;
+  margin: auto auto auto 10%;
+  box-shadow: 50px 50px 100px 120px #fffaee;
+`;
 
 const FormWrapper = styled.form`
   position: relative;
@@ -65,16 +77,20 @@ const LinkLoginBtn = styled(Link)`
 
 const VerifyCode = () => {
   return (
-    <FormWrapper>
-      <BigText>verify</BigText>
-      <Input type="text" id="nome" name="nome"  placeholder="Enter your pass"/>
-      <Input type="email" id="email" name="email" placeholder="Enter your pass again"/>
-      <SubmitButton>
-        <LinkLoginBtn  to="/">
-        Save
-        </LinkLoginBtn>
-      </SubmitButton> 
-    </FormWrapper>
+    <>
+      <Image bgImage={image}></Image>
+      <FormWrapper>
+        <BigText>verify</BigText>
+        <Input type="text" id="nome" name="nome"  placeholder="Enter your pass"/>
+        <Input type="email" id="email" name="email" placeholder="Enter your pass again"/>
+        <SubmitButton>
+          <LinkLoginBtn  to="/">
+          Save
+          </LinkLoginBtn>
+        </SubmitButton> 
+      </FormWrapper>
+    </>
+   
   );
 };
 

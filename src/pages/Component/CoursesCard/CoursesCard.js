@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
 
@@ -31,7 +32,7 @@ const CardListContainer = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   gap: 50px;
-  width:60%;
+  width:80%;
   margin: auto;
   padding-top: 50px;
 `;
@@ -74,13 +75,8 @@ const ImgContainer = styled.span`
   transition: all 0.5s;
   
   ${Card}:hover & {
-    width: 80%;
-    height: 70%;
-    transform: translate(0%, -45%);
     border-radius: 20px;
-    margin: 0 10% -40% 10%;
     background-image: url(${props => props.imageUrl});
-    z-index: 99999;
   }
 `;
 
@@ -104,9 +100,6 @@ const Name = styled.h2`
   font-weight: 400;
   font-size: 2rem;
   color: #0E606B;
-  ${Card}:hover & {
-    display: none;
-  }
 `;
 
 const Description = styled.p`
@@ -115,14 +108,11 @@ const Description = styled.p`
   font-weight: 400;
   font-size: 1rem;
   color: #1697A6;
-  ${Card}:hover & {
-    display: none;
-  }
 `;
 
-const LearnBtn = styled.div`
+const LearnBtn = styled(Link)`
   position: relative ;
-  width: 60%;
+  width: 100%;
   margin: auto !important;
   background: #F47068;
   border-radius: 20px;
@@ -131,7 +121,6 @@ const LearnBtn = styled.div`
   font-style: normal;
   font-weight: 400;
   font-size: 32px;
-  line-height: 45px;
   color: #FFFFFF;
   cursor: pointer;
 
@@ -159,7 +148,7 @@ function CardList() {
     <Container>
       <CoursesName>
         <CoursesNameText>Courses for You</CoursesNameText>
-        </CoursesName>
+      </CoursesName>
       <CardListContainer>        
         {Info.map((item, index) => (
           <Card key={index}>
@@ -169,7 +158,12 @@ function CardList() {
             </ImgContainer>
             <Name>{item.name}</Name>
             <Description>{item.des}</Description>
-            <LearnBtn>
+            <LearnBtn 
+              to={{
+                pathname: '/coursesinfo',
+                state: { productname: item.name },
+              }}
+            >
               Learn
             </LearnBtn>
           </Card>

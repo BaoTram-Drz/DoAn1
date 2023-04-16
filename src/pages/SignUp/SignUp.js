@@ -2,8 +2,19 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from 'react-router-dom';
 import {FaGooglePlusG} from 'react-icons/fa';
+import image from './image.png'
 
-
+const Image = styled.div`
+  width: 45%;
+  height: 500px;
+  float: left;
+  background-image: url(${(props) => props.bgImage});
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center;
+  margin: auto auto auto 10%;
+  box-shadow: 50px 50px 100px 120px #fffaee;
+`;
 const FormWrapper = styled.form`
   position: relative;
   display: flex;
@@ -101,20 +112,24 @@ const StyledFaGooglePlusG = styled(FaGooglePlusG)`
 
 const SignUp = () => {
   return (
-    <FormWrapper>
-      <BigText>Sign Up</BigText>
-      <Input type="text" id="nome" name="nome"  placeholder="Email"/>
-      <Input type="email" id="email" name="email" placeholder="Password"/>
-      <SubmitButton>
-        <LinkLoginBtn  to="/">
-        Sign Up
-        </LinkLoginBtn>
-      </SubmitButton> 
-      <Line>--------------------or--------------------</Line>
-      
-      <SubmitGGButton><StyledFaGooglePlusG/><LinkLoginGG>&ensp;Continue with Google</LinkLoginGG></SubmitGGButton>
-            {/*  set giá trị của header là có người dùng  */}
-    </FormWrapper>
+    <>
+      <Image bgImage={image}></Image>
+      <FormWrapper>
+        <BigText>Sign Up</BigText>
+        <Input type="text" id="nome" name="nome"  placeholder="Email"/>
+        <Input type="email" id="email" name="email" placeholder="Password"/>
+        <SubmitButton>
+          <LinkLoginBtn  to="/">
+          Sign Up
+          </LinkLoginBtn>
+        </SubmitButton> 
+        <Line>--------------------or--------------------</Line>
+        
+        <SubmitGGButton><StyledFaGooglePlusG/><LinkLoginGG>&ensp;Continue with Google</LinkLoginGG></SubmitGGButton>
+              {/*  set giá trị của header là có người dùng  */}
+      </FormWrapper>
+    </>
+   
   );
 };
 

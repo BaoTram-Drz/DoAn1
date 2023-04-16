@@ -4,6 +4,7 @@ import { Link as ScrollLink } from 'react-scroll';
 import styled from 'styled-components';
 import { useState} from 'react';
 import { FaBars, FaEllipsisV } from 'react-icons/fa';
+import logo from './logo.png';
 
 
 const HeaderStyled  = styled.header`
@@ -12,22 +13,22 @@ const HeaderStyled  = styled.header`
   top: 0;
   left: 0;
   width: 100%;
-  height: 60px;
+  height: 80px;
   background-color: white;
   font-family: 'Autour One', cursive;
   font-weight: bold;
   color: #0e606b;
-  padding: 0.5rem 1rem;
+  padding: 0rem 1rem;
   z-index: 2;
   border-bottom: 3px dashed #1697A6;
 `;
 
 const LogoImage = styled.div`
-  width: 60px;
-  height: 60px;
-  background-image: url('https://www.pngitem.com/pimgs/m/146-1468479_white-circle-transparent-png-white-circle-logo-png.png');
+  width: 80px;
+  height: 80px;
+  background-image: url(${(props) => props.bgImage});
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: cover;
   margin-left: 2%;
   border-radius: 50%;
   @media screen and (max-width: 821px) {
@@ -133,12 +134,13 @@ const DropdownContent = styled.div`
   }
 `;
 
-const DropdownItem = styled.a`
+const DropdownItem = styled(Link)`
   display: block;
   padding: 0.5em 1em;
   text-decoration: none;
   cursor: pointer;
   border-radius: 10px;
+  color: ${props => props.active ? '#ffc24b' : '#0e606b'};
 
   &:hover {
     background-color: #f1f1f1;
@@ -184,8 +186,8 @@ function Header() {
 
   return ( 
       <>
-        <HeaderStyled >
-          <LogoImage />
+        <HeaderStyled>
+          <LogoImage bgImage={logo}/>
           <LogoText>EngPlayground</LogoText>
           <NavMenuStyled>
             <NavLinkStyled 
@@ -230,6 +232,16 @@ function Header() {
             >
               Contact
             </NavScrollLink>
+            
+            <NavLinkStyled 
+              to="/layoutlearn" 
+              active={ activeSection === 'layoutlearn'} 
+              onClick={() => {
+                setActiveSection('layoutlearn');
+              }}
+            >
+              Learn
+            </NavLinkStyled>
             {isLoggedIn ? (
                 <>
                   <UserName>UserName</UserName>
@@ -237,7 +249,16 @@ function Header() {
                   {isOpen && (
                     <DropdownContent>
                       <DropdownItem>Change info</DropdownItem>
-                      <DropdownItem onClick={handleLogout}>Logout</DropdownItem>
+                      <DropdownItem 
+                        to="/login" 
+                        active={ activeSection === 'login'} 
+                        onClick={() => {
+                          setActiveSection('login');
+                          setIsLoggedIn(false);
+                        }}
+                      >
+                        Logout
+                      </DropdownItem>
                     </DropdownContent>
                   )}
                 </>
