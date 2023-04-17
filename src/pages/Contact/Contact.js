@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-//import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
+import CustomMap from './Map/Map'
+import { createGlobalStyle } from 'styled-components';
 
 const FormContainer = styled.div`
   display: grid;
@@ -37,8 +38,11 @@ const FormTitle = styled.h1`
   font-weight: 400;
   font-size: 4rem;
   color: #FFC24B;
-  text-shadow: 0 0 20px white, 0 0 20px white, 0 0 20px white, 0 0 20px white, 0 0 20px white, 0 0 20px white, 0 0 20px white, 0 0 20px white, 0 0 20px white, 0 0 20px white, 0 0 20px white;
-  
+  text-shadow:
+    -7px -7px 0 #fff, /* Viền trắng bên trái trên */
+     7px -7px 0 #fff, /* Viền trắng bên phải trên */
+    -7px  7px 0 #fff, /* Viền trắng bên trái dưới */
+     7px  7px 0 #fff;
 `;
 
 const Title = styled.p`
@@ -101,11 +105,19 @@ const SubButton = styled.button`
   font-size: 1.5rem;
   color: #FFFFFF;
 `;
-
+const GlobalStyle = createGlobalStyle`
+  .leaflet-red-icon {
+    width: 25px;
+    height: 41px;
+    background-image: url('https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png');
+    background-size: 25px 41px;
+  }
+`;
 const ImageContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
   width: 80%;
   height: 80%;
   margin: 2rem;
@@ -117,6 +129,7 @@ const ImageContainer = styled.div`
 function ContactForm() {
   return (
       <>
+        <GlobalStyle />
         <FormTitle>Contact Us</FormTitle>
         <FormContainer>
           <FormStyled>        
@@ -129,17 +142,7 @@ function ContactForm() {
             <SubButton type="submit">Send</SubButton>
           </FormStyled>
           <ImageContainer>
-            {/* <Map center={[51.505, -0.09]} zoom={13}>
-              <TileLayer
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                attribution="Map data &copy; <a href=&quot;https://www.openstreetmap.org/&quot;>OpenStreetMap</a> contributors, <a href=&quot;https://creativecommons.org/licenses/by-sa/2.0/&quot;>CC-BY-SA</a>, Imagery © <a href=&quot;https://www.mapbox.com/&quot;>Mapbox</a>"
-              />
-              <Marker position={[51.505, -0.09]}>
-                <Popup>
-                  A pretty CSS3 popup. <br /> Easily customizable.
-                </Popup>
-              </Marker>
-            </Map> */}
+            <CustomMap/>
           </ImageContainer>
         </FormContainer>
       </>

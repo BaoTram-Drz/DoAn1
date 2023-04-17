@@ -232,16 +232,6 @@ function Header() {
             >
               Contact
             </NavScrollLink>
-            
-            <NavLinkStyled 
-              to="/layoutlearn" 
-              active={ activeSection === 'layoutlearn'} 
-              onClick={() => {
-                setActiveSection('layoutlearn');
-              }}
-            >
-              Learn
-            </NavLinkStyled>
             {isLoggedIn ? (
                 <>
                   <UserName>UserName</UserName>

@@ -25,7 +25,7 @@ const TextBox = styled.div`
     `}
 `;
 
-const DropZone = ({ onDrop, resetDraggedItems }) => {
+const Game3Drop = ({ onDrop, resetDraggedItems }) => {
   const [droppedItems, setDroppedItems] = useState([]);
 
   const [{ isOver }, drop] = useDrop(() => ({
@@ -54,4 +54,4 @@ const DropZone = ({ onDrop, resetDraggedItems }) => {
   );
 };
 
-export default DropZone;
+export default Game3Drop;

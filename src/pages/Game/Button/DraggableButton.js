@@ -5,7 +5,7 @@ import { useDrag } from 'react-dnd';
 const StyledButton = styled.button`
   width: 24%;
   padding: 5px 24px;
-  font: normal 400 2rem "Autour One";
+  font: normal 400 2rem "Roboto";
   background-color: white;
   border: 3px solid #0e606b;
   border-radius: 50px;

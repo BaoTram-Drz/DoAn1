@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 const BigText = styled.div`
@@ -57,7 +58,8 @@ const DivWrapper = styled.div`
     margin: auto;
     width: 80%;
     height: 535px;
-    background: #1697A6;
+    text-align: center;
+    background-image: linear-gradient(#0E606B, #1697A6);
     border: 3px solid #FFFFFF;
     border-radius: 20px;
     box-shadow: 0 0 2px gray;
@@ -72,7 +74,6 @@ const DivWrapper1 = styled.div`
 `;
 
 const DivWrapper2 = styled.div`
-    position: absolute;
     margin: 5%;
     width: 90%;
     height: 372px;
@@ -86,20 +87,29 @@ const DivWrapper2 = styled.div`
     font-size: 54px;
     line-height: 200px;
     color: #FFC24B;
-    text-shadow: 10 10 10 10 white;
+    text-shadow:
+    -5px -5px 0 #fff, /* Viền trắng bên trái trên */
+     5px -5px 0 #fff, /* Viền trắng bên phải trên */
+    -5px  5px 0 #fff, /* Viền trắng bên trái dưới */
+     5px  5px 0 #fff;
     text-align: center;
 `;
-
-// const TextName = styled.label`
-//     margin: 50%;
-    
-//     transform: rotate(-0.03deg);
-//     transform: translate(50%, 100px);
-// `;
+const Button = styled(Link)`
+    width: 60%;
+    min-width: 200px;
+    margin: auto;
+    padding: 5px 24px;
+    text-decoration: none;
+    font: normal 400 2rem "Autour One";
+    color: #ffc24b;
+    background-color: white;
+    border: 3px dashed #1697A6;
+    border-radius: 20px;
+`;
 
 const CoursesInfo = () => {
     const location = useLocation();
-    const [productName, setProductName] = useState('');
+    const [productName, setProductName] = useState('Product A');
     
     const [data, setData] = useState([]);
 
@@ -108,28 +118,55 @@ const CoursesInfo = () => {
         if (location.state && location.state.productname) {
             setProductName(location.state.productname);
           }
-      
-        fetchDataFromDatabase()
-        .then((response) => setData(response))
-        .catch((error) => console.error(error));
-    }, []);
+    }, [location.state]);
 
+    useEffect(() => {
+        fetchDataFromDatabase()
+        .then((response) => setData(response))        
+        .catch((error) => console.error(error));
+    }, [productName]);
+
+    console.log("prod", location.state);
+    console.log("prodN", productName);
+    
     // Hàm lấy dữ liệu từ cơ sở dữ liệu (giả sử là API)
     const fetchDataFromDatabase = () => {
         return new Promise((resolve, reject) => {
-        // Gọi API hoặc truy vấn cơ sở dữ liệu để lấy dữ liệu
-        // Giả sử dữ liệu trả về là một mảng các đối tượng
-        const data = [
-            { id: 1, name: "Lesson 1"},
-            { id: 2, name: "Lesson 2"},
-            { id: 3, name: "Lesson 3"},
-            { id: 4, name: "Lesson 4"},
-            { id: 5, name: "Lesson 5"},
-            { id: 6, name: "Lesson 6"},
-        ];
-        resolve(data);
+          // Gọi API hoặc truy vấn cơ sở dữ liệu để lấy dữ liệu
+          // Giả sử dữ liệu trả về là một mảng các đối tượng
+          const data = {
+            "0": [
+                { id: 1, name: "0" },
+                { id: 2, name: "0" },
+                { id: 3, name: "0" },
+                { id: 4, name: "0" },
+              ],
+            "Product A": [
+              { id: 1, name: "Lesson 1" },
+              { id: 2, name: "Lesson 2" },
+              { id: 3, name: "Lesson 3" },
+              { id: 4, name: "Lesson 1" },
+              { id: 5, name: "Lesson 2" },
+              { id: 6, name: "Lesson 3" },
+              { id: 7, name: "Lesson 4" },
+              { id: 8, name: "Lesson 2" },
+              { id: 9, name: "Lesson 3" },
+              { id: 10, name: "Lesson 4" },
+            ],
+            "Product B": [
+              { id: 1, name: "Lesson 1" },
+              { id: 2, name: "Lesson 2" },
+            ],
+            "Product C": [
+              { id: 1, name: "Lesson 1" },
+              { id: 2, name: "Lesson 2" },
+              { id: 3, name: "Lesson 3" },
+              { id: 4, name: "Lesson 4" },
+            ],
+          };
+          resolve(data[productName] || data[0] );
         });
-    };
+      };
   
     return (
     <>
@@ -152,11 +189,10 @@ const CoursesInfo = () => {
                 </tbody>
             </TableWrapper>
             <DivWrapper>
-                <DivWrapper1>
-                    <DivWrapper2>
-                        {productName}
-                    </DivWrapper2>
-                </DivWrapper1>
+                <DivWrapper2>
+                    {productName}
+                </DivWrapper2>     
+                <Button to="/layoutlearn">Start Learn</Button>
             </DivWrapper>
         </Container>
     </>

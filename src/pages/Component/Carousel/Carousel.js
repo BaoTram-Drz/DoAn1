@@ -14,6 +14,13 @@ const SlideshowContainer = styled.div`
   margin-top: 6%;
   height: 600px;
   gap: 10px;
+
+  @media (max-width: 768px) {
+    gap: 5px;
+  }
+  @media (max-width: 480px) {
+    gap: 3px;
+  }
 `;
 const Slideshow = styled.div`
   min-width: 15%;
@@ -50,6 +57,32 @@ const Slideshow = styled.div`
     position: relative;
     z-index: 2;
   }
+
+  @media (max-width: 1300px) {
+    height: 500px;
+  }
+  @media (max-width: 1200px) {
+    height: 400px;
+  }
+  @media (max-width: 912px) {
+    height: 350px;
+  }
+  @media (max-width: 768px) {
+    height: 300px;
+  }
+  @media (max-width: 540px) {
+    height: 250px;
+  }
+  @media (max-width: 480px) {
+    height: 200px;
+    border-radius: 0.5rem;
+    &::before {      
+      border-radius: 0.5rem;
+    }
+  }
+  @media (max-width: 300px) {
+    height: 150px;    
+  }
 `;
 
 const Button = styled.button`
@@ -67,6 +100,31 @@ const Button = styled.button`
   background-color: #fff4f1;
   border: 2px dashed #FFC24B;
   border-radius: 1rem;
+
+  @media (max-width: 1300px) {
+    width: 80%;
+    min-width: 50px;
+    font-size: 1rem;
+  }
+  @media (max-width: 912px) {
+    width: 80%;
+    font-size: 0.8rem;
+  }
+  @media (max-width: 768px) {
+    width: 80%;
+    font-size: 0.5rem;
+    border-radius: 0.5rem;
+    padding: 3px 5px;
+  }
+  @media (max-width: 540px) {
+    width: 90%;
+    font-size: 0.5rem;
+  }
+  @media (max-width: 300px) {
+    width: 100%;
+    font-size: 0.3rem;
+    padding: 1px 1px;  
+  }
 `;
 
 

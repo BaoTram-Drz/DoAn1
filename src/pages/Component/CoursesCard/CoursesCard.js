@@ -40,36 +40,22 @@ const CardListContainer = styled.div`
 const Card = styled.div`
   width: 30%;
   height: 500px;
-  background: #FFF4F1;
-  border: 1px solid #F47068;
+  background-image: linear-gradient(#ffb3ae, #FFF4F1);
+  border: 1px solid #ffc24b;
   border-radius: 20px;
   text-align: center;
 `;
 
-const Blob = styled.div`
-  width: 100%;
-  height: 200px;
-  margin: 0 auto;
-  background: #FFB3AE;
-  border-radius: 20px 20px 0px 0px;
-
-  visibility: visible;
-  transition: all 0.3s;
-`;
 
 const ImgContainer = styled.span`
   display: flex;
-  margin-top: 0%;
-  margin-left: 50%;
-  margin-bottom: -45%;
-  transform: translate(-50%, -60%);
-  width: 250px;
-  height: 250px;
+  margin: 10% auto;
+  width: 70%;
+  height: calc(50%);
   background: #FFFFFF;
   border: 5px dashed #FFC24B;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
   border-radius: 50%;
-  font-size: 11px;
   background-image: url(${props => props.imageUrl});
 
   transition: all 0.5s;
@@ -111,19 +97,16 @@ const Description = styled.p`
 `;
 
 const LearnBtn = styled(Link)`
-  position: relative ;
-  width: 100%;
-  margin: auto !important;
-  background: #F47068;
-  border-radius: 20px;
-
-  font-family: 'Autour One';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 32px;
-  color: #FFFFFF;
-  cursor: pointer;
-
+    width: 100%;
+    min-width: 200px;
+    margin: auto;
+    padding: 5px 24px;
+    text-decoration: none;
+    font: normal 400 2rem "Autour One";
+    background: #F47068;
+    border-radius: 20px;
+    color: #FFFFFF;
+    cursor: pointer;
 `;
 function CardList() {
     const Info = [    
@@ -152,7 +135,6 @@ function CardList() {
       <CardListContainer>        
         {Info.map((item, index) => (
           <Card key={index}>
-            <Blob />
             <ImgContainer>
               <Img imageUrl={item.image} alt={item.name} />
             </ImgContainer>
@@ -165,7 +147,7 @@ function CardList() {
               }}
             >
               Learn
-            </LearnBtn>
+            </LearnBtn>            
           </Card>
         ))}
       </CardListContainer>

@@ -194,8 +194,7 @@ const LayoutLearn = () => {
           )
         }
       </ButtonsContainer>
-      <Link to="/league"> League</Link>
-      <Link to="/game1"> game</Link>
+
       
     </>
    
