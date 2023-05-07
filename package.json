@@ -15,7 +15,7 @@
     "react-icons": "^4.8.0",
     "react-leaflet": "^4.2.1",
     "react-router-dom": "^6.8.2",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "react-scroll": "^1.8.9",
     "react-slick": "^0.29.0",
     "react-slideshow-image": "^4.2.1",
@@ -51,6 +51,7 @@
   },
   "devDependencies": {
     "customize-cra": "^1.0.0",
+    "node-sass": "^8.0.0",
     "react-app-rewired": "^2.2.1"
   }
 }

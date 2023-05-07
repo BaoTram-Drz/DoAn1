@@ -109,17 +109,43 @@ const StyledFaGooglePlusG = styled(FaGooglePlusG)`
   height: 30px;
   color: red;
 `;
-
+const sendInfor = (username,password,email) => {
+  const newUser = {
+    username:username,
+    password: password,
+    email: email
+  }
+  fetch('http://localhost:5001/api/users/register', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(newUser)
+  })
+  .then(response => response.json())
+  .then(result => {
+    console.log('Success:', result);
+  })
+  .catch(error => {
+    console.log('Error:', error);
+  });
+}
+const signUpWithGoogle = ()=>{
+ 
+}
 const SignUp = () => {
   return (
     <>
       <Image bgImage={image}></Image>
       <FormWrapper>
         <BigText>Sign Up</BigText>
-        <Input type="text" id="nome" name="nome"  placeholder="Email"/>
-        <Input type="email" id="email" name="email" placeholder="Password"/>
+        <Input type="text" id="username" name="username"  placeholder="Username"/>
+        <Input type="text" id="nome" name="nome"  placeholder="Password"/>
+        <Input type="email" id="email" name="email" placeholder="Email"/>
         <SubmitButton>
-          <LinkLoginBtn  to="/">
+          <LinkLoginBtn  to="/" onClick={()=>sendInfor(document.getElementById('username').value,
+                                                        document.getElementById('nome').value,
+                                                        document.getElementById('email').value)}>
           Sign Up
           </LinkLoginBtn>
         </SubmitButton> 
