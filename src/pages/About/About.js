@@ -159,7 +159,7 @@ function AboutPage() {
       <BigContainer>
         <BigDescription>About Us - Best choice for you</BigDescription>
         <SmallDescription>
-        « Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. »
+        Welcome to our website where you can learn English through simple games. Our platform offers engaging and interactive games designed to improve your vocabulary, grammar, and comprehension skills. Whether you're a beginner or an advanced learner, our games cater to all levels of proficiency. Start learning today and have fun while doing it!
         </SmallDescription>
       </BigContainer>
       <RoundedImage src={aboutround}/>

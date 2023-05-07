@@ -19,20 +19,21 @@ const TablesContainer = styled.div`
   margin: 3% auto 5% auto;  
 `;
 const TableDiv= styled.table`
-  width: 100%;
+  width: 24%;
   padding: 5px 24px;
-  border: 2px dashed #0e606b;
+  border: 3px dashed #0e606b;
   border-radius: 50px;
 `;
-const TableRow = styled.tr`
-  border: 2px solid #0e606b;
-`;
-const TableCell = styled.div`
-  padding: 5px 24px;
+
+const TableCell = styled.td`
+  width:100%;
+  padding: 5px 0px;
   text-align: center;
   font: normal 400 28px "Roboto";
   color: #0e606b;
+  border-bottom: 3px dashed #1697a6;
 `;
+
 
 const Game3 = ({ data }) => {
   const [draggedItems, setDraggedItems] = useState([]);
@@ -49,6 +50,8 @@ const Game3 = ({ data }) => {
     setDraggedItems((prev) => prev.filter((item) => !resetItems.includes(item)));
   };
 
+
+
   const textOptions = data.textOptions;
   const answerOptions = data.answerOptions;
 
@@ -58,21 +61,19 @@ const Game3 = ({ data }) => {
       <DndProvider backend={HTML5Backend}>
         <TablesContainer>
           {textOptions.map((item, index) => (
-            <div key={index}>
-              <TableDiv>
-                <TableRow>
-                  <td><TableCell>{item.text}</TableCell></td>                  
-                </TableRow>
-                <TableRow>
+            <TableDiv key={index}>              
+                <tr>
+                  <TableCell><>{item.text}</></TableCell>                  
+                </tr>
+                <tr>
                   <td>
                     <Game3Drop
                       onDrop={handleDrop}
                       resetDraggedItems={resetDraggedItems}
                     />
                   </td>
-                </TableRow>
-              </TableDiv>
-            </div>
+                </tr>
+            </TableDiv>
           ))}
         </TablesContainer>
         <TablesContainer>

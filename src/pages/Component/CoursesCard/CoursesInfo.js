@@ -9,9 +9,12 @@ const BigText = styled.div`
   text-align: center;
   font-family: 'Bungee Inline';
   font-weight: 400;
-  font-size: 2rem;
+  font-size: 3rem;
   color: #f47068;
   text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+  @media (max-width: 800px) {
+    margin: 15% auto auto auto;
+  }
 `;
 
 const Container = styled.div`
@@ -20,6 +23,10 @@ const Container = styled.div`
   grid-template-columns: 1fr 1fr;
   align-items: center;
   margin: 2%  0% 5% auto;
+  @media (max-width: 800px) {
+    grid-template-columns: 1fr;
+    grid-gap: 2%;
+  }
 `;
 
 const TableWrapper = styled.table`
@@ -55,7 +62,7 @@ const TableCell = styled.td`
 `;
 
 const DivWrapper = styled.div`
-    margin: auto;
+    margin: auto auto 5% auto;
     width: 80%;
     height: 535px;
     text-align: center;
@@ -63,14 +70,9 @@ const DivWrapper = styled.div`
     border: 3px solid #FFFFFF;
     border-radius: 20px;
     box-shadow: 0 0 2px gray;
-`;
-const DivWrapper1 = styled.div`
-    position: relative;
-    top: 0;
-    width: 100%;
-    height: 326px;
-    background: #0E606B;
-    border-radius: 20px 20px 0px 0px;
+    @media (max-width: 800px) {
+      width: 100%;
+    }
 `;
 
 const DivWrapper2 = styled.div`
@@ -105,6 +107,22 @@ const Button = styled(Link)`
     background-color: white;
     border: 3px dashed #1697A6;
     border-radius: 20px;
+`;
+
+const ButtonL = styled(Link)`
+  margin: 10% 20%;
+  width: 100%;
+  min-width: 300px;
+  padding: 5px 24px;
+  font: normal 400 2rem "Autour One";
+  color: #ffc24b;
+  text-decoration: none;
+  background-color: white;
+  border: 3px solid #f47068;
+  border-radius: 20px;
+  @media (max-width: 800px) {
+    width: 100%;
+  }
 `;
 
 const CoursesInfo = () => {
@@ -188,12 +206,15 @@ const CoursesInfo = () => {
                 ))}
                 </tbody>
             </TableWrapper>
-            <DivWrapper>
-                <DivWrapper2>
-                    {productName}
-                </DivWrapper2>     
-                <Button to="/layoutlearn">Start Learn</Button>
-            </DivWrapper>
+            <p>
+              <DivWrapper>
+                  <DivWrapper2>
+                      {productName}
+                  </DivWrapper2>     
+                  <Button to="/vocab">Start Learn</Button>
+              </DivWrapper>
+              <ButtonL to="/league">Top League</ButtonL>
+            </p>
         </Container>
     </>
   );

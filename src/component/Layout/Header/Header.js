@@ -23,7 +23,7 @@ const HeaderStyled  = styled.header`
   border-bottom: 3px dashed #1697A6;
 `;
 
-const LogoImage = styled.div`
+const LogoImage = styled(Link)`
   width: 80px;
   height: 80px;
   background-image: url(${(props) => props.bgImage});
@@ -38,11 +38,16 @@ const LogoImage = styled.div`
     display: block; 
   }
 `;
-const LogoText = styled.div`
+const LogoText = styled(Link)`
   margin: auto auto auto 1%;
   font-family: 'Bungee Inline', cursive;
   font-size: 1.5rem;
   font-weight: 300;
+  color: #0e606b;
+  text-decoration: none;
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const NavMenuStyled = styled.div`
@@ -54,6 +59,7 @@ const NavMenuStyled = styled.div`
   @media screen and (max-width: 768px) {
     margin-right: 0; 
   }
+  
 `;
 
 const NavLinkStyled = styled(Link)`
@@ -160,6 +166,7 @@ const StyledFaBars = styled(FaBars)`
   display: none;  
   cursor: pointer;
   color: #0e606b;
+  margin-right: 10px;
   
   @media (max-width: 768px) {
     display: block;
@@ -171,30 +178,34 @@ const StyledFaEllipsisV = styled(FaEllipsisV)`
   border-radius:50%;
 `;
 
+
 function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpenInfo, setIsOpenInfo] = useState(false);
+  const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
 
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-  };
-
   const handleDropdownClick = () => {
-      setIsOpen(!isOpen);
+    setIsOpenInfo(!isOpenInfo);
+    setIsOpenMenu(false);
+  };
+  const handleMenuClick = () => {
+    setIsOpenMenu(!isOpenMenu);
+    setIsOpenInfo(false);
   };
 
   return ( 
       <>
         <HeaderStyled>
-          <LogoImage bgImage={logo}/>
-          <LogoText>EngPlayground</LogoText>
+          <LogoImage bgImage={logo} to="/"/>
+          <LogoText  to="/">EngPlayground</LogoText>
           <NavMenuStyled>
             <NavLinkStyled 
               to="/" 
               active={ activeSection === 'home'} 
               onClick={() => {
                 setActiveSection('home');
+                setIsOpenMenu(false);
               }}
             >
               Home
@@ -236,7 +247,7 @@ function Header() {
                 <>
                   <UserName>UserName</UserName>
                   <NavLinkStyled onClick={handleDropdownClick}> <StyledFaEllipsisV/> </NavLinkStyled>
-                  {isOpen && (
+                  {isOpenInfo && (
                     <DropdownContent>
                       <DropdownItem>Change info</DropdownItem>
                       <DropdownItem 
@@ -259,6 +270,7 @@ function Header() {
                     active={ activeSection === 'signup'} 
                     onClick={() => {
                       setActiveSection('signup');
+                      setIsOpenMenu(false);
                     }}
                   >
                     Sign Up
@@ -268,14 +280,79 @@ function Header() {
                     active={ activeSection === 'login'} 
                     onClick={() => {
                       setActiveSection('login');
+                      setIsOpenMenu(false);
                     }}
                   >
                     Login
                   </NavLinkStyled>              
                 </>
               )}
-            <StyledFaBars/>
-          </NavMenuStyled>      
+            
+            <StyledFaBars onClick={handleMenuClick}/>
+            {isOpenMenu && (
+                <DropdownContent>
+                <DropdownItem
+                  to="/" 
+                  active={ activeSection === 'home'} 
+                  onClick={() => {
+                    setActiveSection('home');
+                    setIsOpenMenu(false);
+                  }}
+                >
+                  Home
+                </DropdownItem>
+                {isLoggedIn ? (
+                  <>
+                    <DropdownItem
+                      to="/" 
+                      active={ activeSection === 'home'} 
+                      onClick={() => {
+                        setActiveSection('home');
+                        setIsOpenMenu(false);
+                      }}
+                    >
+                      Change Info
+                    </DropdownItem>
+                    <DropdownItem 
+                      to="/changeinfo" 
+                      active={ activeSection === 'changeinfo'} 
+                      onClick={() => {
+                        setActiveSection('changeinfo');
+                        setIsOpenMenu(false);
+                      }}
+                    >
+                      Logout
+                    </DropdownItem>
+                  </>
+                ) : (
+                  <>
+                    <DropdownItem
+                      to="/signup"  
+                      active={ activeSection === 'signup'} 
+                      onClick={() => {
+                        setActiveSection('signup');
+                        setIsOpenMenu(false);
+                      }}
+                    >
+                      Sign Up
+                    </DropdownItem>
+                    <DropdownItem 
+                      to="/login" 
+                      active={ activeSection === 'login'} 
+                      onClick={() => {
+                        setActiveSection('login');
+                        setIsOpenMenu(false);
+                      }}
+                    >
+                      Login
+                    </DropdownItem>           
+                  </>
+                )}
+                
+              </DropdownContent> 
+            )} 
+          </NavMenuStyled> 
+          
         </HeaderStyled >
       </>
      );

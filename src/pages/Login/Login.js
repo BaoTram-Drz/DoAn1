@@ -4,8 +4,15 @@ import { Link } from 'react-router-dom';
 import {FaGooglePlusG} from 'react-icons/fa';
 import login from './login.png'
 
+const Container = styled.div`
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  @media (max-width: 1280px) {
+    grid-template-columns: 1fr;
+  }
+`;
 const Image = styled.div`
-  width: 45%;
+  width: 80%;
   height: 500px;
   float: left;
   background-image: url(${(props) => props.bgImage});
@@ -14,19 +21,55 @@ const Image = styled.div`
   background-position: center;
   margin: auto auto auto 10%;
   box-shadow: 50px 50px 100px 120px #fffaee;
+  @media (max-width: 1280px) {
+    width: 60%;
+    margin: 10% auto auto auto;
+  }
+  @media (max-width: 1024px) {
+    width: 70%;
+  }
+  @media (max-width: 912px) {
+    width: 80%;
+    height: 400px ;
+  }
+  @media (max-width: 540px) {
+    width: 100%;
+    height: 350px ;
+  }
+  @media (max-width: 412px) {
+    width: 100%;
+    height: 300px ;
+  }
+  @media (max-width: 412px) {
+    width: 90%;
+    margin: 15% auto auto auto;
+    height: 260px ;
+  }
 `;
 const FormWrapper = styled.form`
   position: relative;
   display: flex;
   align-items: center;
   flex-direction: column;
-  width: 25%;
-  height: calc(100% + 150px);
-  margin: 10% 10% 5% auto;
+  width: 80%;
+  margin: 20% auto 10% 0;
   background: #FFFFFF;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
   border-radius: 28px;
   gap: 0.5em;
+  @media (max-width: 1280px) {
+    width: 60%;
+    margin: auto auto 5% auto;
+  }
+  @media (max-width: 912px) {
+    width: 80%;
+  }
+  @media (max-width: 540px) {
+    width: 90%;
+  }
+  @media (max-width: 412px) {
+    width: 100%;
+  }
 `;
 const BigText = styled.label`
   margin: 10% ;
@@ -43,6 +86,8 @@ const Input = styled.input`
   height: 55px;
   margin-top: 2%;
   background: #DBDBDB;
+  font: normal 300 1.5rem "Roboto";
+  color: white;
   border: none;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
@@ -123,12 +168,15 @@ const StyledFaGooglePlusG = styled(FaGooglePlusG)`
 
 const Login = () => {
   return (
-    <>
+    <Container>
       <Image bgImage={login}></Image>
       <FormWrapper>
         <BigText>welcome back</BigText>
-        <Input type="text" id="nome" name="nome"  placeholder="Email"/>
-        <Input type="email" id="email" name="email" placeholder="Password"/>
+        <Input type="email" id="email" name="email"  placeholder="Email"/>
+        <Input type="text" id="name" name="name"  placeholder="Your Name"/>
+        <Input type="password" id="pass" name="pass" placeholder="Password"/>
+        <Input type="password" id="repass" name="repass" placeholder="Re-Password"/>
+        <Input type="date" id="bday" name="bday"/>
         <LinkForgot to="/forgot">Forgot Passwword</LinkForgot>
         <SubmitButton to="/">
           <LinkLoginBtn>
@@ -140,7 +188,7 @@ const Login = () => {
         <SubmitGGButton><StyledFaGooglePlusG/><LinkLoginGG>&ensp;Login with Google</LinkLoginGG></SubmitGGButton>
               {/*  set giá trị của header là có người dùng  */}
       </FormWrapper>
-    </>
+    </Container>
     );    
 };
 

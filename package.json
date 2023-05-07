@@ -21,7 +21,8 @@
     "react-slideshow-image": "^4.2.1",
     "react-three-fiber": "^6.0.13",
     "recharts": "^2.5.0",
-    "styled-components": "^5.3.8",
+    "slick-carousel": "^1.8.1",
+    "styled-components": "^5.3.9",
     "three": "^0.150.1",
     "web-vitals": "^2.1.4"
   },
