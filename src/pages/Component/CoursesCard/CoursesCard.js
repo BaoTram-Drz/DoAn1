@@ -1,6 +1,10 @@
 import React from 'react';
+import Slider from 'react-slick';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 
 const Container = styled.div`
 
@@ -28,13 +32,10 @@ const CoursesNameText = styled.p`
 `;
 
 const CardListContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 50px;
   width:80%;
   margin: auto;
   padding-top: 50px;
+  gap: 50px;
 `;
 
 const Card = styled.div`
@@ -124,32 +125,55 @@ function CardList() {
       name: 'Product C',      
       image: 'https://via.placeholder.com/200x200.png',      
       des: 'This is product C description',    
+    },    
+      {      
+      name: 'Product B',      
+      image: 'https://via.placeholder.com/200x200.png',      
+      des: 'This is product B description',    
+    },    
+      {      
+      name: 'Product C',      
+      image: 'https://via.placeholder.com/200x200.png',      
+      des: 'This is product C description',    
     },   
   ];
+
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    arrows: true,
+    prevArrow: <button className="slick-prev">Previous</button>,
+    nextArrow: <button className="slick-next">Next</button>,
+  };
 
   return (
     <Container>
       <CoursesName>
         <CoursesNameText>Courses for You</CoursesNameText>
       </CoursesName>
-      <CardListContainer>        
-        {Info.map((item, index) => (
-          <Card key={index}>
-            <ImgContainer>
-              <Img imageUrl={item.image} alt={item.name} />
-            </ImgContainer>
-            <Name>{item.name}</Name>
-            <Description>{item.des}</Description>
-            <LearnBtn 
-              to={{
-                pathname: '/coursesinfo',
-                state: { productname: item.name },
-              }}
-            >
-              Learn
-            </LearnBtn>            
-          </Card>
-        ))}
+      <CardListContainer>  
+        <Slider {...settings}>      
+          {Info.map((item, index) => (
+            <Card key={index}>
+              <ImgContainer>
+                <Img imageUrl={item.image} alt={item.name} />
+              </ImgContainer>
+              <Name>{item.name}</Name>
+              <Description>{item.des}</Description>
+              <LearnBtn 
+                to={{
+                  pathname: '/coursesinfo',
+                  state: { productname: item.name },
+                }}
+              >
+                Learn
+              </LearnBtn>            
+            </Card>
+          ))}
+          </Slider>
       </CardListContainer>
     </Container>
   );

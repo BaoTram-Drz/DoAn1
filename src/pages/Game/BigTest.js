@@ -8,7 +8,7 @@ import Game4 from "./Game4";
 
 
 const BigText = styled.p`
-  margin: 6% auto -3% auto;
+  margin: auto;
   text-align: center;
   font-family: 'Bungee Inline';
   font-weight: 400;
@@ -18,6 +18,9 @@ const BigText = styled.p`
 `;
 
 const Header = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
   padding: 12px 24px;
   font: normal 400 2rem "Autour One";
   color: #ffc24b;
@@ -172,7 +175,6 @@ const BigTest = () => {
       <ButtonsContainer>
         <Button to="/layoutlearn">Pre</Button>
         <SubButton to="/scores">Submit</SubButton>
-        <Button to="/">Next</Button>
       </ButtonsContainer>
       <Link to="/league"> League</Link>
       <Link to="/game1"> game</Link>

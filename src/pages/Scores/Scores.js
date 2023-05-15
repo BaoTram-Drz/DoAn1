@@ -1,9 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { PieChart, Pie, Cell, Tooltip } from 'recharts';
+import {FaArrowLeft} from 'react-icons/fa';
 
+const BackHome = styled(FaArrowLeft)`
+    width: 30px;
+    height: 30px;
+    margin: 7% auto auto 5%;  
+    color: #0E606B;
+    cursor: pointer;
+`;
 const BigText = styled.p`
-  margin: 6% auto -15% auto;
+  margin: 0% auto -15% auto;
   text-align: center;
   font-family: 'Bungee Inline';
   font-weight: 400;
@@ -16,13 +25,14 @@ const Container = styled.div`
   justify-content: space-around;
   align-items: center;
   flex-wrap: nowrap;
-  margin: 5% auto auto 0;
+  margin: 5% auto;
   width: 90%;
+  max-height: 600px;
 `;
 const StyledPieChart = styled(PieChart)`
   width: 800px;
   height: 800px;
-  margin: 0;
+  margin: 0% 0% auto auto; 
 `;
 const Round = styled.div`
   width: 400px;
@@ -31,8 +41,9 @@ const Round = styled.div`
   background-color: white;
 `;
 const Score = styled.div`
-  width: 50%;
-  margin: 0 auto;
+  width: 70%;
+  min-width: 400px;
+  margin: auto;
   background-color: white;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
   border-radius: 28px;
@@ -40,6 +51,33 @@ const Score = styled.div`
   text-align: left;
   font: normal 400 28px 'Autour One';
   color: #0E606B;
+`;
+
+// const Button = styled.button`
+//   width: 300px;
+//   padding: 10px 24px;
+//   font: normal 400 2rem "Autour One";
+//   color: #ffc24b;
+//   background-color: white;
+//   border: 3px solid #f47068;
+//   border-radius: 20px;
+// `;
+const Button = styled(Link)`
+  width: 200px;
+  padding: 5px 24px;
+  text-decoration: none;
+  text-align: center;
+  font: normal 400 2rem "Autour One";
+  color: #ffc24b;
+  background-color: white;
+  border: 3px solid #f47068;
+  border-radius: 20px;
+`;
+const ButtonsContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin: 3% auto;
 `;
 
 const StyledPieChartComponent = ({ data }) => {
@@ -73,16 +111,21 @@ const Scores = () => {
   ];
   return (
     <>
+      <Link to="/"><BackHome/></Link>
       <BigText>Your Scores</BigText>
+
       <Container>
-        <div>
-          <StyledPieChartComponent data={data} />
-        </div>
+        <StyledPieChartComponent data={data} />
         <Score>
             <p>Right: {data[0].value}% </p>
             <p>Wrong: {data[1].value}%</p>
         </Score>
       </Container>
+
+      <ButtonsContainer>
+        <Button to="/bigtest">Test Again</Button>
+        <Button to="/league">League</Button>        
+      </ButtonsContainer>
     </>
   );
 };

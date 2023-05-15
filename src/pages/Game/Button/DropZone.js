@@ -32,7 +32,7 @@ const DropZone = ({ onDrop, resetDraggedItems }) => {
     accept: 'button',
     drop: (item) => {
       onDrop(item.id);
-      setDroppedItems((prev) => [...prev, { id: item.id, text: item.text }]);
+      setDroppedItems((prev) => [...prev, { id: item.id, text: item.text + " "}]);
     },
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),

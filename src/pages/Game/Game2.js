@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import styled from "styled-components";
 
 const Answers = styled.p`
@@ -23,7 +23,7 @@ const TableCell = styled.div`
     margin: 2% 10%;  
     padding: 5px 24px;
     text-align: center;
-    font: normal 400 28px 'Autour One';
+    font: normal 400 28px 'Roboto';
     color: #0E606B;
     border: 2px dashed #0e606b;
     border-radius: 50px;
@@ -34,7 +34,7 @@ const InputCell = styled.input`
     margin: 2% 20%;  
     padding: 5px 24px;
     text-align: center;
-    font: normal 400 28px 'Autour One';
+    font: normal 400 28px 'Roboto';
     color: #0E606B;
     border: 2px dashed #0e606b;
     border-radius: 50px;
@@ -53,6 +53,10 @@ const Game2 = ({data}) => {
     return <p>Loading...</p>;
   }
 
+  const handleInputChange = (event) => {
+    setMessage(event.target.value);
+  };
+  
   return (
     <>
       <Answers>{data.question}</Answers>
@@ -66,7 +70,7 @@ const Game2 = ({data}) => {
                 </TableCell>
               </td>
               <td>
-                    <InputCell placeholder="........."/>               
+                    <InputCell placeholder="........." onChange={handleInputChange} />               
               </td>
             </TableRow>
             <TableRow>

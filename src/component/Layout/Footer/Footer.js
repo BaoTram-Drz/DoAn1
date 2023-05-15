@@ -23,6 +23,12 @@ const FooterContainer = styled.footer`
 const FooterLinks = styled.div`
   display: flex;
   gap: 20px;
+  @media (max-width: 820px) {
+    font-size: 0.75rem;
+  }
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const FooterLink = styled.a`

@@ -17,6 +17,10 @@ const FormContainer = styled.div`
   font-style: normal;
   font-weight: 400;
   font-size: 20px;
+  @media (max-width: 767px) {
+    grid-template-columns: 1fr;
+    grid-gap: 20px;
+  }
 `;
 
 const FormStyled = styled.form`
@@ -27,6 +31,10 @@ const FormStyled = styled.form`
   width: 90%;
   height: 70%;
   margin-left: 2rem;
+  @media (max-width: 415px) {
+    width: 100%;
+    margin: auto;
+  }
 `;
 
 const FormTitle = styled.h1`
@@ -43,6 +51,15 @@ const FormTitle = styled.h1`
      7px -7px 0 #fff, /* Viền trắng bên phải trên */
     -7px  7px 0 #fff, /* Viền trắng bên trái dưới */
      7px  7px 0 #fff;
+
+  @media (max-width: 415px) {
+    font-size: 2rem;
+    text-shadow:
+    -4px -4px 0 #fff, /* Viền trắng bên trái trên */
+     4px -4px 0 #fff, /* Viền trắng bên phải trên */
+    -4px  4px 0 #fff, /* Viền trắng bên trái dưới */
+     4px  4px 0 #fff;
+  }
 `;
 
 const Title = styled.p`
@@ -120,10 +137,15 @@ const ImageContainer = styled.div`
   overflow: hidden;
   width: 80%;
   height: 80%;
-  margin: 2rem;
+  min-height: 300px;
+  margin: auto auto 2rem auto;
   background: #FFFFFF;
   border: 3px dashed #1697A6;
   border-radius: 50px;
+  z-index: 1;
+  @media (max-width: 415px) {
+    width: 90%;
+  }
 `;
 
 function ContactForm() {
