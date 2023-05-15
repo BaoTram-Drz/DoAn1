@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Link } from 'react-router-dom';
 import {FaGooglePlusG} from 'react-icons/fa';
 import login from './login.png'
+import LoginWithGoogle from './LoginWithGG'
 
 const Container = styled.div`
   display: grid;
@@ -138,7 +139,7 @@ const Line = styled.label`
   color: #F47068;
 `;
 
-const SubmitGGButton = styled.button`
+const SubmitGGButton = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -146,25 +147,9 @@ const SubmitGGButton = styled.button`
   height: 40px;
   margin: 5% auto 10% auto;
   background: #FFFFFF;
-  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
-  border-radius: 20px;
-  border: none;
-  color: #b54141;
-  &:hover {
-    background-color: #b54141;
-  }
+
 `;
-const LinkLoginGG = styled(Link)`
-  text-decoration: none;
-  font-family: 'Roboto';
-  font-size: 1rem;
-  color: #000000;
-`;
-const StyledFaGooglePlusG = styled(FaGooglePlusG)` 
-  width: 30px;
-  height: 30px;
-  color: red;
-`;
+
 
 const Login = () => {
   return (
@@ -185,7 +170,7 @@ const Login = () => {
         </SubmitButton> 
         <Line>--------------------or--------------------</Line>
         
-        <SubmitGGButton><StyledFaGooglePlusG/><LinkLoginGG>&ensp;Login with Google</LinkLoginGG></SubmitGGButton>
+        <SubmitGGButton><LoginWithGoogle/></SubmitGGButton>
               {/*  set giá trị của header là có người dùng  */}
       </FormWrapper>
     </Container>

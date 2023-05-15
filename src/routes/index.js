@@ -11,6 +11,7 @@ import LayoutLearn from '../pages/Game/LayoutLearn'
 import BigTest from '../pages/Game/BigTest'
 import Scores from '../pages/Scores/Scores'
 import Vocab from '../pages/Game/Vocab'
+import LoginWithGoogle from '../pages/Login/LoginWithGG'
 
 const publicRoutes = [
     { path: '/', component: Home},
@@ -25,7 +26,8 @@ const publicRoutes = [
     { path: '/layoutlearn', component: LayoutLearn},
     { path: '/bigtest', component: BigTest},
     { path: '/scores', component: Scores},
-    { path: '/vocab', component: Vocab}
+    { path: '/vocab', component: Vocab},
+    { path: '/logingg', component: LoginWithGoogle}
 ]
 
 const privateRoutes = { 
