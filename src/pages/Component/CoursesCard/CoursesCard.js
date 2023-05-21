@@ -159,8 +159,7 @@ function CardList() {
 
         for (let i = 0; i < result.length; i++) {
           const downloadURL = await getDownloadURL(ref(storage, result[i].image));
-       result[i].image = downloadURL;
-          delete result[i]._id;
+          result[i].image = downloadURL;
         }
 
         setCourses(result);
@@ -171,7 +170,7 @@ function CardList() {
 
     fetchData();
   }, []);
-  
+
   //   [    
   //     {      
   //     name: 'Product A',      
@@ -240,7 +239,7 @@ function CardList() {
               </ImgContainer>
               <Name>{item.name}</Name>
               <Description>{item.des}</Description>
-              <LearnBtn 
+              <LearnBtn
                 to={{
                   pathname: '/coursesinfo',
                   state: { productname: item.name },
