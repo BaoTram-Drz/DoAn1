@@ -158,7 +158,30 @@ const StyledFaGooglePlusG = styled(FaGooglePlusG)`
   height: 30px;
   color: red;
 `;
-
+const sendInfor = (username,password,email) => {
+  const newUser = {
+    username:username,
+    password: password,
+    email: email
+  }
+  fetch('http://localhost:5001/api/users/register', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(newUser)
+  })
+  .then(response => response.json())
+  .then(result => {
+    console.log('Success:', result);
+  })
+  .catch(error => {
+    console.log('Error:', error);
+  });
+}
+const signUpWithGoogle = ()=>{
+ 
+}
 const SignUp = () => {
   return (
     <Container>
@@ -171,7 +194,9 @@ const SignUp = () => {
         <Input type="password" id="repass" name="repass" placeholder="Re-Password"/>
         <Input type="date" id="bday" name="bday"/>
         <SubmitButton>
-          <LinkLoginBtn  to="/">
+          <LinkLoginBtn  to="/" onClick={()=>sendInfor(document.getElementById('username').value,
+                                                        document.getElementById('nome').value,
+                                                        document.getElementById('email').value)}>
           Sign Up
           </LinkLoginBtn>
         </SubmitButton> 

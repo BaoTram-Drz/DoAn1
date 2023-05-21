@@ -249,7 +249,16 @@ function Header() {
                   <NavLinkStyled onClick={handleDropdownClick}> <StyledFaEllipsisV/> </NavLinkStyled>
                   {isOpenInfo && (
                     <DropdownContent>
-                      <DropdownItem>Change info</DropdownItem>
+                      <DropdownItem
+                        to="/changeinfo" 
+                        active={ activeSection === 'login'} 
+                        onClick={() => {
+                          setActiveSection('login');
+                          setIsLoggedIn(false);
+                        }}
+                      >
+                        Change info
+                      </DropdownItem>
                       <DropdownItem 
                         to="/login" 
                         active={ activeSection === 'login'} 
