@@ -9,23 +9,30 @@ const PageContainer = styled.div`
   padding-top: 2.5%;
   background: #FFB3AE;
 
+
   @media (max-width: 1300px) {
-    margin-top: 5%;
-  }
-  @media (max-width: 1200px) {
     margin-top: 0px;
+    height: 650px;
+  }
+  @media (max-width: 912px) {
+    margin-top: -10%;
+    height: 600px;
   }
   @media (max-width: 768px) {
-    margin-top: 0px;
+    margin-top: -20%;
+    height: 550px;
   }
   @media (max-width: 540px) {
     margin-top: -40%;
+    height: 500px;
   }
-  @media (max-width: 480px) {
+  @media (max-width: 415px) {
     margin-top: -80%;
+    height: 450px;
   }
   @media (max-width: 300px) {
-    margin-top: -100%;
+    margin-top: -150%;
+    height: 450px;
   }
 `;
 
@@ -51,30 +58,32 @@ const BigDescription = styled.p`
   text-shadow: 0px 0.125rem 0.125rem #FFF4F1;
   
   @media (max-width: 1300px) {
+   
     font-size: 2.7rem;
   }
   @media (max-width: 1200px) {
+    
     font-size: 2.5rem;
   }
   @media (max-width: 912px) {
-    margin: 10% auto 5% auto;
-    font-size: 2.2rem;
+    
+    font-size: 2.5rem;
   }
   @media (max-width: 768px) {
-    margin: 10% auto 5% auto;
+     
     font-size: 2rem;
   }
   @media (max-width: 540px) {
-    margin: 15% auto 10% auto;
-    font-size: 1.8rem;
+     
+    font-size: 1.5rem;
   }
   @media (max-width: 480px) {
-    margin: 20% auto 10% auto;
-    font-size: 1.5rem;
+     margin: 15% 22% 3% auto;
+    font-size: 1.2rem;
   }
   @media (max-width: 300px) {
-    margin: 30% auto 15% auto;
-    font-size: 1.5rem;
+     
+    font-size: 1rem;
   }
 `;
 
