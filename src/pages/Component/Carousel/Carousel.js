@@ -2,11 +2,15 @@ import React from 'react';
 // import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css';
 import styled from 'styled-components';
-import slide1 from './images/slide1.png';
-import slide2 from './images/slide2.png';
-import slide3 from './images/slide3.png';
-import slide4 from './images/slide4.png';
-import slide5 from './images/slide5.png';
+// import slide1 from './images/slide1.png';
+// import slide2 from './images/slide2.png';
+//import slide3 from './images/slide3.png';
+//import slide4 from './images/slide4.png';
+//import slide5 from './images/slide5.png';
+import { getDownloadURL } from 'firebase/storage';
+import { storage } from '../../../firebase/firebase'
+import { useState, useEffect } from 'react';
+import { ref } from 'firebase/storage'
 
 const SlideshowContainer = styled.div`
   display: flex;
@@ -143,34 +147,88 @@ function handleMouseLeave(e) {
     div.classList.remove("active");
   }
 }
+
+
+let vocabs = [];
+
+function getVocabulary(index) {
+  return new Promise((resolve, reject) => {
+    fetch('http://localhost:5001/api/vocabulary/getVocab', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    })
+      .then(response => response.json())
+      .then(result => {
+        console.log('Success:', result);
+        vocabs = result;
+        console.log('Hình của Vocab nè:', vocabs[index].image);
+        resolve(vocabs[index].image);
+      })
+      .catch(error => {
+        console.log('Error:', error);
+        reject(error);
+      });
+  });
+}
+
 const Carousel = () => {
+  const [slide1, setSlide1] = useState('');
+  const [slide2, setSlide2] = useState('');
+  const [slide3, setSlide3] = useState('');
+  const [slide4, setSlide4] = useState('');
+  const [slide5, setSlide5] = useState('');
+
+  useEffect(() => {
+    const getImages = async () => {
+      try {
+        // const path = await getVocabulary(0);
+        const path = 'thiện.jpg';
+        const path2 = await getVocabulary(1);
+        const downloadURL = await getDownloadURL(ref(storage, path));
+        const downloadURL2 = await getDownloadURL(ref(storage, path2));
+        
+        setSlide1(downloadURL);
+        setSlide2(downloadURL2);
+        setSlide3(downloadURL);
+        setSlide4(downloadURL2);
+        setSlide5(downloadURL);
+   
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getImages();
+  }, []);
 
   return (
     <SlideshowContainer bgImage={slide2}>
       <Slideshow bgImage={slide1}
         onMouseLeave={handleMouseLeave}
       >
-          <Button onClick={handleClick}>Click Me</Button>
+        <Button onClick={handleClick}>Click Me</Button>
       </Slideshow>
       <Slideshow bgImage={slide2}
         onMouseLeave={handleMouseLeave}
       >
-          <Button onClick={handleClick}>Click Me</Button>
+        <Button onClick={handleClick}>Click Me</Button>
       </Slideshow>
       <Slideshow bgImage={slide3}
         onMouseLeave={handleMouseLeave}
-      > 
-          <Button onClick={handleClick}>Click Me</Button>
+      >
+        <Button onClick={handleClick}>Click Me</Button>
       </Slideshow>
       <Slideshow bgImage={slide4}
-       onMouseLeave={handleMouseLeave}
-      > 
-          <Button onClick={handleClick}>Click Me</Button>
+        onMouseLeave={handleMouseLeave}
+      >
+        <Button onClick={handleClick}>Click Me</Button>
       </Slideshow>
       <Slideshow bgImage={slide5}
         onMouseLeave={handleMouseLeave}
-      > 
-          <Button onClick={handleClick}>Click Me</Button>
+      >
+        <Button onClick={handleClick}>Click Me</Button>
       </Slideshow>
 
     </SlideshowContainer>

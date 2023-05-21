@@ -174,8 +174,21 @@ const sendInfor = (username,password,email) => {
   });
 }
 const signUpWithGoogle = ()=>{
- 
+  fetch('http://localhost:5001/api/users/testVoice', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+  })
+  .then(response => response.json())
+  .then(result => {
+    console.log('Success:', result);
+  })
+  .catch(error => {
+    console.log('Error:', error);
+  });
 }
+
 const SignUp = () => {
   return (
     <Container>
@@ -194,7 +207,8 @@ const SignUp = () => {
         </SubmitButton> 
         <Line>--------------------or--------------------</Line>
         
-        <SubmitGGButton><StyledFaGooglePlusG/><LinkLoginGG>&ensp;Continue with Google</LinkLoginGG></SubmitGGButton>
+        <SubmitGGButton onClick={()=>signUpWithGoogle()}
+        ><StyledFaGooglePlusG/><LinkLoginGG>&ensp;Continue with Google</LinkLoginGG></SubmitGGButton>
               {/*  set giá trị của header là có người dùng  */}
       </FormWrapper>
     </Container>
