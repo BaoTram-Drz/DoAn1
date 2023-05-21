@@ -15,27 +15,6 @@ const BigText = styled.p`
   font-size: 3rem;
   color: #F47068;
   text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
-  @media (max-width: 1300px) {
-    font-size: 3rem;
-  }
-  @media (max-width: 1200px) {
-    font-size: 3rem;
-  }
-  @media (max-width: 912px) {
-    font-size: 3rem;
-  }
-  @media (max-width: 768px) {
-    font-size: 3rem;
-  }
-  @media (max-width: 540px) {
-    font-size: 3rem;
-  }
-  @media (max-width: 480px) {
-    font-size: 1.5rem;
-  }
-  @media (max-width: 300px) {
-    font-size: 1rem;
-  }
 `;
 
 const Header = styled.div`

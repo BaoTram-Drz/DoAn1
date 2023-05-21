@@ -15,30 +15,6 @@ const BigText = styled.div`
   @media (max-width: 800px) {
     margin: 15% auto auto auto;
   }
-  @media (max-width: 1200px) {
-    margin-top: 10%;
-    font-size: 2.5rem;
-  }
-  @media (max-width: 912px) {
-    margin-top: 10%;
-    font-size: 2.5rem;
-  }
-  @media (max-width: 768px) {
-    margin-top: 10%;
-    font-size: 2.5rem;
-  }
-  @media (max-width: 540px) {
-    margin-top: 15%;
-    font-size: 2.5rem;
-  }
-  @media (max-width: 480px) {
-    margin-top: 20%;
-    font-size: 2rem;
-  }
-  @media (max-width: 300px) {
-    margin-top: 30%;
-    font-size: 1.5rem;
-  }
 `;
 
 const Container = styled.div`
@@ -65,21 +41,6 @@ const TableHeader = styled.div`
     color: #FFC24B;
     border-bottom: 3px dashed #FFB3AE;
     border-radius: 20px;
-    @media (max-width: 1000px) {
-      font-size: 2.5rem;
-    }
-    @media (max-width: 912px) {
-      font-size: 2.3rem;
-    }
-    @media (max-width: 540px) {
-      font-size: 1.5rem;
-    }
-    @media (max-width: 480px) {
-      font-size: 1.5rem;
-    }
-    @media (max-width: 300px) {
-      font-size: 1.1rem;
-    }
 `;
 
 const TableRow = styled.tr`
@@ -99,21 +60,6 @@ const TableCell = styled.td`
     padding: 12px 24px;
     font: normal 400 28px 'Autour One';
     color: #0E606B;
-    @media (max-width: 1000px) {
-      font-size: 2.3rem;
-    }
-    @media (max-width: 912px) {
-      font-size: 2rem;
-    }
-    @media (max-width: 540px) {
-      font-size: 1.5rem;
-    }
-    @media (max-width: 480px) {
-      font-size: 1.2rem;
-    }
-    @media (max-width: 300px) {
-      font-size: 1rem;
-    }
 `;
 const RightDiv = styled.div`
     width: 100%;
@@ -164,19 +110,6 @@ const Button = styled(Link)`
     background-color: white;
     border: 3px dashed #1697A6;
     border-radius: 20px;
-
-    @media (max-width: 912px) {
-      font-size: 1.8rem;
-    }
-    @media (max-width: 540px) {
-      font-size: 1.5rem;
-    }
-    @media (max-width: 480px) {
-      font-size: 1.5rem;
-    }
-    @media (max-width: 300px) {
-      font-size: 1.1rem;
-    }
 `;
 
 const ButtonL = styled.button`
@@ -188,33 +121,14 @@ const ButtonL = styled.button`
   border: 3px solid #f47068;
   border-radius: 20px;
   @media (max-width: 800px) {
+    width: 100%;
     margin: auto;
   }
-  @media (max-width: 480px) {
-    width:100%;
-  }
-
 `;
 const LinkText = styled(Link)`
   font: normal 400 2rem "Autour One";
   color: #ffc24b;
   text-decoration: none;
-  @media (max-width: 800px) {
-    margin: auto;
-  }
-
-  @media (max-width: 912px) {
-    font-size: 1.8rem;
-  }
-  @media (max-width: 540px) {
-    font-size: 1.5rem;
-  }
-  @media (max-width: 480px) {
-    font-size: 1.5rem;
-  }
-  @media (max-width: 300px) {
-    font-size: 1.1rem;
-  }
 `;
 
 const CoursesInfo = () => {

@@ -64,12 +64,11 @@ const NavMenuStyled = styled.div`
 
 const NavLinkStyled = styled(Link)`
   width: 90px;
-  margin: 0.5% ;
+  margin: 0.5%;
   padding: 0.5% 0.5%;
   text-align: center;
   color: ${props => props.active ? '#ffc24b' : '#0e606b'};
   text-decoration: none;
-  font-size: 1.2rem;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
 
@@ -91,12 +90,12 @@ const NavLinkStyled = styled(Link)`
 `;
 
 const NavScrollLink = styled(ScrollLink)`
-  width: 100px;
-  padding: 10px;
+  width: 90px;
+  margin: 0.5%;
+  padding: 0.5% 0.5%;
   text-align: center;
   color: ${props => props.active ? '#ffc24b' : '#0e606b'};
   text-decoration: none;
-  font-size: 0.7rem;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
 
@@ -115,13 +114,6 @@ const NavScrollLink = styled(ScrollLink)`
   @media screen and (max-width: 768px) {
     display: none;
   }
-`;
-
-const A = styled.div`
-  width:100%;
-  text-align: left;
-  padding-left: 10px;
-  padding-right: 10px;
 `;
 
 
@@ -218,58 +210,46 @@ function Header() {
             >
               Home
             </NavLinkStyled>          
-              <A>
-                <NavScrollLink
-                  activeClass="active"
-                  active={ activeSection === 'about' }
-                  to="about-section"
-                  spy={true}
-                  smooth={true}
-                  duration={500}
-                  onSetActive={() => setActiveSection('about')}
-                >
-                  About
-                </NavScrollLink>
-                <NavScrollLink
-                  activeClass="active"
-                  active={activeSection === 'courses'}
-                  to="courses-section"
-                  spy={true}
-                  smooth={true}
-                  duration={500}
-                  onSetActive={() => setActiveSection('courses')}
-                >
-                  Courses
-                </NavScrollLink>
-                <NavScrollLink
-                  activeClass="active"
-                  active={activeSection === 'contact'}
-                  to="contact-section"
-                  spy={true}
-                  smooth={true}
-                  duration={500}
-                  onSetActive={() => setActiveSection('contact')}
-                >
-                  Contact
-                </NavScrollLink>
-  
-              </A>
+            <NavScrollLink
+              activeClass="active"
+              active={ activeSection === 'about' }
+              to="about-section"
+              spy={true}
+              smooth={true}
+              duration={500}
+              onSetActive={() => setActiveSection('about')}
+            >
+              About
+            </NavScrollLink>
+            <NavScrollLink
+              activeClass="active"
+              active={activeSection === 'courses'}
+              to="courses-section"
+              spy={true}
+              smooth={true}
+              duration={500}
+              onSetActive={() => setActiveSection('courses')}
+            >
+              Courses
+            </NavScrollLink>
+            <NavScrollLink
+              activeClass="active"
+              active={activeSection === 'contact'}
+              to="contact-section"
+              spy={true}
+              smooth={true}
+              duration={500}
+              onSetActive={() => setActiveSection('contact')}
+            >
+              Contact
+            </NavScrollLink>
             {isLoggedIn ? (
                 <>
                   <UserName>UserName</UserName>
                   <NavLinkStyled onClick={handleDropdownClick}> <StyledFaEllipsisV/> </NavLinkStyled>
                   {isOpenInfo && (
                     <DropdownContent>
-                      <DropdownItem
-                        to="/changeinfo" 
-                        active={ activeSection === 'login'} 
-                        onClick={() => {
-                          setActiveSection('login');
-                          setIsLoggedIn(false);
-                        }}
-                      >
-                        Change info
-                      </DropdownItem>
+                      <DropdownItem>Change info</DropdownItem>
                       <DropdownItem 
                         to="/login" 
                         active={ activeSection === 'login'} 
