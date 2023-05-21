@@ -4,7 +4,10 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
+import { getDownloadURL } from 'firebase/storage';
+import { storage } from '../../../firebase/firebase'
+import { useState, useEffect } from 'react';
+import { ref } from 'firebase/storage'
 
 const Container = styled.div`
 
@@ -95,6 +98,9 @@ const Img = styled.span`
   transition: all 0.5s;
 
   background-image: url(${props => props.imageUrl});
+  background-size: cover;
+  background-position: center;
+
   ${Card}:hover & {
     border-radius: 20px;
   }
@@ -109,7 +115,7 @@ const Name = styled.h2`
 `;
 
 const Description = styled.p`
-  font-family: 'Autour One';
+  font-family: 'Roboto';
   font-style: normal;
   font-weight: 400;
   font-size: 1rem;
@@ -143,47 +149,60 @@ const LearnBtn = styled(Link)`
     cursor: pointer;
 `;
 function CardList() {
-    const Info = [    
-      {      
-      name: 'Product A',      
-      image: 'https://via.placeholder.com/200x200.png',      
-      des: 'This is product A description',    
-    },    
-      {      
-      name: 'Product B',      
-      image: 'https://via.placeholder.com/200x200.png',      
-      des: 'This is product B description',    
-    },    
-      {      
-      name: 'Product C',      
-      image: 'https://via.placeholder.com/200x200.png',      
-      des: 'This is product C description',    
-    },    
-      {      
-      name: 'Product B',      
-      image: 'https://via.placeholder.com/200x200.png',      
-      des: 'This is product B description',    
-    },    
-      {      
-      name: 'Product C',      
-      image: 'https://via.placeholder.com/200x200.png',      
-      des: 'This is product C description',    
-    },   
-  ];
+  const [courses, setCourses] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await fetch('http://localhost:5001/api/courses/getCourses');
+        const result = await response.json();
+
+        for (let i = 0; i < result.length; i++) {
+          const downloadURL = await getDownloadURL(ref(storage, result[i].image));
+       result[i].image = downloadURL;
+          delete result[i]._id;
+        }
+
+        setCourses(result);
+      } catch (error) {
+        console.log('Error:', error);
+      }
+    }
+
+    fetchData();
+  }, []);
+  
+  //   [    
+  //     {      
+  //     name: 'Product A',      
+  //     image: 'https://via.placeholder.com/200x200.png',      
+  //     des: 'This is product A description',    
+  //   },    
+  //     {      
+  //     name: 'Product B',      
+  //     image: 'https://via.placeholder.com/200x200.png',      
+  //     des: 'This is product B description',    
+  //   },    
+  //     {      
+  //     name: 'Product C',      
+  //     image: 'https://via.placeholder.com/200x200.png',      
+  //     des: 'This is product C description',    
+  //   },    
+  //     {      
+  //     name: 'Product B',      
+  //     image: 'https://via.placeholder.com/200x200.png',      
+  //     des: 'This is product B description',    
+  //   },    
+  //     {      
+  //     name: 'Product C',      
+  //     image: 'https://via.placeholder.com/200x200.png',      
+  //     des: 'This is product C description',    
+  //   },   
+  // ];
 
   const PrevArrow = (props) => (
     <PrevButton {...props}>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="#000000"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M15 18l-6-6 6-6" />
       </svg>
     </PrevButton>
@@ -191,17 +210,7 @@ function CardList() {
 
   const NextArrow = (props) => (
     <NextButton {...props}>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="#000000"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M9 18l6-6-6-6" />
       </svg>
     </NextButton>
@@ -223,12 +232,11 @@ function CardList() {
       <CoursesName>
         <CoursesNameText>Courses for You</CoursesNameText>
       </CoursesName>
-      <CardListContainer>  
-        <Slider {...settings}>      
-          {Info.map((item, index) => (
+      <CardListContainer>
+        <Slider {...settings}>
+          {courses.map((item, index) => (
             <Card key={index}>
-              <ImgContainer>
-                <Img imageUrl={item.image} alt={item.name} />
+              <ImgContainer><Img imageUrl={item.image} alt={item.name} />
               </ImgContainer>
               <Name>{item.name}</Name>
               <Description>{item.des}</Description>
@@ -239,10 +247,10 @@ function CardList() {
                 }}
               >
                 Learn
-              </LearnBtn>            
+              </LearnBtn>
             </Card>
           ))}
-          </Slider>
+        </Slider>
       </CardListContainer>
     </Container>
   );
