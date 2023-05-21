@@ -10,7 +10,6 @@ import slide4 from './images/slide4.png';
 import slide5 from './images/slide5.png';
 import { getDownloadURL } from 'firebase/storage';
 import { storage } from '../../../firebase/firebase'
-import { useState, useEffect } from 'react';
 import { ref } from 'firebase/storage'
 
 const SlideshowContainer = styled.div`
