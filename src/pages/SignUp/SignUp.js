@@ -86,9 +86,15 @@ const Input = styled.input`
   height: 55px;
   margin-top: 2%;
   background: #DBDBDB;
+  font: normal 300 1.5rem "Roboto";
+  color: white;
   border: none;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
+  &:focus {
+    outline: none;
+    border: none;
+  }
   ::placeholder {
     color: #FFFFFF;
     font-family: 'Autour One';
@@ -195,9 +201,11 @@ const SignUp = () => {
       <Image bgImage={image}></Image>
       <FormWrapper>
         <BigText>Sign Up</BigText>
-        <Input type="text" id="username" name="username"  placeholder="Username"/>
-        <Input type="text" id="nome" name="nome"  placeholder="Password"/>
-        <Input type="email" id="email" name="email" placeholder="Email"/>
+        <Input type="email" id="email" name="email"  placeholder="Email"/>
+        <Input type="text" id="name" name="name"  placeholder="Your Name"/>
+        <Input type="password" id="pass" name="pass" placeholder="Password"/>
+        <Input type="password" id="repass" name="repass" placeholder="Re-Password"/>
+        <Input type="date" id="bday" name="bday"/>
         <SubmitButton>
           <LinkLoginBtn  to="/" onClick={()=>sendInfor(document.getElementById('username').value,
                                                         document.getElementById('nome').value,

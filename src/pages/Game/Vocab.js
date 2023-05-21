@@ -29,12 +29,7 @@ const BigText = styled.p`
         font-size: 1rem;
     }
 `;
-const HeadersContainer = styled.div`
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  margin: 8% auto auto auto;
-`;
+
 const TableWrapper = styled.div`
   width: 80%;
   margin: 5% auto;

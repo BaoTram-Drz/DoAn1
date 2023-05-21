@@ -26,11 +26,12 @@ const Container = styled.div`
   @media (max-width: 800px) {
     grid-template-columns: 1fr;
     grid-gap: 2%;
+    margin: 5% auto 10% auto;
   }
 `;
 
 const TableWrapper = styled.table`
-  width: 90%;
+  width: 100%;
   text-align: center;
 `;
 
@@ -60,7 +61,9 @@ const TableCell = styled.td`
     font: normal 400 28px 'Autour One';
     color: #0E606B;
 `;
-
+const RightDiv = styled.div`
+    width: 100%;
+`;
 const DivWrapper = styled.div`
     margin: auto auto 5% auto;
     width: 80%;
@@ -109,20 +112,23 @@ const Button = styled(Link)`
     border-radius: 20px;
 `;
 
-const ButtonL = styled(Link)`
-  margin: 10% 20%;
-  width: 100%;
+const ButtonL = styled.button`
+  margin: auto 10%;
+  width: 80%;
   min-width: 300px;
   padding: 5px 24px;
-  font: normal 400 2rem "Autour One";
-  color: #ffc24b;
-  text-decoration: none;
   background-color: white;
   border: 3px solid #f47068;
   border-radius: 20px;
   @media (max-width: 800px) {
     width: 100%;
+    margin: auto;
   }
+`;
+const LinkText = styled(Link)`
+  font: normal 400 2rem "Autour One";
+  color: #ffc24b;
+  text-decoration: none;
 `;
 
 const CoursesInfo = () => {
@@ -206,15 +212,15 @@ const CoursesInfo = () => {
                 ))}
                 </tbody>
             </TableWrapper>
-            <p>
+            <RightDiv>
               <DivWrapper>
                   <DivWrapper2>
                       {productName}
                   </DivWrapper2>     
                   <Button to="/vocab">Start Learn</Button>
               </DivWrapper>
-              <ButtonL to="/league">Top League</ButtonL>
-            </p>
+              <ButtonL><LinkText to="/league">Top League</LinkText></ButtonL>
+            </RightDiv>
         </Container>
     </>
   );
