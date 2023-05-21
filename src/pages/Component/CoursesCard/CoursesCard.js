@@ -21,6 +21,26 @@ const CoursesName = styled.div`
   border: 5px dashed #FFC24B;
   border-radius: 100px;
   text-align: center;
+  @media (max-width: 1200px) {
+    margin-top: 10%;
+    font-size: 2.5rem;
+  }
+  @media (max-width: 912px) {
+    width: 70%;
+    height: 150px;
+  }
+  @media (max-width: 540px) {
+    width: 70%;
+    height: 120px;
+  }
+  @media (max-width: 480px) {
+    width: 80%;
+    height: 100px;
+  }
+  @media (max-width: 300px) {
+    width: 90%;
+    height: 80px;
+  }
 `;
 
 const CoursesNameText = styled.p`
@@ -28,10 +48,23 @@ const CoursesNameText = styled.p`
   font-family: 'Margarine';
   font-style: normal;
   font-weight: 400;
-  font-size: 48px;
+  font-size: 3rem;
   line-height: 45px;
 
   color: #F47068;
+  @media (max-width: 1200px) {
+    margin-top: 10%;
+    font-size: 2.5rem;
+  }
+  @media (max-width: 540px) {
+    font-size: 2rem;
+  }
+  @media (max-width: 480px) {
+    font-size: 1.5rem;
+  }
+  @media (max-width: 300px) {
+    font-size: 1.2rem;
+  }
 `;
 
 const CardListContainer = styled.div`
@@ -61,16 +94,24 @@ const CardListContainer = styled.div`
 `;
 
 const Card = styled.div`
-  width: 30%;
   height: 500px;
   background-image: linear-gradient(#ffb3ae, #FFF4F1);
   border: 1px solid #ffc24b;
   border-radius: 20px;
   text-align: center;
+
+  @media (max-width: 912px) {
+    height: 420px;
+  }
+  @media (max-width: 480px) {
+    height: 370px;
+  }
+  @media (max-width: 300px) {
+    height: 300px;
+  }
 `;
 
-
-const ImgContainer = styled.span`
+const ImgContainer = styled.div`
   display: flex;
   margin: 10% auto;
   width: 70%;
@@ -86,6 +127,24 @@ const ImgContainer = styled.span`
   ${Card}:hover & {
     border-radius: 20px;
     background-image: url(${props => props.imageUrl});
+  }
+
+  @media (max-width: 1200px) {
+    height: calc(50%);
+  }
+  @media (max-width: 912px) {
+    height: 160px;
+  }
+  @media (max-width: 540px) {
+    width: 70%;
+    height: 170px;
+  }
+  @media (max-width: 480px) {
+    height: 160px;
+  }
+  @media (max-width: 300px) {
+    width: 80%;
+    height: 120px;
   }
 `;
 
@@ -112,6 +171,22 @@ const Name = styled.h2`
   font-weight: 400;
   font-size: 2rem;
   color: #0E606B;
+
+  @media (max-width: 1200px) {
+
+  }
+  @media (max-width: 912px) {
+    font-size: 1.7rem;
+  }
+  @media (max-width: 540px) {
+    font-size: 1.5rem;
+  }
+  @media (max-width: 480px) {
+    font-size: 1.2rem;
+  }
+  @media (max-width: 300px) {
+    font-size: 1rem;
+  }
 `;
 
 const Description = styled.p`
@@ -120,6 +195,9 @@ const Description = styled.p`
   font-weight: 400;
   font-size: 1rem;
   color: #1697A6;
+  @media (max-width: 300px) {
+    font-size: 0.7rem;
+  }
 `;
 
 const PrevButton = styled.button`
@@ -147,6 +225,21 @@ const LearnBtn = styled(Link)`
     border-radius: 20px;
     color: #FFFFFF;
     cursor: pointer;
+    @media (max-width: 1200px) {
+
+    }
+    @media (max-width: 912px) {
+      font-size: 1.7rem;
+    }
+    @media (max-width: 540px) {
+      font-size: 1.5rem;
+    }
+    @media (max-width: 480px) {
+      font-size: 1.2rem;
+    }
+    @media (max-width: 300px) {
+      font-size: 1rem;
+    }
 `;
 function CardList() {
   const [courses, setCourses] = useState([]);
@@ -219,7 +312,7 @@ function CardList() {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 3,
+    slidesToShow: window.innerWidth < 600 ? 1 : window.innerWidth < 1000 ? 2 : 3,
     slidesToScroll: 1,
     arrows: true,
     prevArrow: <PrevArrow />,
