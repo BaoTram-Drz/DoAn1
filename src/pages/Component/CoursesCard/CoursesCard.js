@@ -36,6 +36,25 @@ const CardListContainer = styled.div`
   margin: auto;
   padding-top: 50px;
   gap: 50px;
+
+  .slick-slider {
+    display: flex;
+    align-items: center;
+  }
+
+  .slick-list {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .slick-track {
+    display: flex;
+    align-items: center;
+  }
+
+  .slick-slide {
+    margin: 0 25px;
+  }
 `;
 
 const Card = styled.div`
@@ -97,6 +116,20 @@ const Description = styled.p`
   color: #1697A6;
 `;
 
+const PrevButton = styled.button`
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+`;
+
+const NextButton = styled.button`
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+`;
+
 const LearnBtn = styled(Link)`
     width: 100%;
     min-width: 200px;
@@ -138,6 +171,42 @@ function CardList() {
     },   
   ];
 
+  const PrevArrow = (props) => (
+    <PrevButton {...props}>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="#000000"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M15 18l-6-6 6-6" />
+      </svg>
+    </PrevButton>
+  );
+
+  const NextArrow = (props) => (
+    <NextButton {...props}>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="#000000"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M9 18l6-6-6-6" />
+      </svg>
+    </NextButton>
+  );
+
   const settings = {
     dots: false,
     infinite: true,
@@ -145,8 +214,8 @@ function CardList() {
     slidesToShow: 3,
     slidesToScroll: 1,
     arrows: true,
-    prevArrow: <button className="slick-prev">Previous</button>,
-    nextArrow: <button className="slick-next">Next</button>,
+    prevArrow: <PrevArrow />,
+    nextArrow: <NextArrow />,
   };
 
   return (

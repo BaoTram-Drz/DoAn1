@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from 'react-router-dom';
-import {FaGooglePlusG} from 'react-icons/fa';
 import login from './login.png'
 import LoginWithGoogle from './LoginWithGG'
 
@@ -92,6 +91,10 @@ const Input = styled.input`
   border: none;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
+  &:focus {
+    outline: none;
+    border: none;
+  }
   ::placeholder {
     color: #FFFFFF;
     font-family: 'Autour One';
@@ -157,11 +160,8 @@ const Login = () => {
       <Image bgImage={login}></Image>
       <FormWrapper>
         <BigText>welcome back</BigText>
-        <Input type="email" id="email" name="email"  placeholder="Email"/>
-        <Input type="text" id="name" name="name"  placeholder="Your Name"/>
-        <Input type="password" id="pass" name="pass" placeholder="Password"/>
-        <Input type="password" id="repass" name="repass" placeholder="Re-Password"/>
-        <Input type="date" id="bday" name="bday"/>
+        <Input type="text" id="nome" name="nome"  placeholder="Email"/>
+        <Input type="email" id="email" name="email" placeholder="Password"/>
         <LinkForgot to="/forgot">Forgot Passwword</LinkForgot>
         <SubmitButton to="/">
           <LinkLoginBtn>
