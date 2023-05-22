@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { getDownloadURL } from 'firebase/storage';
 import { storage } from '../../firebase/firebase'
 import { ref } from 'firebase/storage'
+import {FaVolumeUp} from 'react-icons/fa'
 
 const BigText = styled.p`
     margin: 8% auto 3% auto;
@@ -43,7 +44,10 @@ const TableWrapper = styled.div`
     width: 100%;
   }
 `;
-
+const VoiceIcon = styled(FaVolumeUp)`
+  cursor: pointer;
+  &:active { color: pink; }
+`;
 const Table = styled.table`
   width: 100%;
   border-collapse: collapse;
@@ -203,44 +207,53 @@ const Vocab = () => {
     //   resolve(data);
     // });
 
-
-  return (
-    <>      
-      <BigText>Learn Vocabulary</BigText>
-        
-    <TableWrapper>
-        <Table>
-            <TableHeader>
-                <th><TableHeaderLeft>English</TableHeaderLeft></th>
-                <th><TableHeaderLeft>Pronunciation</TableHeaderLeft></th>
-                <th><TableHeaderCenter>Vietnamese</TableHeaderCenter></th>
-                <th><TableHeaderRight>Image</TableHeaderRight></th>
-            </TableHeader>
-            <tbody>
-            
-                {data.map((item) => (
-                    <TableRow key={item.id}>                            
-                        
-                        <TableCellEng>{item.name}</TableCellEng>              
-                        <TableCellViet>{item.sound}</TableCellViet>
-                        <TableCellViet>{item.meaning}</TableCellViet>
-                        <TableCellEng>
-                            <ImageAcc src={item.image} alt={item.name} />
-                        </TableCellEng>
-                    </TableRow>
-                ))}                   
-                
-            </tbody>
-        </Table>
-      </TableWrapper>
-
-      <ButtonsContainer>
-        <Button to="/coursesinfo">Pre</Button>
-        <Button to="/layoutlearn">Next</Button>
-      </ButtonsContainer>      
-    </>
-   
-  );
-};
-
-export default Vocab ;
+    const handleVoice = (item) => {
+      if ('speechSynthesis' in window) {
+        const utterance = new SpeechSynthesisUtterance(item);
+        window.speechSynthesis.speak(utterance);
+      } else {
+        console.error('Trình duyệt không hỗ trợ SpeechSynthesis API.');
+      }
+    };
+    
+    return (
+      <>      
+        <BigText>Learn Vocabulary</BigText>
+          
+      <TableWrapper>
+          <Table>
+              <TableHeader>
+                  <th><TableHeaderLeft>English</TableHeaderLeft></th>
+                  <th><TableHeaderCenter>Pronunciation</TableHeaderCenter></th>
+                  <th><TableHeaderCenter>Vietnamese</TableHeaderCenter></th>
+                  <th><TableHeaderCenter>Image</TableHeaderCenter></th>
+                  <th><TableHeaderRight>Voice</TableHeaderRight></th>
+              </TableHeader>
+              <tbody>
+              
+                  {data.map((item) => (
+                      <TableRow key={item.id}>                          
+                          <TableCellEng>{item.name}</TableCellEng>              
+                          <TableCellViet>{item.sound}</TableCellViet>
+                          <TableCellViet>{item.meaning}</TableCellViet>
+                          <TableCellEng>
+                              <ImageAcc src={item.image} alt={item.name} />
+                          </TableCellEng>
+                          <TableCellEng><VoiceIcon onClick={()=> handleVoice(item.name)} /></TableCellEng>
+                      </TableRow>
+                  ))}                   
+                  
+              </tbody>
+          </Table>
+        </TableWrapper>
+  
+        <ButtonsContainer>
+          <Button to="/coursesinfo">Pre</Button>
+          <Button to="/layoutlearn">Next</Button>
+        </ButtonsContainer>      
+      </>
+     
+    );
+  };
+  
+  export default Vocab ;
