@@ -5,6 +5,8 @@ import { getDownloadURL } from 'firebase/storage';
 import { storage } from '../../firebase/firebase'
 import { ref } from 'firebase/storage'
 import {FaVolumeUp} from 'react-icons/fa'
+import { useLocation } from 'react-router-dom';
+
 
 const BigText = styled.p`
     margin: 8% auto 3% auto;
@@ -156,32 +158,43 @@ const ButtonsContainer = styled.div`
 `;
 
 const Vocab = () => {
-    const [data, setCourses] = useState([]);
-    const topicCourse = {topic: 'fruits'};
-    useEffect(() => {
-      async function fetchData() {
-        try {
-          const response = await fetch('http://localhost:5001/api/vocabulary/getVocab', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(topicCourse)
-          });
-          const result = await response.json();
-          for (let i = 0; i < result.length; i++) {
-            const path = 'fruits/'+ result[i].image;
-            const downloadURL = await getDownloadURL(ref(storage, path));
-            result[i].image = downloadURL;
-          }
-          setCourses(result);
-        } catch (error) {
-          console.log('Error:', error);
+  const [data, setCourses] = useState([]);
+  const location = useLocation();
+  const [productName, setProductName] = useState('Product A');
+
+  useEffect(() => {
+    if (location.state && location.state.productname) {
+      setProductName(location.state.productname);
+    }
+  }, [location.state]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const topicCourse = { topic: productName.toLowerCase() };
+        const response = await fetch('http://localhost:5001/api/vocabulary/getVocab', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(topicCourse)
+        });
+        const result = await response.json();
+
+        for (let i = 0; i < result.length; i++) {
+          const path = `${topicCourse.topic}/${result[i].image}`;
+          const downloadURL = await getDownloadURL(ref(storage, path));
+          result[i].image = downloadURL;
         }
+
+        setCourses(result);
+      } catch (error) {
+        console.log('Error:', error);
       }
-  
-      fetchData();
-    }, []);
+    };
+
+    fetchData();
+  }, [productName]);
   
 //   const [data, setData] = useState([]);
 

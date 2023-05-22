@@ -303,7 +303,8 @@ const CoursesInfo = () => {
                   <DivWrapper2>
                       {productName}
                   </DivWrapper2>     
-                  <Button to="/vocab">Start Learn</Button>
+                  <Button to="/vocab" 
+                          state= { {productname: productName }}>Start Learn</Button>
               </DivWrapper>
               <ButtonL><LinkText to="/league">Top League</LinkText></ButtonL>
             </RightDiv>

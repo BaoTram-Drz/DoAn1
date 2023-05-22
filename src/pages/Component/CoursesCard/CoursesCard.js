@@ -334,10 +334,10 @@ function CardList() {
               <Name>{item.name}</Name>
               <Description>{item.des}</Description>
               <LearnBtn
-                to={{
-                  pathname: '/coursesinfo',
-                  state: { productname: item.name }
-                }}
+                to={
+                 '/coursesinfo'
+                  }
+                state= { {productname: item.name }}
               >
                 Learn
               </LearnBtn>
