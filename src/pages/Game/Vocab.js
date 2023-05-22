@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from 'react-router-dom';
+import { getDownloadURL } from 'firebase/storage';
+import { storage } from '../../firebase/firebase'
+import { ref } from 'firebase/storage'
 
 const BigText = styled.p`
     margin: 8% auto 3% auto;
@@ -149,30 +152,57 @@ const ButtonsContainer = styled.div`
 `;
 
 const Vocab = () => {
-  const [data, setData] = useState([]);
+    const [data, setCourses] = useState([]);
+    const topicCourse = {topic: 'fruits'};
+    useEffect(() => {
+      async function fetchData() {
+        try {
+          const response = await fetch('http://localhost:5001/api/vocabulary/getVocab', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(topicCourse)
+          });
+          const result = await response.json();
+          for (let i = 0; i < result.length; i++) {
+            const path = 'fruits/'+ result[i].image;
+            const downloadURL = await getDownloadURL(ref(storage, path));
+            result[i].image = downloadURL;
+          }
+          setCourses(result);
+        } catch (error) {
+          console.log('Error:', error);
+        }
+      }
+  
+      fetchData();
+    }, []);
+  
+//   const [data, setData] = useState([]);
 
-  useEffect(() => {
-    // Lấy dữ liệu từ cơ sở dữ liệu và set vào state
-    fetchDataFromDatabase()
-      .then((response) => setData(response))
-      .catch((error) => console.error(error));
-  }, []);
+//   useEffect(() => {
+//     // Lấy dữ liệu từ cơ sở dữ liệu và set vào state
+//     fetchDataFromDatabase()
+//       .then((response) => setData(response))
+//       .catch((error) => console.error(error));
+//   }, []);
 
   // Hàm lấy dữ liệu từ cơ sở dữ liệu (giả sử là API)
-  const fetchDataFromDatabase = () => {
-    return new Promise((resolve, reject) => {
-      // Gọi API hoặc truy vấn cơ sở dữ liệu để lấy dữ liệu
-      // Giả sử dữ liệu trả về là một mảng các đối tượng
-      const data = [
-        { id: 1, eng: "Orange", viet:"Cam", image: 'https://via.placeholder.com/200x200'},
-        { id: 2, eng: "Apple", viet:"Táo", image: 'https://via.placeholder.com/200x200' },
-        { id: 3, eng: "Watermelon", viet:"Dưa hấu", image: 'https://via.placeholder.com/200x200' },
-        { id: 4, eng: "Banana", viet:"Chuối", image: 'https://via.placeholder.com/200x200' },
-      ];
+//   const fetchDataFromDatabase = () => {
+    // return new Promise((resolve, reject) => {
+    //   // Gọi API hoặc truy vấn cơ sở dữ liệu để lấy dữ liệu
+    //   // Giả sử dữ liệu trả về là một mảng các đối tượng
+    //   const data = [
+    //     { id: 1, eng: "Orange", viet:"Cam", image: 'https://via.placeholder.com/200x200'},
+    //     { id: 2, eng: "Apple", viet:"Táo", image: 'https://via.placeholder.com/200x200' },
+    //     { id: 3, eng: "Watermelon", viet:"Dưa hấu", image: 'https://via.placeholder.com/200x200' },
+    //     { id: 4, eng: "Banana", viet:"Chuối", image: 'https://via.placeholder.com/200x200' },
+    //   ];
       
-      resolve(data);
-    });
-  };
+    //   resolve(data);
+    // });
+
 
   return (
     <>      
@@ -182,7 +212,8 @@ const Vocab = () => {
         <Table>
             <TableHeader>
                 <th><TableHeaderLeft>English</TableHeaderLeft></th>
-                <th><TableHeaderCenter>VietNamese</TableHeaderCenter></th>
+                <th><TableHeaderLeft>Pronunciation</TableHeaderLeft></th>
+                <th><TableHeaderCenter>Vietnamese</TableHeaderCenter></th>
                 <th><TableHeaderRight>Image</TableHeaderRight></th>
             </TableHeader>
             <tbody>
@@ -190,8 +221,9 @@ const Vocab = () => {
                 {data.map((item) => (
                     <TableRow key={item.id}>                            
                         
-                        <TableCellEng>{item.eng}</TableCellEng>
-                        <TableCellViet>{item.viet}</TableCellViet>
+                        <TableCellEng>{item.name}</TableCellEng>              
+                        <TableCellViet>{item.sound}</TableCellViet>
+                        <TableCellViet>{item.meaning}</TableCellViet>
                         <TableCellEng>
                             <ImageAcc src={item.image} alt={item.name} />
                         </TableCellEng>

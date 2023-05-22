@@ -251,7 +251,8 @@ function CardList() {
         const result = await response.json();
 
         for (let i = 0; i < result.length; i++) {
-          const downloadURL = await getDownloadURL(ref(storage, result[i].image));
+          const path = 'courses/' + result[i].image;
+          const downloadURL = await getDownloadURL(ref(storage, path));
           result[i].image = downloadURL;
         }
 
@@ -335,7 +336,7 @@ function CardList() {
               <LearnBtn
                 to={{
                   pathname: '/coursesinfo',
-                  state: { productname: item.name },
+                  state: { productname: item.name }
                 }}
               >
                 Learn
