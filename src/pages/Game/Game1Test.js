@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import styled, {css} from "styled-components";
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
+import Particless from "./Particles/Particles ";
 import A from './image/A.png'
 import B from './image/B.png'
 import C from './image/C.png'
 import D from './image/D.png'
+
 
 const BigText = styled.p`
   margin: 6% auto -3% auto;
@@ -270,6 +272,7 @@ const Game1Test = () => {
             </Table>
         </TableWrapper>
         {message && <p>{message}</p>}
+        {isFinish &&  <Particless/> }
 
             
         <ButtonsContainer>

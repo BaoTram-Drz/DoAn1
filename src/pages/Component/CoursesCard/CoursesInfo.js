@@ -137,21 +137,26 @@ const DivWrapper2 = styled.div`
     margin: 5%;
     width: 90%;
     height: 372px;
-    background: #FFF4F1;
+    background-image: url(${props => props.imageUrl});
+    background-size: cover;
+    background-position: center;
     border: 3px dashed #1697A6;
     border-radius: 30px;
-
+    text-align: center;
+    box-shadow: inset 200px 200px 200px rgba(0, 0, 0, 0.2); /* Hiệu ứng box-shadow ngược vào bên trong */
+`;
+const DivWrapper2Text = styled.p`
     font-family: 'Autour One';
     font-style: normal;
     font-weight: 400;
-    font-size: 54px;
+    font-size: 3.5rem;
     line-height: 200px;
     color: #FFC24B;
     text-shadow:
-    -5px -5px 0 #fff, /* Viền trắng bên trái trên */
-     5px -5px 0 #fff, /* Viền trắng bên phải trên */
-    -5px  5px 0 #fff, /* Viền trắng bên trái dưới */
-     5px  5px 0 #fff;
+    -3px -3px 0 #fff, /* Viền trắng bên trái trên */
+     3px -3px 0 #fff, /* Viền trắng bên phải trên */
+    -3px  3px 0 #fff, /* Viền trắng bên trái dưới */
+     3px  3px 0 #fff;
     text-align: center;
 `;
 const Button = styled(Link)`
@@ -221,6 +226,7 @@ const LinkText = styled(Link)`
 const CoursesInfo = () => {
   const location = useLocation();
   const [productName, setProductName] = useState('Product A');
+  const [productImage, setProductImage] = useState(null);
 
   const [data, setData] = useState([]);
 
@@ -228,6 +234,9 @@ const CoursesInfo = () => {
   useEffect(() => {
     if (location.state && location.state.productname) {
       setProductName(location.state.productname);
+    }
+    if (location.state && location.state.image) {
+      setProductImage(location.state.image);
     }
   }, [location.state]);
 
@@ -325,8 +334,8 @@ const CoursesInfo = () => {
         </TableWrapper>
         <RightDiv>
           <DivWrapper>
-            <DivWrapper2>
-              {productName}
+            <DivWrapper2 imageUrl={productImage}>
+              <DivWrapper2Text>{productName}</DivWrapper2Text>
             </DivWrapper2>
             <Button to="/vocab"
               state={{ productname: productName }}>Start Learn</Button>

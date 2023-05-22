@@ -309,7 +309,7 @@ function CardList() {
                 to={
                  '/coursesinfo'
                   }
-                state= { {productname: item.name }}
+                state= { {productname: item.name, image: item.image }}
               >
                 Learn
               </LearnBtn>
