@@ -89,16 +89,17 @@ const TableRow = styled.tr`
 const TableCellId = styled.div`
     width: 80%;
     float: right;
-    font: normal 400 28px/1.5 'Autour One';
+    font: normal 400 28px/1.5 'Roboto';
     color: #FFC24B;
     border: 2px dashed #FFB3AE;
     border-radius: 50%;    
 `;
 
 const TableCell = styled.td`
-    padding: 12px 24px;
-    font: normal 400 28px 'Autour One';
+    padding: 12px 24px 12px 40px;
+    font: normal 400 28px 'Roboto';
     color: #0E606B;
+    text-align: left;
     @media (max-width: 1000px) {
       font-size: 2.3rem;
     }
@@ -218,97 +219,121 @@ const LinkText = styled(Link)`
 `;
 
 const CoursesInfo = () => {
-    const location = useLocation();
-    const [productName, setProductName] = useState('Product A');
-    
-    const [data, setData] = useState([]);
+  const location = useLocation();
+  const [productName, setProductName] = useState('Product A');
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(() => {
-        if (location.state && location.state.productname) {
-            setProductName(location.state.productname);
-          }
-    }, [location.state]);
+  const [data, setData] = useState([]);
 
-    useEffect(() => {
-        fetchDataFromDatabase()
-        .then((response) => setData(response))        
-        .catch((error) => console.error(error));
-    }, [productName]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    if (location.state && location.state.productname) {
+      setProductName(location.state.productname);
+    }
+  }, [location.state]);
 
-    console.log("prod", location.state);
-    console.log("prodN", productName);
-    
-    // Hàm lấy dữ liệu từ cơ sở dữ liệu (giả sử là API)
-    const fetchDataFromDatabase = () => {
-        return new Promise((resolve, reject) => {
-          // Gọi API hoặc truy vấn cơ sở dữ liệu để lấy dữ liệu
-          // Giả sử dữ liệu trả về là một mảng các đối tượng
-          const data = {
-            "0": [
-                { id: 1, name: "0" },
-                { id: 2, name: "0" },
-                { id: 3, name: "0" },
-                { id: 4, name: "0" },
-              ],
-            "Product A": [
-              { id: 1, name: "Lesson 1" },
-              { id: 2, name: "Lesson 2" },
-              { id: 3, name: "Lesson 3" },
-              { id: 4, name: "Lesson 1" },
-              { id: 5, name: "Lesson 2" },
-              { id: 6, name: "Lesson 3" },
-              { id: 7, name: "Lesson 4" },
-              { id: 8, name: "Lesson 2" },
-              { id: 9, name: "Lesson 3" },
-              { id: 10, name: "Lesson 4" },
-            ],
-            "Product B": [
-              { id: 1, name: "Lesson 1" },
-              { id: 2, name: "Lesson 2" },
-            ],
-            "Product C": [
-              { id: 1, name: "Lesson 1" },
-              { id: 2, name: "Lesson 2" },
-              { id: 3, name: "Lesson 3" },
-              { id: 4, name: "Lesson 4" },
-            ],
-          };
-          resolve(data[productName] || data[0] );
-        });
+  useEffect(() => {
+    fetchDataFromDatabase()
+      .then((response) => setData(response))
+      .catch((error) => console.error(error));
+  }, [productName]);
+
+  console.log("prod", location.state);
+  console.log("prodN", productName);
+
+  // Hàm lấy dữ liệu từ cơ sở dữ liệu (giả sử là API)
+  const fetchDataFromDatabase = () => {
+    return new Promise((resolve, reject) => {
+      // Gọi API hoặc truy vấn cơ sở dữ liệu để lấy dữ liệu
+      // Giả sử dữ liệu trả về là một mảng các đối tượng
+      const data = {
+        "Product A": [
+          { id: 1, name: "Học từ vựng" },
+          { id: 2, name: "Làm bài tập về từ vựng" },
+          { id: 3, name: "Big Test" }
+
+        ],
+        "ASTRONOMY": [
+          { id: 1, name: "Học từ vựng" },
+          { id: 2, name: "Làm bài tập về từ vựng" },
+          { id: 3, name: "Big Test" }
+        ],
+        "FRUITS": [
+          { id: 1, name: "Học từ vựng" },
+          { id: 2, name: "Làm bài tập về từ vựng" },
+          { id: 3, name: "Big Test" }
+
+        ],
+        "CAREER": [
+          { id: 1, name: "Học từ vựng" },
+          { id: 2, name: "Làm bài tập về từ vựng" },
+          { id: 3, name: "Big Test" }
+
+        ],
+        "ASTRONOMY": [
+          { id: 1, name: "Học từ vựng" },
+          { id: 2, name: "Làm bài tập về từ vựng" },
+          { id: 3, name: "Big Test" }
+
+        ],
+        "VEGETABLE": [
+          { id: 1, name: "Học từ vựng" },
+          { id: 2, name: "Làm bài tập về từ vựng" },
+          { id: 3, name: "Big Test" }
+
+        ],
+        "ANIMALS": [
+          { id: 1, name: "Học từ vựng" },
+          { id: 2, name: "Làm bài tập về từ vựng" },
+          { id: 3, name: "Big Test" }
+
+        ], "KITCHEN": [
+          { id: 1, name: "Học từ vựng" },
+          { id: 2, name: "Làm bài tập về từ vựng" },
+          { id: 3, name: "Big Test" }
+
+        ], "CLOTHES": [
+          { id: 1, name: "Học từ vựng" },
+          { id: 2, name: "Làm bài tập về từ vựng" },
+          { id: 3, name: "Big Test" }
+
+        ]
+
       };
-  
-    return (
+      resolve(data[productName] || data[0]);
+    });
+  };
+
+  return (
     <>
-        <BigText>Course Detail</BigText>
-        <Container>
-            <TableWrapper>
-                <thead>
-                <TableRow>
-                    <th colSpan="2"><TableHeader>Course List</TableHeader></th>
-                </TableRow>
-                </thead>
-                <tbody>
-                {data.map((item) => (
-                    <TableRow key={item.id}>
-                        <td><TableCellId>{item.id}</TableCellId></td>
-                        <TableCell>{item.name}</TableCell>
-                        
-                    </TableRow>
-                ))}
-                </tbody>
-            </TableWrapper>
-            <RightDiv>
-              <DivWrapper>
-                  <DivWrapper2>
-                      {productName}
-                  </DivWrapper2>     
-                  <Button to="/vocab" 
-                          state= { {productname: productName }}>Start Learn</Button>
-              </DivWrapper>
-              <ButtonL><LinkText to="/league">Top League</LinkText></ButtonL>
-            </RightDiv>
-        </Container>
+      <BigText>Course Detail</BigText>
+      <Container>
+        <TableWrapper>
+          <thead>
+            <TableRow>
+              <th colSpan="2"><TableHeader>Course List</TableHeader></th>
+            </TableRow>
+          </thead>
+          <tbody>
+            {data.map((item) => (
+              <TableRow key={item.id}>
+                <td><TableCellId>{item.id}</TableCellId></td>
+                <TableCell>{item.name}</TableCell>
+
+              </TableRow>
+            ))}
+          </tbody>
+        </TableWrapper>
+        <RightDiv>
+          <DivWrapper>
+            <DivWrapper2>
+              {productName}
+            </DivWrapper2>
+            <Button to="/vocab"
+              state={{ productname: productName }}>Start Learn</Button>
+          </DivWrapper>
+          <ButtonL><LinkText to="/league">Top League</LinkText></ButtonL>
+        </RightDiv>
+      </Container>
     </>
   );
 };
