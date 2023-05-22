@@ -177,7 +177,7 @@ const LayoutLearn = () => {
       <HeadersContainer>
       <Header>{data[currentIndex]?.kind}</Header>
       <Header>{data[currentIndex]?.lessonTitle}</Header>
-      <Header>{data[currentIndex]?.order}/10</Header>
+      <Header>{data[currentIndex]?.order}/4</Header>
     </HeadersContainer>
         {data[currentIndex]?.category === 'Game1' && <Game1  data={data[currentIndex]}/>}
         {data[currentIndex]?.category === 'Game2' && <Game2  data={data[currentIndex]}/>}

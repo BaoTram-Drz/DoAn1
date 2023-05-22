@@ -176,7 +176,7 @@ const BigTest = () => {
       <HeadersContainer>
       <Header>Test</Header>
       <Header><BigText>BigTest</BigText></Header>
-      <Header>10/10</Header>
+      <Header>4/4</Header>
     </HeadersContainer>
         
         {data.map((item) => {

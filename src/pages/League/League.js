@@ -3,9 +3,18 @@ import styled from "styled-components";
 import top1 from './image/top1.png'
 import top2 from './image/top2.png'
 import top3 from './image/top3.png'
+import { Link } from 'react-router-dom';
+import {FaArrowLeft} from 'react-icons/fa';
 
+const BackHome = styled(FaArrowLeft)`
+    width: 30px;
+    height: 30px;
+    margin: 7% auto auto 5%;  
+    color: #0E606B;
+    cursor: pointer;
+`;
 const BigText = styled.p`
-  margin: 6% auto -3% auto;
+  margin: -5% auto -3% auto;
   text-align: center;
   font-family: 'Bungee Inline';
   font-weight: 400;
@@ -115,7 +124,8 @@ const League = () => {
 
   return (
     <>
-        <BigText>Top league</BigText>
+      <Link to="/"><BackHome/></Link>
+      <BigText>Top league</BigText>
       <TableWrapper>
         <Table>
           <thead>
