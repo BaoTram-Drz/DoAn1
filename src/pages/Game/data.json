@@ -1,0 +1,127 @@
+[
+    {
+      "_id": {
+        "$oid": "646b33846ab3c546adefb8c9"
+      },
+      "kind": "Game",
+      "category": "Game1",
+      "lesson": "1",
+      "topic": "fruits",
+      "lessonTitle": "Lesson 1",
+      "question": "What does 'water melon' means in Vietnamese?",
+      "answerOptions": [
+        {
+          "id": "A",
+          "text": "Quả dưa hấu"
+        },
+        {
+          "id": "B",
+          "text": "Quả táo"
+        },
+        {
+          "id": "C",
+          "text": "Quả xoài"
+        },
+        {
+          "id": "D",
+          "text": "Quả măng cụt"
+        }
+      ],
+      "image": "watermelon.jpg",
+      "correctAnswer": "A"
+    },
+    {
+      "_id": {
+        "$oid": "646b33846ab3c546adefb8ca"
+      },
+      "kind": "Game",
+      "category": "Game1",
+      "lesson": "2",
+      "topic": "fruits",
+      "lessonTitle": "Lesson 2",
+      "question": "What does 'mangosteen' means in Vietnamese?",
+      "answerOptions": [
+        {
+          "id": "A",
+          "text": "Quả dừa"
+        },
+        {
+          "id": "B",
+          "text": "Quả bơ"
+        },
+        {
+          "id": "C",
+          "text": "Quả chôm chôm"
+        },
+        {
+          "id": "D",
+          "text": "Quả măng cụt"
+        }
+      ],
+      "image": "mangosteen.jpg",
+      "correctAnswer": "D"
+    },
+    {
+      "_id": {
+        "$oid": "646b33846ab3c546adefb8cb"
+      },
+      "kind": "Game",
+      "category": "Game1",
+      "lesson": "3",
+      "topic": "fruits",
+      "lessonTitle": "Lesson 3",
+      "question": "What does 'rambutan' means in Vietnamese?",
+      "answerOptions": [
+        {
+          "id": "A",
+          "text": "Quả chôm chôm"
+        },
+        {
+          "id": "B",
+          "text": "Quả măng cụt"
+        },
+        {
+          "id": "C",
+          "text": "Quả nhãn"
+        },
+        {
+          "id": "D",
+          "text": "Quả táo"
+        }
+      ],
+      "image": "rambutan.jpg",
+      "correctAnswer": "A"
+    },
+    {
+      "_id": {
+        "$oid": "646b33846ab3c546adefb8cc"
+      },
+      "kind": "Game",
+      "category": "Game1",
+      "lesson": "4",
+      "topic": "fruits",
+      "lessonTitle": "Lesson 4",
+      "question": "What does 'payaya' means in Vietnamese?",
+      "answerOptions": [
+        {
+          "id": "A",
+          "text": "Quả đu đủ"
+        },
+        {
+          "id": "B",
+          "text": "Quả táo"
+        },
+        {
+          "id": "C",
+          "text": "Quả xoài"
+        },
+        {
+          "id": "D",
+          "text": "Quả thơm"
+        }
+      ],
+      "image": "payaya.jpg",
+      "correctAnswer": "A"
+    }
+  ]
+  

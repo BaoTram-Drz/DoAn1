@@ -239,7 +239,7 @@ const Vocab = () => {
         <ButtonsContainer>
           <Button to="/coursesinfo">Pre</Button>
           <Button 
-            to={'/game1test'}
+            to={'/layoutlearn'}
             state= { {productname: productName, lesson: 1 }}
           >
             Next
