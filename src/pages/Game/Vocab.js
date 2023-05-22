@@ -196,30 +196,6 @@ const Vocab = () => {
     fetchData();
   }, [productName]);
   
-//   const [data, setData] = useState([]);
-
-//   useEffect(() => {
-//     // Lấy dữ liệu từ cơ sở dữ liệu và set vào state
-//     fetchDataFromDatabase()
-//       .then((response) => setData(response))
-//       .catch((error) => console.error(error));
-//   }, []);
-
-  // Hàm lấy dữ liệu từ cơ sở dữ liệu (giả sử là API)
-//   const fetchDataFromDatabase = () => {
-    // return new Promise((resolve, reject) => {
-    //   // Gọi API hoặc truy vấn cơ sở dữ liệu để lấy dữ liệu
-    //   // Giả sử dữ liệu trả về là một mảng các đối tượng
-    //   const data = [
-    //     { id: 1, eng: "Orange", viet:"Cam", image: 'https://via.placeholder.com/200x200'},
-    //     { id: 2, eng: "Apple", viet:"Táo", image: 'https://via.placeholder.com/200x200' },
-    //     { id: 3, eng: "Watermelon", viet:"Dưa hấu", image: 'https://via.placeholder.com/200x200' },
-    //     { id: 4, eng: "Banana", viet:"Chuối", image: 'https://via.placeholder.com/200x200' },
-    //   ];
-      
-    //   resolve(data);
-    // });
-
     const handleVoice = (item) => {
       if ('speechSynthesis' in window) {
         const utterance = new SpeechSynthesisUtterance(item);
@@ -262,7 +238,12 @@ const Vocab = () => {
   
         <ButtonsContainer>
           <Button to="/coursesinfo">Pre</Button>
-          <Button to="/layoutlearn">Next</Button>
+          <Button 
+            to={'/game1test'}
+            state= { {productname: productName, lesson: 1 }}
+          >
+            Next
+          </Button>
         </ButtonsContainer>      
       </>
      

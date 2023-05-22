@@ -4,14 +4,14 @@ import SignUp from '../pages/SignUp/SignUp'
 import Forgot from '../pages/Forgot/Forgot'
 import VerifyCode from '../pages/VerifyCode/VerifyCode'
 import Carousel from '../pages/Component/Carousel/Carousel'
-import Game1 from '../pages/Game/Game1'
 import CoursesInfo from '../pages/Component/CoursesCard/CoursesInfo'
 import League from '../pages/League/League'
 import LayoutLearn from '../pages/Game/LayoutLearn'
-import BigTest from '../pages/Game/BigTest'
+import BigTest from '../pages/Game/BigTest/BigTest'
 import Scores from '../pages/Scores/Scores'
 import Vocab from '../pages/Game/Vocab'
 import ChangeInfo from '../pages/ChangeInfo/ChangeInfo'
+import Game1Test from '../pages/Game/Game1Test'
 
 const publicRoutes = [
     { path: '/', component: Home},
@@ -20,7 +20,6 @@ const publicRoutes = [
     { path: '/forgot', component: Forgot},
     { path: '/verify', component: VerifyCode},
     { path: '/slide', component: Carousel},
-    { path: '/game1', component: Game1},
     { path: '/coursesinfo', component: CoursesInfo},
     { path: '/league', component: League},
     { path: '/layoutlearn', component: LayoutLearn},
@@ -28,6 +27,7 @@ const publicRoutes = [
     { path: '/scores', component: Scores},
     { path: '/vocab', component: Vocab},
     { path: '/ChangeInfo', component: ChangeInfo},
+    { path: '/game1test', component: Game1Test},
 ]
 
 const privateRoutes = { 
