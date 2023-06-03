@@ -5,6 +5,7 @@ import About from '../About/About';
 import Contact from '../Contact/Contact';
 import { Element } from 'react-scroll';
 import Carousel from '../Component/Carousel/Carousel';
+import CircleComponent from '../../Bubble/WordDrop';
 
 // import Cube from '../Component/TestThree/Testthree';
 
@@ -86,7 +87,8 @@ function Home() {
     return (
         <Container>
             <BigText>Welcome to Engplaygrond</BigText>
-            <Carousel/>          
+            <CircleComponent/>
+            {/* <Carousel/>          
             <Element name="about-section">
                 <About />
             </Element>
@@ -97,7 +99,7 @@ function Home() {
                 <Contact/>
             </Element>
 
-            <BigText2>Thanks for visited</BigText2>
+            <BigText2>Thanks for visited</BigText2> */}
             
         </Container>
     );

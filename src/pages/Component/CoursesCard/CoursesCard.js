@@ -8,6 +8,7 @@ import { getDownloadURL } from 'firebase/storage';
 import { storage } from '../../../firebase/firebase'
 import { useState, useEffect } from 'react';
 import { ref } from 'firebase/storage'
+import { getCourses } from '../../../API/coursesApi';
 
 const Container = styled.div`
 
@@ -241,29 +242,30 @@ const LearnBtn = styled(Link)`
       font-size: 1rem;
     }
 `;
+
 function CardList() {
   const [courses, setCourses] = useState([]);
 
   useEffect(() => {
-    async function fetchData() {
+    const fetchCourses = async () => {
       try {
-        const response = await fetch('http://localhost:5001/api/courses/getCourses');
-        const result = await response.json();
+        const courseList = await getCourses();
 
-        for (let i = 0; i < result.length; i++) {
-          const path = 'courses/' + result[i].image;
+        for (let i = 0; i < courseList.length; i++) {
+          const path = 'courses/' + courseList[i].image;
           const downloadURL = await getDownloadURL(ref(storage, path));
-          result[i].image = downloadURL;
+          courseList[i].image = downloadURL;
         }
 
-        setCourses(result);
+        setCourses(courseList);
       } catch (error) {
-        console.log('Error:', error);
+        console.error(error);
       }
-    }
+    };
 
-    fetchData();
+    fetchCourses();
   }, []);
+
 
   const PrevArrow = (props) => (
     <PrevButton {...props}>

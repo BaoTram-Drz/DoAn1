@@ -240,6 +240,19 @@ const CoursesInfo = () => {
     }
   }, [location.state]);
 
+  // useEffect(() => {
+  //   const fetchCourseDetail = async () => {
+  //     try {
+  //       const courseDetail = await getCourseDetail(courseId);
+  //       setCourse(courseDetail);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+
+  //   fetchCourseDetail();
+  // }, [courseId]);
+
   useEffect(() => {
     fetchDataFromDatabase()
       .then((response) => setData(response))
