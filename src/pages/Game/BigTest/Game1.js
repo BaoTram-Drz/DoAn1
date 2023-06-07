@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import styled, {css} from "styled-components";
+import styled, { css } from "styled-components";
 import A from './image/A.png'
 import B from './image/B.png'
 import C from './image/C.png'
@@ -46,11 +46,10 @@ const ImageAns = styled.img`
     margin: auto 10px;
 `;
 
-const Game1 = ({data}) => {
-  
+const Game1 = ({ data, onSelectAnswer }) => {
   const [message, setMessage] = useState("");
   const [activeId, setActiveId] = useState(null);
-  
+
   if (!data) {
     return <p>Loading...</p>;
   }
@@ -62,6 +61,9 @@ const Game1 = ({data}) => {
     } else {
       setMessage("Sai");
     }
+
+    // Gọi hàm callback và truyền giá trị answerId về trang chính
+    onSelectAnswer(answerId);
   };
 
   return (
@@ -114,9 +116,7 @@ const Game1 = ({data}) => {
         </Table>
       </TableWrapper>
       {message && <p>{message}</p>}
-     
     </>
-   
   );
 };
 

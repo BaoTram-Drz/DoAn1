@@ -87,8 +87,8 @@ function Home() {
     return (
         <Container>
             <BigText>Welcome to Engplaygrond</BigText>
-            <CircleComponent/>
-            {/* <Carousel/>          
+            {/* <CircleComponent/> */}
+            <Carousel/>          
             <Element name="about-section">
                 <About />
             </Element>
@@ -99,7 +99,7 @@ function Home() {
                 <Contact/>
             </Element>
 
-            <BigText2>Thanks for visited</BigText2> */}
+            <BigText2>Thanks for visited</BigText2>
             
         </Container>
     );

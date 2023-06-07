@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate  } from 'react-router-dom';
 import Game1 from "./BigTest/Game1";
 import Game2 from "./BigTest/Game2";
 import Game3 from "./BigTest/Game3";
 import Game4 from "./BigTest/Game4";
-
 
 const BigText = styled.p`
   margin: 6% auto -3% auto;
@@ -15,6 +14,10 @@ const BigText = styled.p`
   font-size: 3rem;
   color: #F47068;
   text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+
+  @media (max-width: 768px) {
+    font-size: 2.5rem;
+  }
 `;
 
 const Header = styled.div`
@@ -23,6 +26,10 @@ const Header = styled.div`
   color: #ffc24b;
   border-bottom: 3px dashed #0e606b;
   border-radius: 20px;
+
+  @media (max-width: 540px) {
+    font-size: 1.8rem;
+  }
 `;
 
 const HeadersContainer = styled.div`
@@ -32,7 +39,7 @@ const HeadersContainer = styled.div`
   margin: 5% auto auto auto;
 `;
 
-const Button = styled.button`
+const Button = styled(Link)`
   width: 200px;
   padding: 5px 24px;
   font: normal 400 2rem "Autour One";
@@ -40,6 +47,10 @@ const Button = styled.button`
   background-color: white;
   border: 3px solid #f47068;
   border-radius: 20px;
+
+  @media (max-width: 540px) {
+    font-size: 1.8rem;
+  }
 `;
 
 const ButtonTest = styled(Link)`
@@ -52,6 +63,10 @@ const ButtonTest = styled(Link)`
   background-color: white;
   border: 3px solid #f47068;
   border-radius: 20px;
+
+  @media (max-width: 540px) {
+    font-size: 1.8rem;
+  }
 `;
 
 const SubButton = styled.button`
@@ -62,7 +77,12 @@ const SubButton = styled.button`
   background-color: #f47068;
   border: 3px solid #f47068;
   border-radius: 20px;
+
+  @media (max-width: 540px) {
+    font-size: 1.8rem;
+  }
 `;
+
 const ButtonsContainer = styled.div`
   display: flex;
   justify-content: space-around;
@@ -73,6 +93,16 @@ const ButtonsContainer = styled.div`
 const LayoutLearn = () => {
   const [data, setData] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [selectedAnswer, setSelectedAnswer] = useState(null);
+  const [productName, setProductName] = useState('Product A');
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.state && location.state.productname) {
+      setProductName(location.state.productname);
+    }
+  }, [location.state]);
 
   useEffect(() => {
     // Lấy dữ liệu từ cơ sở dữ liệu và set vào state
@@ -87,74 +117,131 @@ const LayoutLearn = () => {
       // Gọi API hoặc truy vấn cơ sở dữ liệu để lấy dữ liệu
       // Giả sử dữ liệu trả về là một mảng các đối tượng
       const data = [
-        {          
-          kind: "Game",
-          category: "Game1",
-          order: 1,
-          lessonTitle: "Lesson 1",
-          question: "What is the correct form of the verb?",
-          answerOptions: [
-            { id: "A", text: "Option A" },
-            { id: "B", text: "Option B" },
-            { id: "C", text: "Option C" },
-            { id: "D", text: "Option D" },
-          ],
-          correctAnswer: "A",
-        },
         {
-          kind: "Game",
-          category: "Game2",
-          order: 2,
-          lessonTitle: "Write vocabulary",
-          question: "Write",
-          answerOptions: [
+          "_id": {
+            "$oid": "646b33846ab3c546adefb8c9"
+          },
+          "kind": "Game",
+          "category": "Game1",
+          "lesson": "1",
+          "topic": "fruits",
+          "lessonTitle": "Lesson 1",
+          "question": "What does 'water melon' means in Vietnamese?",
+          "answerOptions": [
             {
-                id: "image",
-                imageUrl: 'https://via.placeholder.com/200x200',
-                vietnamesePhrase: "Quả táo", // Cụm từ tiếng Việt
-              },
+              "id": "A",
+              "text": "Quả dưa hấu"
+            },
+            {
+              "id": "B",
+              "text": "Quả táo"
+            },
+            {
+              "id": "C",
+              "text": "Quả xoài"
+            },
+            {
+              "id": "D",
+              "text": "Quả măng cụt"
+            }
           ],
-          correctAnswer: "Apple",
+          "image": "watermelon.jpg",
+          "correctAnswer": "A"
         },
         {
-          kind: "Game",
-          category: "Game4",
-          order: 3,
-          lessonTitle: "Lesson 3",
-          question: "Complete the sentence with the correct word.",
-          answerOptions: [
-            { id: "1", text: "Option A" },
-            { id: "2", text: "Option B" },
-            { id: "3", text: "Option C" },
-            { id: "4", text: "Option D" },
+          "_id": {
+            "$oid": "646b33846ab3c546adefb8ca"
+          },
+          "kind": "Game",
+          "category": "Game1",
+          "lesson": "2",
+          "topic": "fruits",
+          "lessonTitle": "Lesson 2",
+          "question": "What does 'mangosteen' means in Vietnamese?",
+          "answerOptions": [
+            {
+              "id": "A",
+              "text": "Quả dừa"
+            },
+            {
+              "id": "B",
+              "text": "Quả bơ"
+            },
+            {
+              "id": "C",
+              "text": "Quả chôm chôm"
+            },
+            {
+              "id": "D",
+              "text": "Quả măng cụt"
+            }
           ],
-          correctAnswer: "C",
+          "image": "mangosteen.jpg",
+          "correctAnswer": "D"
         },
         {
-            kind: "Game",
-            category: "Game3",
-            order: 3,
-            lessonTitle: "Lesson 4",
-            question: "Complete the sentence with the correct word.",
-            textOptions: [
-                { id: "1", text: "Apple" },
-                { id: "2", text: "Bút chì" },
-                { id: "3", text: "Ruler" },
-                { id: "4", text: "Nước" },
-              ],
-            answerOptions: [
-              { id: "a", text: "Cây thước" },
-              { id: "b", text: "Water" },
-              { id: "c", text: "Pencil" },
-              { id: "d", text: "Trái táo" },
-            ],
-            correctAnswer: "C",
+          "_id": {
+            "$oid": "646b33846ab3c546adefb8cb"
           },
-          {
-            kind: "BigTest",
+          "kind": "Game",
+          "category": "Game1",
+          "lesson": "3",
+          "topic": "fruits",
+          "lessonTitle": "Lesson 3",
+          "question": "What does 'rambutan' means in Vietnamese?",
+          "answerOptions": [
+            {
+              "id": "A",
+              "text": "Quả chôm chôm"
+            },
+            {
+              "id": "B",
+              "text": "Quả măng cụt"
+            },
+            {
+              "id": "C",
+              "text": "Quả nhãn"
+            },
+            {
+              "id": "D",
+              "text": "Quả táo"
+            }
+          ],
+          "image": "rambutan.jpg",
+          "correctAnswer": "A"
+        },
+        {
+          "_id": {
+            "$oid": "646b33846ab3c546adefb8cc"
           },
+          "kind": "Game",
+          "category": "Game1",
+          "lesson": "4",
+          "topic": "fruits",
+          "lessonTitle": "Lesson 4",
+          "question": "What does 'payaya' means in Vietnamese?",
+          "answerOptions": [
+            {
+              "id": "A",
+              "text": "Quả đu đủ"
+            },
+            {
+              "id": "B",
+              "text": "Quả táo"
+            },
+            {
+              "id": "C",
+              "text": "Quả xoài"
+            },
+            {
+              "id": "D",
+              "text": "Quả thơm"
+            }
+          ],
+          "image": "payaya.jpg",
+          "correctAnswer": "A"
+        }
       ];
-      
       resolve(data);
     });
   };
@@ -163,42 +250,47 @@ const LayoutLearn = () => {
     if (currentIndex > 0) {
       setCurrentIndex(currentIndex - 1);
     }
-  };  
+  };
 
   const handleNextButtonClick = () => {
     if (currentIndex < data.length - 1) {
-        setCurrentIndex(currentIndex + 1);
+      setCurrentIndex(currentIndex + 1);
     }
   };
-  
+
+  const handleAnswerSelected = (answerId) => {
+    setSelectedAnswer(answerId);
+    // Xử lý giá trị answerId đã chọn từ Game1 tại đây
+    console.log("Selected answer:", answerId);
+  };
+
   return (
     <>
       <BigText>Word pairing</BigText>
       <HeadersContainer>
-      <Header>{data[currentIndex]?.kind}</Header>
-      <Header>{data[currentIndex]?.lessonTitle}</Header>
-      <Header>{data[currentIndex]?.order}/4</Header>
-    </HeadersContainer>
-        {data[currentIndex]?.category === 'Game1' && <Game1  data={data[currentIndex]}/>}
-        {data[currentIndex]?.category === 'Game2' && <Game2  data={data[currentIndex]}/>}
-        {data[currentIndex]?.category === 'Game3' && <Game3  data={data[currentIndex]}/>}
-        {data[currentIndex]?.category === 'Game4' && <Game4  data={data[currentIndex]}/>}
+        <Header>{data[currentIndex]?.kind}</Header>
+        <Header>{data[currentIndex]?.lessonTitle}</Header>
+        <Header>{data[currentIndex]?.lesson}/4</Header>
+      </HeadersContainer>
+      {data[currentIndex]?.category === 'Game1' && <Game1 data={data[currentIndex]} onSelectAnswer={handleAnswerSelected} />}
+      {data[currentIndex]?.category === 'Game2' && <Game2 data={data[currentIndex]} />}
+      {data[currentIndex]?.category === 'Game3' && <Game3 data={data[currentIndex]} />}
+      {data[currentIndex]?.category === 'Game4' && <Game4 data={data[currentIndex]} />}
       <ButtonsContainer>
-        <Button onClick={handlePrevButtonClick}>Pre</Button>
+        {currentIndex === 0 ? (
+          <Button to={'/vocab'} state={{ productname: productName}}>Pre</Button>
+        ) : (
+          <Button onClick={handlePrevButtonClick}>Pre</Button>
+        )}
         <SubButton>Submit</SubButton>
-        {
-          data[currentIndex + 1]?.kind === 'BigTest' ? (
-            <ButtonTest to="/bigtest">Next</ButtonTest>
-          ) : (
-            <Button onClick={handleNextButtonClick}>Next</Button>
-          )
-        }
+        {data[currentIndex + 1]?.kind === 'BigTest' ? (
+          <ButtonTest to="/bigtest">Next</ButtonTest>
+        ) : (
+          <Button onClick={handleNextButtonClick}>Next</Button>
+        )}
       </ButtonsContainer>
-
-      
     </>
-   
   );
 };
 
-export default LayoutLearn ;
+export default LayoutLearn;
