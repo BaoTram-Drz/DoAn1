@@ -47,7 +47,6 @@ const ImageAns = styled.img`
 `;
 
 const Game1 = ({ data, onSelectAnswer }) => {
-  const [message, setMessage] = useState("");
   const [activeId, setActiveId] = useState(null);
 
   if (!data) {
@@ -56,13 +55,6 @@ const Game1 = ({ data, onSelectAnswer }) => {
 
   const handleClick = (answerId) => {
     setActiveId(answerId);
-    if (answerId === data.correctAnswer) {
-      setMessage("Chúc mừng! Bạn đã chọn đúng đáp án.");
-    } else {
-      setMessage("Sai");
-    }
-
-    // Gọi hàm callback và truyền giá trị answerId về trang chính
     onSelectAnswer(answerId);
   };
 
@@ -115,7 +107,6 @@ const Game1 = ({ data, onSelectAnswer }) => {
           </tbody>
         </Table>
       </TableWrapper>
-      {message && <p>{message}</p>}
     </>
   );
 };

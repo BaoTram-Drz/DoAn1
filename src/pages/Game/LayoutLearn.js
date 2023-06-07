@@ -39,7 +39,7 @@ const HeadersContainer = styled.div`
   margin: 5% auto auto auto;
 `;
 
-const Button = styled(Link)`
+const ButtonLeft = styled(Link)`
   width: 200px;
   padding: 5px 24px;
   font: normal 400 2rem "Autour One";
@@ -47,11 +47,30 @@ const Button = styled(Link)`
   background-color: white;
   border: 3px solid #f47068;
   border-radius: 20px;
+  text-align: center;
+  text-decoration: none;
 
   @media (max-width: 540px) {
     font-size: 1.8rem;
   }
 `;
+
+const ButtonRight = styled(Link)`
+  width: 200px;
+  padding: 5px 24px;
+  font: normal 400 2rem "Autour One";
+  color: ${props => (props.isAnswerCorrect ? "#ffc24b" : "gray")};
+  background-color: white;
+  border: 3px solid ${props => (props.isAnswerCorrect ? "#f47068" : "gray")};
+  border-radius: 20px;
+  text-align: center;
+  text-decoration: none;
+
+  @media (max-width: 540px) {
+    font-size: 1.8rem;
+  }
+`;
+
 
 const ButtonTest = styled(Link)`
   width: 200px;
@@ -95,7 +114,7 @@ const LayoutLearn = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [productName, setProductName] = useState('Product A');
-  const navigate = useNavigate();
+  const [isAnswerCorrect, setIsAnswerCorrect] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -253,15 +272,26 @@ const LayoutLearn = () => {
   };
 
   const handleNextButtonClick = () => {
-    if (currentIndex < data.length - 1) {
+    if (currentIndex < data.length - 1 && selectedAnswer !== null && isAnswerCorrect) {
       setCurrentIndex(currentIndex + 1);
+      setSelectedAnswer(null);
+      setIsAnswerCorrect(false);
     }
   };
 
   const handleAnswerSelected = (answerId) => {
     setSelectedAnswer(answerId);
-    // Xử lý giá trị answerId đã chọn từ Game1 tại đây
-    console.log("Selected answer:", answerId);
+  };
+
+  const submitAnswerSelected = () => {
+    const correctAnswer = data[currentIndex]?.correctAnswer;
+    if(correctAnswer === selectedAnswer){
+      console.log("chọn đúng");
+      setIsAnswerCorrect(true);
+    }else {
+      console.log("chọn sai");
+      setIsAnswerCorrect(false);
+    }
   };
 
   return (
@@ -277,16 +307,31 @@ const LayoutLearn = () => {
       {data[currentIndex]?.category === 'Game3' && <Game3 data={data[currentIndex]} />}
       {data[currentIndex]?.category === 'Game4' && <Game4 data={data[currentIndex]} />}
       <ButtonsContainer>
+
         {currentIndex === 0 ? (
-          <Button to={'/vocab'} state={{ productname: productName}}>Pre</Button>
+          <ButtonLeft to={'/vocab'} state={{ productname: productName}}>Pre</ButtonLeft>
         ) : (
-          <Button onClick={handlePrevButtonClick}>Pre</Button>
+          <ButtonLeft onClick={handlePrevButtonClick}>
+            Pre
+          </ButtonLeft>
         )}
-        <SubButton>Submit</SubButton>
+
+        <SubButton onClick={submitAnswerSelected}>
+          Submit
+        </SubButton>
+
         {data[currentIndex + 1]?.kind === 'BigTest' ? (
-          <ButtonTest to="/bigtest">Next</ButtonTest>
+          <ButtonTest to="/bigtest">
+            Next
+          </ButtonTest>
         ) : (
-          <Button onClick={handleNextButtonClick}>Next</Button>
+          <ButtonRight
+            onClick={handleNextButtonClick}
+            disabled={!isAnswerCorrect}
+            isAnswerCorrect={isAnswerCorrect}
+          >
+            Next
+          </ButtonRight>
         )}
       </ButtonsContainer>
     </>
