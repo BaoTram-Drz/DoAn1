@@ -18,42 +18,50 @@ const ButtonsContainer = styled.div`
     flex-wrap: wrap;
     margin: 3% auto 5% auto;
 `;
-const Game4 = ({data}) => {
+const Game4 = ({data, onSelectAnswer}) => {
 
     const [draggedItems, setDraggedItems] = useState([]);
 
-    if (!data) {
-        return <p>Loading...</p>;
-    }
-
-    const handleDrop = (id) => {
-        setDraggedItems((prev) => [...prev, id]);
-      };
+    useEffect(() => {
+      const ids = Object.values(draggedItems).reduce((acc, value) => acc + value, '');
+      onSelectAnswer(ids);
+    }, [draggedItems, onSelectAnswer]);
     
-      const resetDraggedItems = (resetItems) => {
-        setDraggedItems((prev) => prev.filter((item) => !resetItems.includes(item)));
-      };
+    const handleDrop = (id) => {
+      setDraggedItems((prev) => [...prev, id]);
+    };
 
-      const answerOptions = data.answerOptions;
+    if (!data) {
+      return <p>Loading...</p>;
+    }
+  
 
-      return (
-        <>
-          <Answers>{data.question}</Answers>
-          <DndProvider backend={HTML5Backend}>
-            <DropZone onDrop={handleDrop}  resetDraggedItems={resetDraggedItems}/>
-            <ButtonsContainer>
-              {answerOptions.map((item) => {
-                if (draggedItems.includes(item.id)) {
-                  return null;
-                }
-                return (
-                  <DraggableButton key={item.id} id={item.id} text={item.text} />
-                );
-              })}
-            </ButtonsContainer>
-          </DndProvider>
-        </>
-      );
+    console.log(draggedItems); 
+
+    const resetDraggedItems = (resetItems) => {
+      setDraggedItems((prev) => prev.filter((item) => !resetItems.includes(item)));
+    };
+
+    const answerOptions = data.answerOptions;
+
+    return (
+      <>
+        <Answers>{data.question}</Answers>
+        <DndProvider backend={HTML5Backend}>
+          <DropZone onDrop={handleDrop}  resetDraggedItems={resetDraggedItems}/>
+          <ButtonsContainer>
+            {answerOptions.map((item) => {
+              if (draggedItems.includes(item.id)) {
+                return null;
+              }
+              return (
+                <DraggableButton key={item.id} id={item.id} text={item.text} />
+              );
+            })}
+          </ButtonsContainer>
+        </DndProvider>
+      </>
+    );
 };
 
 export default Game4;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -35,22 +35,26 @@ const TableCell = styled.td`
 `;
 
 
-const Game3 = ({ data }) => {
+const Game3 = ({ data, onSelectAnswer }) => {
   const [draggedItems, setDraggedItems] = useState([]);
+  const [tableData, setTableData] = useState([]);
+
+  useEffect(() => {
+    const tableString = tableData.map((item) => `${item.id}: ${item.text}`).join(", ");
+    onSelectAnswer(tableString);
+  }, [tableData, onSelectAnswer]);
 
   if (!data) {
     return <p>Loading...</p>;
   }
 
-  const handleDrop = (id) => {
+  const handleDrop = (id, text) => {
     setDraggedItems((prev) => [...prev, id]);
+    setTableData((prev) => [...prev, { id, text }]);
   };
-
   const resetDraggedItems = (resetItems) => {
     setDraggedItems((prev) => prev.filter((item) => !resetItems.includes(item)));
   };
-
-
 
   const textOptions = data.textOptions;
   const answerOptions = data.answerOptions;
@@ -67,10 +71,10 @@ const Game3 = ({ data }) => {
                 </tr>
                 <tr>
                   <td>
-                    <Game3Drop
-                      onDrop={handleDrop}
-                      resetDraggedItems={resetDraggedItems}
-                    />
+                  <Game3Drop
+                    onDrop={(droppedText) => handleDrop(item.id, droppedText)}
+                    resetDraggedItems={resetDraggedItems}
+                  />
                   </td>
                 </tr>
             </TableDiv>

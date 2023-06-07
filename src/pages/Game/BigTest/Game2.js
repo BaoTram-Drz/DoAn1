@@ -45,16 +45,14 @@ const ImageAns = styled.img`
     height: 50%;
 `;
 
-const Game2 = ({data}) => {
-  
-  const [message, setMessage] = useState("");
-  
+const Game2 = ({data, onSelectAnswer}) => {
+    
   if (!data) {
     return <p>Loading...</p>;
   }
 
   const handleInputChange = (event) => {
-    setMessage(event.target.value);
+    onSelectAnswer(event.target.value);
   };
   
   return (
@@ -66,7 +64,7 @@ const Game2 = ({data}) => {
             <TableRow>
               <td>
                 <TableCell>
-                  <ImageAns src={data.answerOptions[0].imageUrl} alt="A" /> 
+                  <ImageAns src={data.image} alt="A" /> 
                 </TableCell>
               </td>
               <td>
@@ -76,15 +74,13 @@ const Game2 = ({data}) => {
             <TableRow>
               <td>
                 <TableCell>
-                    {data.answerOptions[0].vietnamesePhrase}
+                    {data.vietnamesePhrase}
                 </TableCell>
               </td>
             </TableRow>
           </tbody>
         </Table>
-      </TableWrapper>
-      {message && <p>{message}</p>}
-     
+      </TableWrapper>     
     </>
    
   );

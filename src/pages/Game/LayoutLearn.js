@@ -117,6 +117,16 @@ const LayoutLearn = () => {
   const [isAnswerCorrect, setIsAnswerCorrect] = useState(false);
   const location = useLocation();
 
+
+  useEffect(() => {
+    if (data[currentIndex]?.state === "true") {
+      setIsAnswerCorrect(true);
+    } else {
+      setIsAnswerCorrect(false);
+    }
+  }, [data, currentIndex]);
+
+
   useEffect(() => {
     if (location.state && location.state.productname) {
       setProductName(location.state.productname);
@@ -145,6 +155,7 @@ const LayoutLearn = () => {
           "lesson": "1",
           "topic": "fruits",
           "lessonTitle": "Lesson 1",
+          "state":"true",
           "question": "What does 'water melon' means in Vietnamese?",
           "answerOptions": [
             {
@@ -172,93 +183,61 @@ const LayoutLearn = () => {
             "$oid": "646b33846ab3c546adefb8ca"
           },
           "kind": "Game",
-          "category": "Game1",
+          "category": "Game2",
           "lesson": "2",
           "topic": "fruits",
           "lessonTitle": "Lesson 2",
-          "question": "What does 'mangosteen' means in Vietnamese?",
-          "answerOptions": [
-            {
-              "id": "A",
-              "text": "Quả dừa"
-            },
-            {
-              "id": "B",
-              "text": "Quả bơ"
-            },
-            {
-              "id": "C",
-              "text": "Quả chôm chôm"
-            },
-            {
-              "id": "D",
-              "text": "Quả măng cụt"
-            }
-          ],
+          "state": "true",
+          "question": "Write text",
+          "vietnamesePhrase": "Trái táo",
           "image": "mangosteen.jpg",
-          "correctAnswer": "D"
+          "correctAnswer": "apple"
         },
         {
           "_id": {
             "$oid": "646b33846ab3c546adefb8cb"
           },
           "kind": "Game",
-          "category": "Game1",
+          "category": "Game3",
           "lesson": "3",
           "topic": "fruits",
           "lessonTitle": "Lesson 3",
+          "state":"false",
           "question": "What does 'rambutan' means in Vietnamese?",
-          "answerOptions": [
-            {
-              "id": "A",
-              "text": "Quả chôm chôm"
-            },
-            {
-              "id": "B",
-              "text": "Quả măng cụt"
-            },
-            {
-              "id": "C",
-              "text": "Quả nhãn"
-            },
-            {
-              "id": "D",
-              "text": "Quả táo"
-            }
+          "textOptions": [
+            { id: "1", text: "Apple" },
+            { id: "2", text: "Bút chì" },
+            { id: "3", text: "Ruler" },
+            { id: "4", text: "Nước" },
           ],
+        "answerOptions": [
+          { id: "a", text: "Cây thước" },
+          { id: "b", text: "Water" },
+          { id: "c", text: "Pencil" },
+          { id: "d", text: "Trái táo" },
+        ],
           "image": "rambutan.jpg",
-          "correctAnswer": "A"
+          "correctAnswer": "1: d, 2: c, 3: a, 4: b"
         },
         {
           "_id": {
             "$oid": "646b33846ab3c546adefb8cc"
           },
           "kind": "Game",
-          "category": "Game1",
+          "category": "Game4",
           "lesson": "4",
           "topic": "fruits",
           "lessonTitle": "Lesson 4",
+          "state":"false",
           "question": "What does 'payaya' means in Vietnamese?",
           "answerOptions": [
-            {
-              "id": "A",
-              "text": "Quả đu đủ"
-            },
-            {
-              "id": "B",
-              "text": "Quả táo"
-            },
-            {
-              "id": "C",
-              "text": "Quả xoài"
-            },
-            {
-              "id": "D",
-              "text": "Quả thơm"
-            }
+            { id: "1", text: "Option A" },
+            { id: "2", text: "Option B" },
+            { id: "3", text: "Option C" },
+            { id: "4", text: "Option D" },
           ],
           "image": "payaya.jpg",
-          "correctAnswer": "A"
+          "correctAnswer": "1234"
         }
       ];
       resolve(data);
@@ -272,7 +251,7 @@ const LayoutLearn = () => {
   };
 
   const handleNextButtonClick = () => {
-    if (currentIndex < data.length - 1 && selectedAnswer !== null && isAnswerCorrect) {
+    if (currentIndex < data.length - 1 && isAnswerCorrect ) {
       setCurrentIndex(currentIndex + 1);
       setSelectedAnswer(null);
       setIsAnswerCorrect(false);
@@ -282,6 +261,8 @@ const LayoutLearn = () => {
   const handleAnswerSelected = (answerId) => {
     setSelectedAnswer(answerId);
   };
+  
+  console.log(selectedAnswer);
 
   const submitAnswerSelected = () => {
     const correctAnswer = data[currentIndex]?.correctAnswer;
@@ -302,10 +283,11 @@ const LayoutLearn = () => {
         <Header>{data[currentIndex]?.lessonTitle}</Header>
         <Header>{data[currentIndex]?.lesson}/4</Header>
       </HeadersContainer>
-      {data[currentIndex]?.category === 'Game1' && <Game1 data={data[currentIndex]} onSelectAnswer={handleAnswerSelected} />}
-      {data[currentIndex]?.category === 'Game2' && <Game2 data={data[currentIndex]} />}
-      {data[currentIndex]?.category === 'Game3' && <Game3 data={data[currentIndex]} />}
-      {data[currentIndex]?.category === 'Game4' && <Game4 data={data[currentIndex]} />}
+      '{selectedAnswer}'
+      {data[currentIndex]?.category === 'Game1' && <Game1 data={data[currentIndex]} onSelectAnswer={handleAnswerSelected}/> }
+      {data[currentIndex]?.category === 'Game2' && <Game2 data={data[currentIndex]} onSelectAnswer={handleAnswerSelected}/> }
+      {data[currentIndex]?.category === 'Game3' && <Game3 data={data[currentIndex]} onSelectAnswer={handleAnswerSelected}/> }
+      {data[currentIndex]?.category === 'Game4' && <Game4 data={data[currentIndex]} onSelectAnswer={handleAnswerSelected}/> }
       <ButtonsContainer>
 
         {currentIndex === 0 ? (

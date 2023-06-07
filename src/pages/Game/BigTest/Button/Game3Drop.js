@@ -24,15 +24,18 @@ const TextBox = styled.div`
     `}
 `;
 
-const Game3Drop = () => {
+const Game3Drop = ({ onDrop }) => {
   const [droppedText, setDroppedText] = useState(null);
 
   const [{ isOver }, drop] = useDrop(() => ({
     accept: 'button',
     drop: (item) => {
-      if(droppedText == null)
+      if (droppedText == null) {
         setDroppedText(item.text);
-      else setDroppedText(null);
+        onDrop(item.id, item.text); // Truyền id của bảng và text của đoạn văn bản
+      } else {
+        setDroppedText(null);
+      }
     },
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
