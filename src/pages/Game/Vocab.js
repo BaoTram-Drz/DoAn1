@@ -6,6 +6,7 @@ import { storage } from '../../firebase/firebase'
 import { ref } from 'firebase/storage'
 import { FaVolumeUp } from 'react-icons/fa'
 import { useLocation } from 'react-router-dom';
+import { getVocab } from "../../API/vocabApi";
 
 const BigText = styled.p`
   margin: 8% auto 3% auto;
@@ -189,25 +190,19 @@ const Vocab = () => {
   const location = useLocation();
   const [productName, setProductName] = useState('Product A');
 
+  // Get product name
   useEffect(() => {
     if (location.state && location.state.productname) {
       setProductName(location.state.productname);
     }
   }, [location.state]);
 
-
+  // Api
   useEffect(() => {
     const fetchData = async () => {
       try {
         const topicCourse = { topic: productName.toLowerCase() };
-        const response = await fetch('http://localhost:5001/api/vocabulary/getVocab', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(topicCourse)
-        });
-        const result = await response.json();
+        const result = await getVocab(topicCourse);
 
         for (let i = 0; i < result.length; i++) {
           const path = `${topicCourse.topic}/${result[i].image}`;

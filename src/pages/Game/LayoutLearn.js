@@ -7,6 +7,7 @@ import Game3 from './BigTest/Game3';
 import Game4 from './BigTest/Game4';
 import Fireworks from './FireWorks';
 import datas from './data.json'
+import { getLearns } from '../../API/layoutLearnApi';
 
 
 const BigText = styled.p`
@@ -21,6 +22,39 @@ const BigText = styled.p`
   @media (max-width: 768px) {
     font-size: 2.5rem;
   }
+  @media (max-width: 800px) {
+    margin: 15% auto auto auto;
+  }
+
+  @media (max-width: 1200px) {
+    margin-top: 10%;
+    font-size: 2.5rem;
+  }
+
+  @media (max-width: 912px) {
+    margin-top: 10%;
+    font-size: 2.5rem;
+  }
+
+  @media (max-width: 768px) {
+    margin-top: 10%;
+    font-size: 2.5rem;
+  }
+
+  @media (max-width: 540px) {
+    margin-top: 15%;
+    font-size: 2.5rem;
+  }
+
+  @media (max-width: 480px) {
+    margin-top: 20%;
+    font-size: 2rem;
+  }
+
+  @media (max-width: 300px) {
+    margin-top: 30%;
+    font-size: 1.5rem;
+  }
 `;
 
 const Header = styled.div`
@@ -29,9 +63,27 @@ const Header = styled.div`
   color: #ffc24b;
   border-bottom: 3px dashed #0e606b;
   border-radius: 20px;
+  text-align: center;
+  
+  @media (max-width: 1200px) {
+    width: 150px;
+    font-size: 1.8rem;
+  }
 
   @media (max-width: 540px) {
-    font-size: 1.8rem;
+    width: 100px;
+    font-size: 1.2rem;
+  }
+
+  @media (max-width: 480px) {
+    width: 80px;
+    padding: 5px 12px;
+    font-size: 1rem;
+    border-width: 2px;
+  }
+  @media (max-width: 280px) {
+    padding: 5px 0px;
+    font-size: 0.8rem;
   }
 `;
 
@@ -43,7 +95,7 @@ const HeadersContainer = styled.div`
 `;
 
 const ButtonLeft = styled(Link)`
-  width: 200px;
+  width: 150px;
   padding: 5px 24px;
   font: normal 400 2rem 'Autour One';
   color: #ffc24b;
@@ -54,13 +106,25 @@ const ButtonLeft = styled(Link)`
   text-decoration: none;
   z-index: 999;
 
-  @media (max-width: 540px) {
+  @media (max-width: 1200px) {
+    width: 100px;
     font-size: 1.8rem;
+  }
+
+  @media (max-width: 540px) {
+    width: 60px;
+    font-size: 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    width: 50px;
+    padding: 5px 12px;
+    font-size: 1rem;
   }
 `;
 
 const ButtonRight = styled(Link)`
-  width: 200px;
+  width: 150px;
   padding: 5px 24px;
   font: normal 400 2rem 'Autour One';
   color: ${(props) => (props.isAnswerCorrect ? '#ffc24b' : 'gray')};
@@ -71,8 +135,20 @@ const ButtonRight = styled(Link)`
   text-decoration: none;
   z-index: 999;
 
-  @media (max-width: 540px) {
+  @media (max-width: 1200px) {
+    width: 100px;
     font-size: 1.8rem;
+  }
+
+  @media (max-width: 540px) {
+    width: 60px;
+    font-size: 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    width: 50px;
+    padding: 5px 12px;
+    font-size: 1rem;
   }
 `;
 
@@ -88,8 +164,20 @@ const ButtonTest = styled(Link)`
   border-radius: 20px;
   z-index: 2;
 
-  @media (max-width: 540px) {
+  @media (max-width: 1200px) {
+    width: 100px;
     font-size: 1.8rem;
+  }
+
+  @media (max-width: 540px) {
+    width: 60px;
+    font-size: 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    width: 30px;
+    padding: 5px 12px;
+    font-size: 1rem;
   }
 `;
 
@@ -107,8 +195,20 @@ const SubButton = styled.button`
     border: 3px solid black;
   }
 
-  @media (max-width: 540px) {
+  @media (max-width: 1200px) {
+    width: 200px;
     font-size: 1.8rem;
+  }
+
+  @media (max-width: 540px) {
+    width: 150px;
+    font-size: 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    width: 100px;
+    padding: 5px 12px;
+    font-size: 1rem;
   }
 `;
 
@@ -173,17 +273,17 @@ const LayoutLearn = () => {
   }, [location.state]);
 
   useEffect(() => {
-    fetchDataFromDatabase()
-      .then((response) => setData(response))
-      .catch((error) => console.error(error));
+    const fetchLearns = async () => {
+      try {
+        //const learnData = await getLearns();
+        const learnData = datas;
+        setData(learnData);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchLearns();
   }, []);
-
-  const fetchDataFromDatabase = () => {
-    return new Promise((resolve, reject) => {
-      const data = datas;
-      resolve(data);
-    });
-  };
 
   const handlePrevButtonClick = () => {
     if (currentIndex > 0) {

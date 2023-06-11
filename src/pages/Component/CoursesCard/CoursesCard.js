@@ -95,7 +95,7 @@ const CardListContainer = styled.div`
 `;
 
 const Card = styled.div`
-  height: 500px;
+  height: 540px;
   background-image: linear-gradient(#ffb3ae, #FFF4F1);
   border: 1px solid #ffc24b;
   border-radius: 20px;
@@ -114,7 +114,7 @@ const Card = styled.div`
 
 const ImgContainer = styled.div`
   display: flex;
-  margin: 10% auto;
+  margin: 10% auto 5% auto;
   width: 70%;
   height: calc(50%);
   background: #FFFFFF;
@@ -191,6 +191,8 @@ const Name = styled.h2`
 `;
 
 const Description = styled.p`
+  margin-left: 12px;
+  margin-right: 12px;
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 400;
@@ -242,9 +244,48 @@ const LearnBtn = styled(Link)`
       font-size: 1rem;
     }
 `;
+const PrevArrow = (props) => (
+  <PrevButton {...props}>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M15 18l-6-6 6-6" />
+    </svg>
+  </PrevButton>
+);
 
+const NextArrow = (props) => (
+  <NextButton {...props}>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M9 18l6-6-6-6" />
+    </svg>
+  </NextButton>
+);
 function CardList() {
-  const [courses, setCourses] = useState([]);
+  const [courses, setCourses] = useState([]);  
+  const [sliderSettings, setSliderSettings] = useState({
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: window.innerWidth < 600 ? 1 : window.innerWidth < 1000 ? 2 : 3,
+    slidesToScroll: 1,
+    arrows: true,
+    prevArrow: <PrevArrow />,
+    nextArrow: <NextArrow />,
+  });
+
+  useEffect(() => {
+    const handleResize = () => {
+      setSliderSettings(prevState => ({
+        ...prevState,
+        slidesToShow: window.innerWidth < 600 ? 1 : window.innerWidth < 1000 ? 2 : 3,
+      }));
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     const fetchCourses = async () => {
@@ -266,41 +307,13 @@ function CardList() {
     fetchCourses();
   }, []);
 
-
-  const PrevArrow = (props) => (
-    <PrevButton {...props}>
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M15 18l-6-6 6-6" />
-      </svg>
-    </PrevButton>
-  );
-
-  const NextArrow = (props) => (
-    <NextButton {...props}>
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M9 18l6-6-6-6" />
-      </svg>
-    </NextButton>
-  );
-
-  const settings = {
-    dots: false,
-    infinite: true,
-    speed: 500,
-    slidesToShow: window.innerWidth < 600 ? 1 : window.innerWidth < 1000 ? 2 : 3,
-    slidesToScroll: 1,
-    arrows: true,
-    prevArrow: <PrevArrow />,
-    nextArrow: <NextArrow />,
-  };
-
   return (
     <Container>
       <CoursesName>
         <CoursesNameText>Courses for You</CoursesNameText>
       </CoursesName>
       <CardListContainer>
-        <Slider {...settings}>
+        <Slider {...sliderSettings}>
           {courses.map((item, index) => (
             <Card key={index}>
               <ImgContainer><Img imageUrl={item.image} alt={item.name} />

@@ -11,7 +11,6 @@ import BigTest from '../pages/Game/BigTest/BigTest'
 import Scores from '../pages/Scores/Scores'
 import Vocab from '../pages/Game/Vocab'
 import ChangeInfo from '../pages/ChangeInfo/ChangeInfo'
-import Game1Test from '../pages/Game/Game1Test'
 
 const publicRoutes = [
     { path: '/', component: Home},
@@ -27,7 +26,6 @@ const publicRoutes = [
     { path: '/scores', component: Scores},
     { path: '/vocab', component: Vocab},
     { path: '/ChangeInfo', component: ChangeInfo},
-    { path: '/game1test', component: Game1Test},
 ]
 
 const privateRoutes = { 

@@ -43,7 +43,7 @@
       "state": "false",
       "question": "Write text",
       "vietnamesePhrase": "Trái táo",
-      "image": "mangosteen.jpg",
+      "image": "https://via.placeholder.com/200x200.png",
       "correctAnswer": "apple"
     },
     {
