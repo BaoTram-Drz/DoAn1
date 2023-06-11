@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useDrop } from 'react-dnd';
-import styled,{css} from "styled-components";
+import styled, { css } from 'styled-components';
 
 const TextBox = styled.div`
   width: 100%;
   height: 50px;
   margin: auto;
   padding: 12px 0px;
-  font: normal 400 2rem "Roboto";
+  font: normal 400 2rem 'Roboto';
   color: #ffc24b;
   text-align: center;
   border: 2px dashed #ffb3ae;
@@ -32,7 +32,7 @@ const Game3Drop = ({ onDrop }) => {
     drop: (item) => {
       if (droppedText == null) {
         setDroppedText(item.text);
-        onDrop(item.id, item.text); // Truyền id của bảng và text của đoạn văn bản
+        onDrop(item.id, item.text);
       } else {
         setDroppedText(null);
       }
@@ -47,10 +47,9 @@ const Game3Drop = ({ onDrop }) => {
   };
 
   return (
-    <TextBox isOver={isOver} ref={drop}  onClick={handleReset}>
-     {droppedText}
+    <TextBox isOver={isOver} ref={drop} onClick={handleReset}>
+      {droppedText}
     </TextBox>
-    
   );
 };
 

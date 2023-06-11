@@ -1,11 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import CardList from '../Component/CoursesCard/CoursesCard';
+
 import About from '../About/About';
 import Contact from '../Contact/Contact';
 import { Element } from 'react-scroll';
 import Carousel from '../Component/Carousel/Carousel';
 import CircleComponent from '../../Bubble/WordDrop';
+import Fireworks from '../Game/FireWorks';
 
 // import Cube from '../Component/TestThree/Testthree';
 
@@ -88,6 +90,7 @@ function Home() {
         <Container>
             <BigText>Welcome to Engplaygrond</BigText>
             {/* <CircleComponent/> */}
+            {/* <Fireworks/> */}
             <Carousel/>          
             <Element name="about-section">
                 <About />

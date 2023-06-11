@@ -24,13 +24,11 @@ const TableRow = styled.tr`
 `;
 const TableCell = styled.div`
     margin: 2% 10%;  
-    padding: 5px 24px;
-    font: normal 400 28px 'Autour One';
-    color: #0E606B;
-    text-align: center;
+    padding: 10px 24px 5px 24px;
     border: 2px dashed #0e606b;
     border-radius: 50px;
     cursor: pointer;
+    
     &:hover {
       box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
     }
@@ -40,10 +38,17 @@ const TableCell = styled.div`
       box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
     `}
 `;
+const CellText = styled.span`
+    margin-top: 50%;
+    font: normal 400 28px 'Roboto', sans-serif;
+    color: #0E606B;
+    text-align: center;
+`;
 const ImageAns = styled.img`
     width: 40px;
     height: 40px;
     margin: auto 10px;
+    text-align: center;
 `;
 
 const Game1 = ({ data, onSelectAnswer }) => {
@@ -71,7 +76,7 @@ const Game1 = ({ data, onSelectAnswer }) => {
                   isActive={activeId === data.answerOptions[0].id}
                 >
                   <ImageAns src={A} alt="A" /> 
-                  {data.answerOptions[0].text}
+                    <CellText>{data.answerOptions[0].text}</CellText>
                 </TableCell>
               </td>
               <td>
@@ -80,7 +85,7 @@ const Game1 = ({ data, onSelectAnswer }) => {
                   isActive={activeId === data.answerOptions[1].id}
                 >
                   <ImageAns src={B} alt="B" /> 
-                  {data.answerOptions[1].text}
+                    <CellText>{data.answerOptions[1].text}</CellText>
                 </TableCell>
               </td>
             </TableRow>
@@ -91,7 +96,7 @@ const Game1 = ({ data, onSelectAnswer }) => {
                   isActive={activeId === data.answerOptions[2].id}
                 >
                   <ImageAns src={C} alt="C" /> 
-                  {data.answerOptions[2].text}
+                    <CellText>{data.answerOptions[2].text}</CellText>
                 </TableCell>
               </td>
               <td>
@@ -100,7 +105,7 @@ const Game1 = ({ data, onSelectAnswer }) => {
                   isActive={activeId === data.answerOptions[3].id}
                 >
                   <ImageAns src={D} alt="D" /> 
-                  {data.answerOptions[3].text}
+                    <CellText>{data.answerOptions[3].text}</CellText>
                 </TableCell>
               </td>
             </TableRow>

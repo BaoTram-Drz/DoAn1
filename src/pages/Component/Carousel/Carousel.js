@@ -1,6 +1,5 @@
 import React from 'react';
 import { useState, useEffect} from 'react';
-// import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css';
 import styled from 'styled-components';
 import slide1 from './images/slide1.png';
@@ -8,9 +7,6 @@ import slide2 from './images/slide2.png';
 import slide3 from './images/slide3.png';
 import slide4 from './images/slide4.png';
 import slide5 from './images/slide5.png';
-import { getDownloadURL } from 'firebase/storage';
-import { storage } from '../../../firebase/firebase'
-import { ref } from 'firebase/storage'
 
 const SlideshowContainer = styled.div`
   display: flex;
