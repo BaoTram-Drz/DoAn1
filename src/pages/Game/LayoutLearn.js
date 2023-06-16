@@ -6,7 +6,7 @@ import Game2 from './BigTest/Game2';
 import Game3 from './BigTest/Game3';
 import Game4 from './BigTest/Game4';
 import Fireworks from './FireWorks';
-import datas from './data.json'
+import datas from './data.json';
 import { getLearns } from '../../API/layoutLearnApi';
 
 
@@ -382,9 +382,7 @@ const LayoutLearn = () => {
 
         <SubButton onClick={submitAnswerSelected}>Submit</SubButton>
 
-        {data[currentIndex + 1]?.kind === 'BigTest' ? (
-          <ButtonTest to="/bigtest">Next</ButtonTest>
-        ) : (
+        {data[currentIndex + 1]?.kind === 'Game' ? (
           <ButtonRight
             onClick={handleNextButtonClick}
             disabled={!isAnswerCorrect}
@@ -392,6 +390,9 @@ const LayoutLearn = () => {
           >
             Next
           </ButtonRight>
+        ) : (
+          <ButtonTest to="/bigtest" state={{ productname: productName }} >Next</ButtonTest>
+          
         )}
       </ButtonsContainer>
       

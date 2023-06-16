@@ -23,6 +23,21 @@ const TextBox = styled.div`
     css`
       background-color: white;
     `}
+    @media (max-width: 1200px) {
+      font-size: 2rem;
+    }
+    
+    @media (max-width: 540px) {
+      font-size: 1.5rem;
+    }
+  
+    @media (max-width: 480px) {
+      font-size: 1.2rem;
+    }
+  
+    @media (max-width: 300px) {
+      font-size: 1rem;
+    }
 `;
 
 const DropZone = ({ onDrop, resetDraggedItems }) => {

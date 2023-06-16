@@ -2,7 +2,7 @@ import api from './index';
 
 export const getCourseDetail = async (courseId) => {
   try {
-    const response = await api.get(`/courses/${courseId}`);
+    const response = await api.post(`/courses/${courseId}`);
     return response.data;
   } catch (error) {
     throw new Error(error.response.data.message);

@@ -10,6 +10,21 @@ const Answers = styled.p`
     text-align: center;
     padding: 0px 24px;
     font: normal 400 28px 'Autour One';
+    @media (max-width: 1200px) {
+      font-size: 2rem;
+    }
+    
+    @media (max-width: 540px) {
+      font-size: 1.5rem;
+    }
+  
+    @media (max-width: 480px) {
+      font-size: 1.2rem;
+    }
+  
+    @media (max-width: 300px) {
+      font-size: 1rem;
+    }
 `;
 const ButtonsContainer = styled.div`
     width: 80%;
@@ -35,9 +50,6 @@ const Game4 = ({data, onSelectAnswer}) => {
       return <p>Loading...</p>;
     }
   
-
-    console.log(draggedItems); 
-
     const resetDraggedItems = (resetItems) => {
       setDraggedItems((prev) => prev.filter((item) => !resetItems.includes(item)));
     };

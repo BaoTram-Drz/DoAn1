@@ -1,8 +1,9 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
 import { Link } from 'react-router-dom';
 import {FaGooglePlusG} from 'react-icons/fa';
 import image from './image.png'
+import { saveNewUser, saveNewUserWithGG } from "../../API/signUpApi";
 
 const Container = styled.div`
   display: grid;
@@ -158,58 +159,74 @@ const StyledFaGooglePlusG = styled(FaGooglePlusG)`
   height: 30px;
   color: red;
 `;
-const sendInfor = (username,password,email) => {
-  const newUser = {
-    username:username,
-    password: password,
-    email: email
+
+const sendInfor = async (email, name, password, repassword, bday) => {
+  if(password === repassword)
+  {
+    const newUser = {
+      username: name,
+      password: password,
+      email: email,
+      day: bday,
+    };
+    try {
+      const response = await saveNewUser(newUser);
+      console.log('Success:', response);
+    } catch (error) {
+      console.log('Error:', error);
+    }
+  } else{
+    alert(" password not same repassword !");    
+  }  
+};
+
+const signUpWithGoogle = async ()=>{
+  try {
+    const response = await saveNewUserWithGG();
+    console.log('Success:', response);
+  } catch (error) {
+    console.log('Error:', error);
   }
-  fetch('http://localhost:5001/api/users/register', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(newUser)
-  })
-  .then(response => response.json())
-  .then(result => {
-    console.log('Success:', result);
-  })
-  .catch(error => {
-    console.log('Error:', error);
-  });
-}
-const signUpWithGoogle = ()=>{
-  fetch('http://localhost:5001/api/users/testVoice', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-  })
-  .then(response => response.json())
-  .then(result => {
-    console.log('Success:', result);
-  })
-  .catch(error => {
-    console.log('Error:', error);
-  });
 }
 
 const SignUp = () => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [repassword, setRePassword] = useState('');
+  const [bday, setBDay] = useState('');
   return (
     <Container>
       <Image bgImage={image}></Image>
       <FormWrapper>
         <BigText>Sign Up</BigText>
-        <Input type="email" id="email" name="email"  placeholder="Email"/>
-        <Input type="text" id="name" name="name"  placeholder="Your Name"/>
-        <Input type="password" id="pass" name="pass" placeholder="Password"/>
-        <Input type="password" id="repass" name="repass" placeholder="Re-Password"/>
-        <Input type="date" id="bday" name="bday"/>
+        <Input type="email" 
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                name="email" placeholder="Email"/>
+
+        <Input type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                name="name"  placeholder="Your Name"/>
+
+        <Input type="password" 
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                name="pass" placeholder="Password"/>
+
+        <Input type="password" 
+                value={repassword}
+                onChange={(e) => setRePassword(e.target.value)}
+                name="repass" placeholder="Re-Password"/>
+
+        <Input type="date" 
+                value={bday}
+                onChange={(e) => setBDay(e.target.value)}
+                name="bday"/>
+
         <SubmitButton>
-          <LinkLoginBtn  to="/" onClick={()=>sendInfor(document.getElementById('username').value,
-                                                        document.getElementById('nome').value,
-                                                        document.getElementById('email').value)}>
+          <LinkLoginBtn  to="/" onClick={()=>sendInfor(email, name, password, repassword, bday)}>
           Sign Up
           </LinkLoginBtn>
         </SubmitButton> 

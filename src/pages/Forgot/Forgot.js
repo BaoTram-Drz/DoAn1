@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from 'react-router-dom';
 import image from './image.png'
+import { getCode, sendCode } from "../../API/forgotPassApi";
 
 const Container = styled.div`
   display: grid;
@@ -136,21 +137,44 @@ const Line = styled.label`
 `;
 
 const Forgot = () => {
+  const [email, setEmail] = useState('');
+  const [code, setCode] = useState('');
+
+  const handleGetCode = async () => {
+    alert('Get Code')
+    //có backend mới dùng được
+    // try {
+    //   const response = await getCode(email);
+    //   console.log('Success:', response);
+    // } catch (error) {
+    //   console.log('Error:', error);
+    // }
+  };
+
+  const handleVerify = async () => {
+    alert('Verify')
+    // try {
+    //   const response = await sendCode(code);
+    //   console.log('Success:', response);
+    // } catch (error) {
+    //   console.log('Error:', error);
+    // }
+  };
   return (
     <Container>
       <Image bgImage={image}></Image>
       <FormWrapper>
         <BigText>Forgot Password</BigText>
-        <Input type="text" id="nome" name="nome"  placeholder="Email"/>
-        <SendCodeButton>
+        <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter your email"/>
+        <SendCodeButton  onClick={handleGetCode} >
           <LinkLoginBtn>
           Send Code
           </LinkLoginBtn>
         </SendCodeButton>
-        <Line>--------Get-code-before-verify--------</Line>
-        <Input type="email" id="email" name="email" placeholder="Your Code"/>
-        <VerifyButton>
-          <LinkLoginBtn  to="/verify">
+        <Line>--------Get-code-before-verify--------</Line>        
+        <Input type="password" value={code} onChange={(e) => setCode(e.target.value)} placeholder="Enter your code"/>
+        <VerifyButton  onClick={handleVerify}>
+          <LinkLoginBtn  to="/verify" state= { {userMail: email}}>
           Verify
           </LinkLoginBtn>
         </VerifyButton> 

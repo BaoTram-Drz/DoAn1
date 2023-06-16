@@ -9,19 +9,11 @@ const Answers = styled.p`
     text-align: center;
     padding: 0px 24px;
     font: normal 400 2rem 'Autour One';
-
   
     @media (max-width: 1200px) {
       font-size: 2rem;
     }
-  
-    @media (max-width: 912px) {
-      font-size: 2rem;
-    }
-  
-    @media (max-width: 768px) {
-      font-size: 2rem;
-    }
+    
     @media (max-width: 540px) {
       font-size: 1.5rem;
     }
@@ -86,7 +78,7 @@ const TableCell = styled.div`
     ${({ isActive }) =>
     isActive &&
     css`
-      box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+      box-shadow: inset 0 0 10px yellow;
     `}
     @media (max-width: 1200px) {
       

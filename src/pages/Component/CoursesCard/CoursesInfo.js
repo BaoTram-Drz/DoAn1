@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import {getCourseDetail} from '../../../API/coursesDetailApi'
 
 const BigText = styled.div`
   margin: 7% auto auto auto;
@@ -298,29 +299,23 @@ const CoursesInfo = () => {
   }, [location.state]);
 
   useEffect(() => {
-    fetchDataFromDatabase()
-      .then((response) => setData(response))
-      .catch((error) => console.error(error));
-  }, [productName]);
+    const data = [
+      { id: 1, name: "Học từ vựng" },
+      { id: 2, name: "Làm bài tập về từ vựng" },
+      { id: 3, name: "Big Test" }
+    ];
+    setData(data);
+    // const fetchCoursesDetail = async () => {
+    //   try {
+    //     const courseDetail = await getCourseDetail(productName);
+    //     setCourses(courseDetail);
+    //   } catch (error) {
+    //     console.error(error);
+    //   }
+    // };
 
-  const fetchDataFromDatabase = () => {
-    return new Promise((resolve, reject) => {
-      const data = {
-        "Product A": [
-          { id: 1, name: "Học từ vựng" },
-          { id: 2, name: "Làm bài tập về từ vựng" },
-          { id: 3, name: "Big Test" }
-        ],
-        "ASTRONOMY": [
-          { id: 1, name: "Học từ vựng" },
-          { id: 2, name: "Làm bài tập về từ vựng" },
-          { id: 3, name: "Big Test" }
-        ],
-        // ...
-      };
-      resolve(data[productName] || []);
-    });
-  };
+    // fetchCoursesDetail();
+  }, []);
 
   return (
     <>

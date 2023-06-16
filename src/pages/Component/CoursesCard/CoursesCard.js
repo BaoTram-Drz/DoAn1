@@ -297,7 +297,7 @@ function CardList() {
           const downloadURL = await getDownloadURL(ref(storage, path));
           courseList[i].image = downloadURL;
         }
-
+        
         setCourses(courseList);
       } catch (error) {
         console.error(error);

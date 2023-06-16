@@ -1,5 +1,6 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import styled from "styled-components";
+import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import image from './image.png'
 
@@ -118,14 +119,42 @@ const LinkLoginBtn = styled(Link)`
 `;
 
 const VerifyCode = () => {
+  const location = useLocation();
+  const [email, setEmail] = useState(null);
+  const [password, setPassword] = useState('');
+  const [rePassword, setRePassword] = useState('');
+
+  useEffect(() => {
+    if (location.state && location.state.userMail) {
+      setEmail(location.state.userMail);
+    }
+  }, [location.state]);
+
+  const handleSaveNewPass = async () => {
+    if(password === rePassword)
+    {
+      const newUser = {
+        email: email,
+        password: password,
+      };
+      alert(newUser)
+      // try {
+      //   const response = await verifyChangePass(newUser);
+      //   console.log('Success:', response);
+      // } catch (error) {
+      //   console.log('Error:', error);
+      // }
+    }  
+  };
+
   return (
     <Container>
       <Image bgImage={image}></Image>
       <FormWrapper>
         <BigText>verify</BigText>
-        <Input type="text" id="nome" name="nome"  placeholder="Enter your pass"/>
-        <Input type="email" id="email" name="email" placeholder="Enter your pass again"/>
-        <SubmitButton>
+        <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)}  placeholder="Enter your pass"/>
+        <Input type="password" value={rePassword} onChange={(e) => setRePassword(e.target.value)}  placeholder="Enter your pass again"/>
+        <SubmitButton onClick={handleSaveNewPass}>
           <LinkLoginBtn  to="/">
           Save
           </LinkLoginBtn>

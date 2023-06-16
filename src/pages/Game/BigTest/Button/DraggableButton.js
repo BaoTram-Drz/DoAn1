@@ -20,6 +20,23 @@ const StyledButton = styled.button`
     css`
       opacity: 1;
     `}
+
+    @media (max-width: 1200px) {
+      font-size: 2rem;
+    }
+    
+    @media (max-width: 540px) {
+      width: 100%;
+      font-size: 1.5rem;
+    }
+  
+    @media (max-width: 480px) {
+      font-size: 1.2rem;
+    }
+  
+    @media (max-width: 300px) {
+      font-size: 1rem;
+    }
 `;
 const DraggableButton = ({ id, text }) => {
   const [{ isDragging }, drag] = useDrag(() => ({

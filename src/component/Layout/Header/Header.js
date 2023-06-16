@@ -59,14 +59,17 @@ const NavMenuStyled = styled.div`
   @media screen and (max-width: 768px) {
     margin-right: 0; 
   }
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
   
 `;
 
 const NavLinkStyled = styled(Link)`
-  width: 90px;
-  margin: 0.5% ;
-  padding: 0.5% 0.5%;
-  text-align: center;
+  width: 100%;
+  margin: 0.5%;
+  padding: 0.5%;
+  text-align: right;
   color: ${props => props.active ? '#ffc24b' : '#0e606b'};
   text-decoration: none;
   font-size: 1.2rem;
@@ -84,14 +87,10 @@ const NavLinkStyled = styled(Link)`
     padding: 0.5% 0.5%;
     font-size: 0.8rem; /* giảm kích thước font chữ */
   }
-    
-  @media screen and (max-width: 768px) {
-    display: none;
-  }
 `;
 
 const NavScrollLink = styled(ScrollLink)`
-  width: 100px;
+  width: 80px;
   padding: 10px;
   text-align: center;
   color: ${props => props.active ? '#ffc24b' : '#0e606b'};
@@ -111,24 +110,22 @@ const NavScrollLink = styled(ScrollLink)`
     padding: 0.5% 0.5%;
     font-size: 0.8rem; /* giảm kích thước font chữ */
   }
-    
-  @media screen and (max-width: 768px) {
-    display: none;
-  }
 `;
 
 const A = styled.div`
-  width:100%;
+  width: 300px;
   text-align: left;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-left: 0px;
+  padding-right: 50px;
 `;
 
 
 const UserName = styled.span`
-  width: 100px;
-  margin: 0.5%;
-  padding: 0.5% 0.5%;
+  width: 100%;
+  margin: 0.5% auto;
+  padding: 0.5% auto;
+  margin-right: -20px;
+  font-size: 1.2rem;
 
   @media screen and (max-width: 821px) {
     display: none; 
@@ -142,10 +139,6 @@ const DropdownContent = styled.div`
   border: 1px solid #0e606b;
   border-radius: 10px;
   background-color: white;
-
-  @media screen and (max-width: 768px) {
-    
-  }
 `;
 
 const DropdownItem = styled(Link)`
@@ -171,10 +164,10 @@ const DropdownItem = styled(Link)`
   }
 `;
 const StyledFaBars = styled(FaBars)`
+  margin: auto 30px auto auto;
   display: none;  
   cursor: pointer;
   color: #0e606b;
-  margin-right: 10px;
   
   @media (max-width: 768px) {
     display: block;
@@ -262,10 +255,10 @@ function Header() {
                     <DropdownContent>
                       <DropdownItem
                         to="/changeinfo" 
-                        active={ activeSection === 'login'} 
+                        active={ activeSection === 'changeinfo' } 
                         onClick={() => {
-                          setActiveSection('login');
-                          setIsLoggedIn(false);
+                          setActiveSection('changeinfo');
+                          setIsLoggedIn(true);
                         }}
                       >
                         Change info
@@ -307,8 +300,8 @@ function Header() {
                   </NavLinkStyled>              
                 </>
               )}
-            
-            <StyledFaBars onClick={handleMenuClick}/>
+          </NavMenuStyled> 
+          <StyledFaBars onClick={handleMenuClick}/>
             {isOpenMenu && (
                 <DropdownContent>
                 <DropdownItem
@@ -324,21 +317,22 @@ function Header() {
                 {isLoggedIn ? (
                   <>
                     <DropdownItem
-                      to="/" 
-                      active={ activeSection === 'home'} 
+                      to="/changeinfo" 
+                      active={ activeSection === 'changeinfo'} 
                       onClick={() => {
-                        setActiveSection('home');
+                        setActiveSection('changeinfo');
                         setIsOpenMenu(false);
                       }}
                     >
                       Change Info
                     </DropdownItem>
                     <DropdownItem 
-                      to="/changeinfo" 
-                      active={ activeSection === 'changeinfo'} 
+                      to="/login" 
+                      active={ activeSection === 'login'} 
                       onClick={() => {
-                        setActiveSection('changeinfo');
+                        setActiveSection('login');
                         setIsOpenMenu(false);
+                        setIsLoggedIn(false);
                       }}
                     >
                       Logout
@@ -371,8 +365,6 @@ function Header() {
                 
               </DropdownContent> 
             )} 
-          </NavMenuStyled> 
-          
         </HeaderStyled >
       </>
      );
