@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { Link } from 'react-router-dom';
 import login from './login.png'
 import LoginWithGoogle from './LoginWithGG'
+import { useState } from "react";
+import { loginUser} from "../../API/loginApi";
 
 const Container = styled.div`
   display: grid;
@@ -152,18 +154,37 @@ const SubmitGGButton = styled.div`
   background: #FFFFFF;
 
 `;
+const sendInfor = async (email, password) => {
+ 
+    const User = {
+      password: password,
+      email: email,
+    };
+    try {
+      const response = await loginUser(User);
+      localStorage.setItem('isLoggedIn', 'true');
+      localStorage.setItem('user', JSON.stringify(response.user));
+    } catch (error) {
+      console.log('Error:', error);
+    }
+  } 
+
 
 
 const Login = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   return (
     <Container>
       <Image bgImage={login}></Image>
       <FormWrapper>
         <BigText>welcome back</BigText>
-        <Input type="email" id="email" name="email"  placeholder="Email"/>
-        <Input type="password" id="password" name="password" placeholder="Password"/>
+        <Input type="email" id="email" name="email"  value={email}
+          onChange={(e) => setEmail(e.target.value)} placeholder="Email"/>
+        <Input type="password" id="password" value={password}
+          onChange={(e) => setPassword(e.target.value)} name="password" placeholder="Password"/>
         <LinkForgot to="/forgot">Forgot Passwword</LinkForgot>
-        <SubmitButton to="/">
+        <SubmitButton to="/" onClick={() => sendInfor(email, password)}>
           <LinkLoginBtn>
           Send
           </LinkLoginBtn>

@@ -1,10 +1,10 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from 'react-router-dom';
-import {FaGooglePlusG} from 'react-icons/fa';
+import { FaGooglePlusG } from 'react-icons/fa';
 import image from './image.png'
 import { saveNewUser, saveNewUserWithGG } from "../../API/signUpApi";
-
+const toastr = require('toastr');
 const Container = styled.div`
   display: grid;
   grid-template-columns: 2fr 1fr;
@@ -162,27 +162,29 @@ const StyledFaGooglePlusG = styled(FaGooglePlusG)`
   color: red;
 `;
 
-const sendInfor = async (email, name, password, repassword, bday) => {
-  if(password === repassword)
-  {
+const sendInfor = async (email,username, password, repassword, bday, name) => {
+  if (password === repassword) {
     const newUser = {
-      username: name,
+      username: username,
+      name: name,
       password: password,
       email: email,
-      day: bday,
+      dateofbirth: bday,
     };
     try {
       const response = await saveNewUser(newUser);
       console.log('Success:', response);
+      alert('Thành công.')
+      toastr.success('Đăng ký thành công.', 'Thành công.')
     } catch (error) {
       console.log('Error:', error);
     }
-  } else{
-    alert(" password not same repassword !");    
-  }  
+  } else {
+    alert(" password not same repassword !");
+  }
 };
 
-const signUpWithGoogle = async ()=>{
+const signUpWithGoogle = async () => {
   try {
     const response = await saveNewUserWithGG();
     console.log('Success:', response);
@@ -194,6 +196,7 @@ const signUpWithGoogle = async ()=>{
 const SignUp = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [repassword, setRePassword] = useState('');
   const [bday, setBDay] = useState('');
@@ -202,44 +205,51 @@ const SignUp = () => {
       <Image bgImage={image}></Image>
       <FormWrapper>
         <BigText>Sign Up</BigText>
-        <Input type="email" 
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                name="email" placeholder="Email"/>
 
         <Input type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                name="name"  placeholder="Your Name"/>
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          name="name" placeholder="Your Name" />
+          
+        <Input type="date"
+          value={bday}
+          onChange={(e) => setBDay(e.target.value)}
+          name="bday" placeholder="Date Of Birth"/>
 
-        <Input type="password" 
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                name="pass" placeholder="Password"/>
+        <Input type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          name="username" placeholder="Username" />
 
-        <Input type="password" 
-                value={repassword}
-                onChange={(e) => setRePassword(e.target.value)}
-                name="repass" placeholder="Re-Password"/>
+        <Input type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          name="email" placeholder="Email" />
 
-        <Input type="date" 
-                value={bday}
-                onChange={(e) => setBDay(e.target.value)}
-                name="bday"/>
+        <Input type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          name="pass" placeholder="Password" />
+
+        <Input type="password"
+          value={repassword}
+          onChange={(e) => setRePassword(e.target.value)}
+          name="repass" placeholder="Re-Password" />
+
 
         <SubmitButton>
-          <LinkLoginBtn  to="/" onClick={()=>sendInfor(email, name, password, repassword, bday)}>
-          Sign Up
+          <LinkLoginBtn onClick={() => sendInfor(email,username, password, repassword, bday, name)}>
+            Sign Up
           </LinkLoginBtn>
-        </SubmitButton> 
+        </SubmitButton>
         <Line>--------------------or--------------------</Line>
-        
-        <SubmitGGButton onClick={()=>signUpWithGoogle()}
-        ><StyledFaGooglePlusG/><LinkLoginGG>&ensp;Continue with Google</LinkLoginGG></SubmitGGButton>
-              {/*  set giá trị của header là có người dùng  */}
+
+        <SubmitGGButton onClick={() => signUpWithGoogle()}
+        ><StyledFaGooglePlusG /><LinkLoginGG>&ensp;Continue with Google</LinkLoginGG></SubmitGGButton>
+        {/*  set giá trị của header là có người dùng  */}
       </FormWrapper>
     </Container>
-   
+
   );
 };
 

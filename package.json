@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.4.0",
     "dat.gui": "^0.7.9",
+    "express-session": "^1.17.3",
     "firebase": "^9.22.0",
     "firebase-admin": "^11.8.0",
     "leaflet": "^1.9.3",
@@ -32,6 +33,7 @@
     "slick-carousel": "^1.8.1",
     "styled-components": "^5.3.9",
     "three": "^0.150.1",
+    "toastr": "^2.1.4",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
