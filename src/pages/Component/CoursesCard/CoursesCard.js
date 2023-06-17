@@ -8,7 +8,8 @@ import { getDownloadURL } from 'firebase/storage';
 import { storage } from '../../../firebase/firebase'
 import { useState, useEffect } from 'react';
 import { ref } from 'firebase/storage'
-import { getCourses } from '../../../API/coursesApi';
+import { getCoursesVocab, getCoursesRead, getCoursesListen, getCoursesUser } from '../../../API/coursesApi';
+import Game6 from '../../Game/BigTest/Game6';
 
 const Container = styled.div`
 
@@ -17,7 +18,7 @@ const Container = styled.div`
 const CoursesName = styled.div`
   width: 50%;
   height: 150px;
-  margin: 15% auto 3% auto;
+  margin: 10% auto 2% auto;
   background: #FFFFFF;
   border: 5px dashed #FFC24B;
   border-radius: 100px;
@@ -68,9 +69,33 @@ const CoursesNameText = styled.p`
   }
 `;
 
+const CoursesTopicNameText = styled.p`
+  margin: 5% 5% 0% 5%;
+  font-family: 'Margarine';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 2.2rem;
+  line-height: 45px;
+
+  color: #0e606b;
+  @media (max-width: 1200px) {
+    margin-top: 10%;
+    font-size: 2rem;
+  }
+  @media (max-width: 540px) {
+    font-size: 1.8rem;
+  }
+  @media (max-width: 480px) {
+    font-size: 1.5rem;
+  }
+  @media (max-width: 300px) {
+    font-size: 1.2rem;
+  }
+`;
+
 const CardListContainer = styled.div`
   width:80%;
-  margin: auto;
+  margin: auto auto 10% auto;
   padding-top: 50px;
   gap: 50px;
 
@@ -260,7 +285,11 @@ const NextArrow = (props) => (
   </NextButton>
 );
 function CardList() {
-  const [courses, setCourses] = useState([]);  
+  const [coursesVocab, setCoursesVocab] = useState([]);  
+  const [coursesRead, setCoursesRead] = useState([]); 
+  const [coursesListen, setCoursesListen] = useState([]); 
+  const [coursesUser, setCoursesUser] = useState([]); 
+  const [isUser, setIsUser] = useState(true);
   const [sliderSettings, setSliderSettings] = useState({
     dots: false,
     infinite: true,
@@ -290,15 +319,14 @@ function CardList() {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const courseList = await getCourses();
-
-        for (let i = 0; i < courseList.length; i++) {
-          const path = 'courses/' + courseList[i].image;
+        const courseUserList = await getCoursesVocab(); 
+        for (let i = 0; i < courseUserList.length; i++) {
+          const path = 'courses/' + courseUserList[i].image;
           const downloadURL = await getDownloadURL(ref(storage, path));
-          courseList[i].image = downloadURL;
+          courseUserList[i].image = downloadURL;   
         }
-        
-        setCourses(courseList);
+        setCoursesUser(courseUserList);      
+
       } catch (error) {
         console.error(error);
       }
@@ -307,14 +335,105 @@ function CardList() {
     fetchCourses();
   }, []);
 
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const courseVocabList = await getCoursesVocab();
+
+        for (let i = 0; i < courseVocabList.length; i++) {
+          const path = 'courses/' + courseVocabList[i].image;
+          const downloadURL = await getDownloadURL(ref(storage, path));
+          courseVocabList[i].image = downloadURL;     
+        }
+        setCoursesVocab(courseVocabList);     
+
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchCourses();
+  }, []);
+
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const courseReadList = await getCoursesVocab(); 
+
+        for (let i = 0; i < courseReadList.length; i++) {
+          const path = 'courses/' + courseReadList[i].image;
+          const downloadURL = await getDownloadURL(ref(storage, path));
+          courseReadList[i].image = downloadURL;   
+        }
+        setCoursesRead(courseReadList);      
+
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchCourses();
+  }, []);
+
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const courseListenList = await getCoursesVocab(); 
+        for (let i = 0; i < courseListenList.length; i++) {
+          const path = 'courses/' + courseListenList[i].image;
+          const downloadURL = await getDownloadURL(ref(storage, path));
+          courseListenList[i].image = downloadURL;   
+        }
+        setCoursesListen(courseListenList);      
+
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchCourses();
+  }, []);
+  
+
+  
   return (
     <Container>
       <CoursesName>
         <CoursesNameText>Courses for You</CoursesNameText>
       </CoursesName>
+
+      <Game6/>
+      { isUser ? (
+        <>
+          <CoursesTopicNameText> - Suggestions for you - </CoursesTopicNameText>
+          <CardListContainer>
+          <Slider {...sliderSettings}>
+            {coursesUser.map((item, index) => (
+              <Card key={index}>
+                <ImgContainer><Img imageUrl={item.image} alt={item.name} />
+                </ImgContainer>
+                <Name>{item.name}</Name>
+                <Description>{item.des}</Description>
+                <LearnBtn
+                  to={
+                    '/coursesinfo'
+                    }
+                  state= { {productname: item.name, image: item.image, lessonType: item.lessonType }}
+                >
+                  Learn
+                </LearnBtn>
+              </Card>
+            ))}
+          </Slider>
+          </CardListContainer>
+        </>
+       
+        ) : ( null )}
+      
+      <CoursesTopicNameText> - Learning Vocabulary - </CoursesTopicNameText>
       <CardListContainer>
         <Slider {...sliderSettings}>
-          {courses.map((item, index) => (
+          {coursesVocab.map((item, index) => (
             <Card key={index}>
               <ImgContainer><Img imageUrl={item.image} alt={item.name} />
               </ImgContainer>
@@ -324,7 +443,51 @@ function CardList() {
                 to={
                  '/coursesinfo'
                   }
-                state= { {productname: item.name, image: item.image }}
+                state= { {productname: item.name, image: item.image, lessonType: item.lessonType }}
+              >
+                Learn
+              </LearnBtn>
+            </Card>
+          ))}
+        </Slider>
+      </CardListContainer>
+
+      <CoursesTopicNameText> - Read stories - </CoursesTopicNameText>
+      <CardListContainer>
+        <Slider {...sliderSettings}>
+          {coursesRead.map((item, index) => (
+            <Card key={index}>
+              <ImgContainer><Img imageUrl={item.image} alt={item.name} />
+              </ImgContainer>
+              <Name>{item.name}</Name>
+              <Description>{item.des}</Description>
+              <LearnBtn
+                to={
+                 '/coursesinfo'
+                  }
+                state= { {productname: item.name, image: item.image, lessonType: item.lessonType }}
+              >
+                Learn
+              </LearnBtn>
+            </Card>
+          ))}
+        </Slider>
+      </CardListContainer>
+
+      <CoursesTopicNameText> -  Listen stories - </CoursesTopicNameText>
+      <CardListContainer>
+        <Slider {...sliderSettings}>
+          {coursesListen.map((item, index) => (
+            <Card key={index}>
+              <ImgContainer><Img imageUrl={item.image} alt={item.name} />
+              </ImgContainer>
+              <Name>{item.name}</Name>
+              <Description>{item.des}</Description>
+              <LearnBtn
+                to={
+                 '/coursesinfo'
+                  }
+                state= { {productname: item.name, image: item.image, lessonType: item.lessonType }}
               >
                 Learn
               </LearnBtn>

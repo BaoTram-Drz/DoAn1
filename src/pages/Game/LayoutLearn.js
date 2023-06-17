@@ -7,7 +7,7 @@ import Game3 from './BigTest/Game3';
 import Game4 from './BigTest/Game4';
 import Fireworks from './FireWorks';
 import datas from './data.json';
-import { getLearns } from '../../API/layoutLearnApi';
+import { getLearns } from '../../API/coursesData';
 
 
 const BigText = styled.p`
@@ -275,7 +275,7 @@ const LayoutLearn = () => {
   useEffect(() => {
     const fetchLearns = async () => {
       try {
-        //const learnData = await getLearns();
+        //const learnData = await getLearns(productName);
         const learnData = datas;
         setData(learnData);
       } catch (error) {

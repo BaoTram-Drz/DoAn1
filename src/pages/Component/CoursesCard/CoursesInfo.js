@@ -285,6 +285,7 @@ const LinkText = styled(Link)`
 
 const CoursesInfo = () => {
   const location = useLocation();
+  const [lessonType, setLessonType] = useState('Listen');
   const [productName, setProductName] = useState('Product A');
   const [productImage, setProductImage] = useState(null);
   const [data, setData] = useState([]);
@@ -295,6 +296,9 @@ const CoursesInfo = () => {
     }
     if (location.state && location.state.image) {
       setProductImage(location.state.image);
+    }
+    if (location.state && location.state.lessontype) {
+      setLessonType(location.state.lessontype);
     }
   }, [location.state]);
 
@@ -345,9 +349,13 @@ const CoursesInfo = () => {
             <DivWrapper2 imageUrl={productImage}>
               <DivWrapper2Text>{productName}</DivWrapper2Text>
             </DivWrapper2>
-            <Button to="/vocab" state={{ productname: productName }}>
-              Start Learn
-            </Button>
+            {lessonType === "Listen" ? (
+              <Button to="/listenstories" state={{ productname: productName }}>Listen Stories</Button>
+            ) : (
+              <Button to="/vocab" state={{ productname: productName }}>
+                Start Learn
+              </Button>
+            )}
           </DivWrapper>
           <ButtonL>
             <LinkText to="/league">Top League</LinkText>

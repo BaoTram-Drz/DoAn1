@@ -39,9 +39,8 @@ const FormStyled = styled.form`
 `;
 
 const FormTitle = styled.h1`
-  position: absolute; 
-  margin: 0% auto auto 20%;
-  transform: translate(0, -50%);
+  position: relative; 
+  margin: 10% auto -12% 20%;
   font-family: 'Margarine';
   font-style: normal;
   font-weight: 400;

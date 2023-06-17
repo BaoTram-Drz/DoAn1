@@ -1,6 +1,33 @@
 import api from './index';
 
-export const getCourses = async () => {
+export const getCoursesVocab = async () => {
+  try {
+    const response = await api.get('/courses/getCourses');
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data.message);
+  }
+};
+
+export const getCoursesRead = async () => {
+  try {
+    const response = await api.get('/courses/getCourses');
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data.message);
+  }
+};
+
+export const getCoursesListen = async () => {
+  try {
+    const response = await api.get('/courses/getCourses');
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data.message);
+  }
+};
+
+export const getCoursesUser = async () => {
   try {
     const response = await api.get('/courses/getCourses');
     return response.data;
