@@ -12,6 +12,7 @@ import Vocab from '../pages/Game/Vocab'
 import ChangeInfo from '../pages/ChangeInfo/ChangeInfo'
 import CardList from '../pages/Component/CoursesCard/CoursesCard'
 import ListenStories from '../pages/Game/VideoStories'
+import MiniGame from '../pages/Game/MiniGame'
 
 const publicRoutes = [
     { path: '/', component: Home },
@@ -24,6 +25,7 @@ const publicRoutes = [
     { path: '/league', component: League },
     { path: '/listenstories', component: ListenStories },
     { path: '/login', component: Login },
+    { path: '/minigame', component: MiniGame },
     { path: '/scores', component: Scores },
     { path: '/signup', component: SignUp },
     { path: '/verify', component: VerifyCode },

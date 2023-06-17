@@ -9,7 +9,7 @@ import { storage } from '../../../firebase/firebase'
 import { useState, useEffect } from 'react';
 import { ref } from 'firebase/storage'
 import { getCoursesVocab, getCoursesRead, getCoursesListen, getCoursesUser } from '../../../API/coursesApi';
-import Game6 from '../../Game/BigTest/Game6';
+import Game6 from '../../Game/MiniGame';
 
 const Container = styled.div`
 
@@ -402,7 +402,6 @@ function CardList() {
         <CoursesNameText>Courses for You</CoursesNameText>
       </CoursesName>
 
-      <Game6/>
       { isUser ? (
         <>
           <CoursesTopicNameText> - Suggestions for you - </CoursesTopicNameText>
@@ -495,6 +494,29 @@ function CardList() {
           ))}
         </Slider>
       </CardListContainer>
+
+      <CoursesTopicNameText> -  Mini Game - </CoursesTopicNameText>
+      <CardListContainer>
+        <Slider {...sliderSettings}>
+          {coursesListen.map((item, index) => (
+            <Card key={index}>
+              <ImgContainer><Img imageUrl={item.image} alt={item.name} />
+              </ImgContainer>
+              <Name>{item.name}</Name>
+              <Description>{item.des}</Description>
+              <LearnBtn
+                to={
+                 '/minigame'
+                  }
+                state= { {productname: item.name }}
+              >
+                Play
+              </LearnBtn>
+            </Card>
+          ))}
+        </Slider>
+      </CardListContainer>
+
     </Container>
   );
 }
