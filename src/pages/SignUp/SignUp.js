@@ -87,11 +87,13 @@ const Input = styled.input`
   height: 55px;
   margin-top: 2%;
   background: #DBDBDB;
-  font: normal 300 1.5rem "Roboto";
+  font: normal 400 1.5rem "Roboto";
   color: white;
   border: none;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
+  padding-left: 2rem;
+
   &:focus {
     outline: none;
     border: none;

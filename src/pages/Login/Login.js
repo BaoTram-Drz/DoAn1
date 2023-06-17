@@ -86,7 +86,7 @@ const Input = styled.input`
   height: 55px;
   margin-top: 2%;
   background: #DBDBDB;
-  font: normal 300 1.5rem "Roboto";
+  font: normal 400 1.5rem "Autour One";
   color: white;
   border: none;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -160,8 +160,8 @@ const Login = () => {
       <Image bgImage={login}></Image>
       <FormWrapper>
         <BigText>welcome back</BigText>
-        <Input type="text" id="nome" name="nome"  placeholder="Email"/>
-        <Input type="email" id="email" name="email" placeholder="Password"/>
+        <Input type="email" id="email" name="email"  placeholder="Email"/>
+        <Input type="password" id="password" name="password" placeholder="Password"/>
         <LinkForgot to="/forgot">Forgot Passwword</LinkForgot>
         <SubmitButton to="/">
           <LinkLoginBtn>

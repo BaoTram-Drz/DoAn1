@@ -1,66 +1,70 @@
+import React, { useState, useEffect } from 'react';
 
+const Game6 = () => {
+  const [cards, setCards] = useState([]);
+  const [selectedCard, setSelectedCard] = useState(null);
+  const [matchedPairs, setMatchedPairs] = useState([]);
 
-import { useState } from 'react'
-import Card from './card'
+  useEffect(() => {
+    // Thay thế dòng này bằng logic để lấy danh sách từ vựng và hình ảnh từ nguồn dữ liệu của bạn
+    const fetchedData = [
+      { id: 1, word: 'Apple', image: 'https://via.placeholder.com/200x200.png' },
+      { id: 2, word: 'Car', image: 'https://via.placeholder.com/400x400.png' },
+      { id: 3, word: 'Dog', image: 'https://via.placeholder.com/400x200.png' },
+      // Thêm các từ vựng và hình ảnh khác vào đây
+    ];
 
-function Cards(){
-    const [items, setItems] = useState([
-        { id: 1, img: '/img/html.png', stat: "" },
-        { id: 1, img: '/img/html.png', stat: "" },
-        { id: 2, img: '/img/css.png', stat: "" },
-        { id: 2, img: '/img/css.png', stat: "" },
-        { id: 3, img: '/img/js.png', stat: "" },
-        { id: 3, img: '/img/js.png', stat: "" },
-        { id: 4, img: '/img/scss.png', stat: "" },
-        { id: 4, img: '/img/scss.png', stat: "" },
-        { id: 5, img: '/img/react.png', stat: "" },
-        { id: 5, img: '/img/react.png', stat: "" },
-        { id: 6, img: '/img/vue.png', stat: "" },
-        { id: 6, img: '/img/vue.png', stat: "" },
-        { id: 7, img: '/img/angular.png', stat: "" },
-        { id: 7, img: '/img/angular.png', stat: "" },
-        { id: 8, img: '/img/nodejs.png', stat: "" },
-        { id: 8, img: '/img/nodejs.png', stat: "" }
-    ].sort(() => Math.random() - 0.5))
+    // Nhân đôi các thẻ để tạo cặp từ khớp
+    const doubledCards = [...fetchedData, ...fetchedData];
+    // Xáo trộn thứ tự các thẻ
+    const shuffledCards = doubledCards.sort(() => Math.random() - 0.5);
 
-    const [prev, setPrev] = useState(-1)
+    setCards(shuffledCards);
+  }, []);
 
-    function check(current){
-        if(items[current].id == items[prev].id){
-            items[current].stat = "correct"
-            items[prev].stat = "correct"
-            setItems([...items])
-            setPrev(-1)
-        }else{
-            items[current].stat = "wrong"
-            items[prev].stat = "wrong"
-            setItems([...items])
-            setTimeout(() => {
-                items[current].stat = ""
-                items[prev].stat = ""
-                setItems([...items])
-                setPrev(-1)
-            }, 1000)
-        }
+  const handleCardClick = (card) => {
+    if (selectedCard === null) {
+      // Nếu chưa có thẻ nào được chọn, lưu thẻ hiện tại và chờ lựa chọn thẻ khác
+      setSelectedCard(card);
+    } else {
+      // Đã có thẻ được chọn trước đó, so sánh với thẻ hiện tại
+      if (selectedCard.word === card.word && selectedCard.id !== card.id) {
+        // Nếu cặp thẻ khớp nhau, thêm vào danh sách các cặp thẻ khớp
+        setMatchedPairs((prevPairs) => [...prevPairs, [selectedCard, card]]);
+      }
+
+      // Đặt lại trạng thái của thẻ được chọn
+      setSelectedCard(null);
     }
+  };
 
-    function handleClick(id){
-        if(prev === -1){
-            items[id].stat = "active"
-            setItems([...items])
-            setPrev(id)
-        }else{
-            check(id)
-        }
-    }
+  return (
+    <div>
+      <h1>Matching Game</h1>
+      <div className="card-container">
+        {cards.map((card) => (
+          <div
+            key={card.id}
+            className={`card ${matchedPairs.flat().includes(card) ? 'matched' : ''}`}
+            onClick={() => handleCardClick(card)}
+          >
+            {matchedPairs.flat().includes(card) ? (
+              <img src={card.image} alt={card.word} />
+            ) : (
+              <img src="back.jpg" alt="Card Back" />
+            )}
+          </div>
+        ))}
+      </div>
+      <div>
+        {matchedPairs.map((pair, index) => (
+          <div key={index}>
+            <strong>{pair[0].word}</strong> - <strong>{pair[1].word}</strong>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
 
-    return (
-        <div className="container">
-            { items.map((item, index) => (
-                <Card key={index} item={item} id={index} handleClick={handleClick} />
-            )) }
-        </div>
-    )
-}
-
-export default Cards
+export default Game6;
