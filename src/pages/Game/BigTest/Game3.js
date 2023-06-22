@@ -84,23 +84,23 @@ const Game3 = ({ data, onSelectAnswer }) => {
 
   useEffect(() => {
     let matchedPairs = [];
-
-  if (tableData && data.correctAnswer) {
-    matchedPairs = tableData.filter((selectedItem) =>
-      data.correctAnswer.some((item) =>
-        selectedItem.id === item.id && selectedItem.text === item.text
-      )
-    );
-  }
-
-
+  
+    if (tableData && data.correctAnswer) {
+      matchedPairs = tableData.filter((selectedItem) =>
+        data.correctAnswer.some((item) =>
+          selectedItem.id === item.id && selectedItem.text === item.text
+        )
+      );
+    }
+  
     const calculatedScore = (matchedPairs.length * parseInt(data.score)) / 4;
     console.log(matchedPairs.length)
-
-    setScore(calculatedScore);   
-    onSelectAnswer(score);
-    
-  }, [score, tableData, onSelectAnswer, data.correctAnswer, data.score]);
+  
+    setScore(calculatedScore);
+    onSelectAnswer(calculatedScore);
+  
+  }, [tableData, onSelectAnswer, data.correctAnswer, data.score]);
+  
 
   if (!data) {
     return <p>Loading...</p>;

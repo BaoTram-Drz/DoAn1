@@ -30,7 +30,7 @@ const TableRow = styled.tr`
 const TableCell = styled.div`
     margin: 2% 10%;  
     padding: 5px 24px;
-    font: normal 400 28px 'Autour One';
+    font: normal 400 28px 'Roboto';
     color: #0E606B;
     text-align: center;
     border: 2px dashed #0e606b;

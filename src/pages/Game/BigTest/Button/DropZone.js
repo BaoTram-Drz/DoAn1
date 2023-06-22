@@ -23,8 +23,6 @@ const TextBox = styled.div`
     css`
       background-color: white;
     `}
-<<<<<<< Updated upstream:src/pages/Game/Button/DropZone.js
-=======
     @media (max-width: 1200px) {
       font-size: 2rem;
       height: 45px;
@@ -44,7 +42,6 @@ const TextBox = styled.div`
       font-size: 1rem;
       height: 25px;
     }
->>>>>>> Stashed changes:src/pages/Game/BigTest/Button/DropZone.js
 `;
 
 const DropZone = ({ onDrop, resetDraggedItems }) => {

@@ -1,9 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import CardList from '../Component/CoursesCard/CoursesCard';
 import About from '../About/About';
 import Contact from '../Contact/Contact';
-import { Element } from 'react-scroll';
 import Carousel from '../Component/Carousel/Carousel';
 
 // import Cube from '../Component/TestThree/Testthree';
@@ -35,22 +33,13 @@ const BigText2 = styled.p`
 
 function Home() {
     return (
-        <Container>
-            <BigText>Welcome to Engplaygrond</BigText>
-            <Carousel/>          
-            <Element name="about-section">
-                <About />
-            </Element>
-            <Element name="courses-section">
-                <CardList/>
-            </Element>
-            <Element name="contact-section">
-                <Contact/>
-            </Element>
-
-            <BigText2>Thanks for visited</BigText2>
-            
-        </Container>
+      <Container>
+        <BigText>Welcome to Engplaygrond</BigText>
+        <Carousel/>          
+        <About />
+        <Contact/>
+        <BigText2>Thanks for visited</BigText2>            
+    </Container>
     );
 };
 

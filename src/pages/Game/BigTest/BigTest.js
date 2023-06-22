@@ -249,19 +249,11 @@ const BigTest = () => {
             return null;
             }
             return (
-              <>
-              {data[currentIndex]?.category === 'Game1' && (
-                <Game1 data={data[currentIndex]} onSelectAnswer={handleGetAnswerScore} />
-              )}
-              {data[currentIndex]?.category === 'Game2' && (
-                <Game2 data={data[currentIndex]} onSelectAnswer={handleGetAnswerScore} />
-              )}
-              {data[currentIndex]?.category === 'Game3' && (
-                <Game3 data={data[currentIndex]} onSelectAnswer={handleGetAnswerScore} />
-              )}
-              {data[currentIndex]?.category === 'Game4' && (
-                <Game4 data={data[currentIndex]} onSelectAnswer={handleGetAnswerScore} />
-              )}
+              <>              
+                {item?.category === 'Game1' && <Game1  data={item} onSelectAnswer={handleGetAnswerScore}/>} 
+                {item?.category === 'Game2' && <Game2  data={item} onSelectAnswer={handleGetAnswerScore}/>}
+                {item?.category === 'Game3' && <Game3  data={item} onSelectAnswer={handleGetAnswerScore}/>}
+                {item?.category === 'Game4' && <Game4  data={item} onSelectAnswer={handleGetAnswerScore}/>} 
             </>                   
             );
         })}

@@ -57,7 +57,7 @@
       "lesson": "3",
       "topic": "fruits",
       "lessonTitle": "Lesson 3",
-      "state": "false",
+      "state": "true",
       "question": "What does 'rambutan' means in Vietnamese?",
       "textOptions": [
         { "id": "1", "text": "Apple" },

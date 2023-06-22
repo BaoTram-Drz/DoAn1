@@ -35,26 +35,62 @@ const HeadersContainer = styled.div`
   margin: 5% auto auto auto;
 `;
 
-const Button = styled.button`
-  width: 200px;
+const ButtonLeft = styled(Link)`
+  width: 150px;
   padding: 5px 24px;
-  font: normal 400 2rem "Autour One";
+  font: normal 400 2rem 'Autour One';
   color: #ffc24b;
   background-color: white;
   border: 3px solid #f47068;
   border-radius: 20px;
+  text-align: center;
+  text-decoration: none;
+  z-index: 999;
+
+  @media (max-width: 1200px) {
+    width: 100px;
+    font-size: 1.8rem;
+  }
+
+  @media (max-width: 540px) {
+    width: 60px;
+    font-size: 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    width: 50px;
+    padding: 5px 12px;
+    font-size: 1rem;
+  }
 `;
 
-const ButtonTest = styled(Link)`a
-  width: 200px;
+const ButtonRight = styled(Link)`
+  width: 150px;
   padding: 5px 24px;
-  text-decoration: none;
-  text-align: center;
-  font: normal 400 2rem "Autour One";
-  color: #ffc24b;
+  font: normal 400 2rem 'Autour One';
+  color: ${(props) => (props.isAnswerCorrect ? '#ffc24b' : 'gray')};
   background-color: white;
-  border: 3px solid #f47068;
+  border: 3px solid ${(props) => (props.isAnswerCorrect ? '#f47068' : 'gray')};
   border-radius: 20px;
+  text-align: center;
+  text-decoration: none;
+  z-index: 999;
+
+  @media (max-width: 1200px) {
+    width: 100px;
+    font-size: 1.8rem;
+  }
+
+  @media (max-width: 540px) {
+    width: 60px;
+    font-size: 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    width: 50px;
+    padding: 5px 12px;
+    font-size: 1rem;
+  }
 `;
 
 const SubButton = styled.button`
@@ -120,17 +156,13 @@ const LayoutLearn = () => {
 
   //kiểm tra bài này đã pass chưa
   useEffect(() => {
-    // Lấy dữ liệu từ cơ sở dữ liệu và set vào state
-    fetchDataFromDatabase()
-      .then((response) => setData(response))
-      .catch((error) => console.error(error));
     if (data[currentIndex]?.state === 'true') {
       setIsAnswerCorrect(true);
     } else {
       setIsAnswerCorrect(false);
     }
     setIsFireWork(null);
-  }, [data, currentIndex]);
+  }, [currentIndex]);
 
   //lấy tên chủ đề từ trang trước 
   useEffect(() => {
@@ -192,7 +224,7 @@ const LayoutLearn = () => {
 
   return (
     <>
-      <BigText>Word pairing</BigText>
+      <BigText>Word pairing {answerScore}</BigText>
         <HeadersContainer>
         <Header>{data[currentIndex]?.kind}</Header>
         <Header>{data[currentIndex]?.lessonTitle}</Header>
@@ -219,15 +251,28 @@ const LayoutLearn = () => {
         </>
       }
       <ButtonsContainer>
-        <Button onClick={handlePrevButtonClick}>Pre</Button>
-        <SubButton>Submit</SubButton>
-        {
-          data[currentIndex + 1]?.kind === 'BigTest' ? (
-            <ButtonTest to="/bigtest">Next</ButtonTest>
-          ) : (
-            <Button onClick={handleNextButtonClick}>Next</Button>
-          )
-        }
+        {currentIndex === 0 ? (
+          <ButtonLeft to="/vocab" state={{ productname: productName }}>
+            Pre
+          </ButtonLeft>
+        ) : (
+          <ButtonLeft onClick={handlePrevButtonClick}>Pre</ButtonLeft>
+        )}
+
+        <SubButton onClick={submitAnswerSelected}>Submit</SubButton>
+
+        {data[currentIndex + 1]?.kind === 'Game' ? (
+          <ButtonRight
+            onClick={handleNextButtonClick}
+            disabled={!isAnswerCorrect}
+            isAnswerCorrect={isAnswerCorrect}
+          >
+            Next
+          </ButtonRight>
+        ) : (
+          <ButtonRight to="/bigtest" state={{ productname: productName }} >Next</ButtonRight>
+          
+        )}
       </ButtonsContainer>
 
       
