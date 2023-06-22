@@ -21,6 +21,7 @@ const FormContainer = styled.div`
     grid-template-columns: 1fr;
     grid-gap: 20px;
   }
+
 `;
 
 const FormStyled = styled.form`
@@ -38,9 +39,8 @@ const FormStyled = styled.form`
 `;
 
 const FormTitle = styled.h1`
-  position: absolute; 
-  margin: 0% auto auto 20%;
-  transform: translate(0, -50%);
+  position: relative; 
+  margin: 10% auto -12% 20%;
   font-family: 'Margarine';
   font-style: normal;
   font-weight: 400;
@@ -60,6 +60,7 @@ const FormTitle = styled.h1`
     -4px  4px 0 #fff, /* Viền trắng bên trái dưới */
      4px  4px 0 #fff;
   }
+
 `;
 
 const Title = styled.p`
@@ -121,6 +122,14 @@ const SubButton = styled.button`
   font-weight: 400;
   font-size: 1.5rem;
   color: #FFFFFF;
+
+  @media (max-width: 540px) {
+   
+  }
+  @media (max-width: 480px) {
+    font-size: 1rem;
+  }
+
 `;
 const GlobalStyle = createGlobalStyle`
   .leaflet-red-icon {

@@ -1,5 +1,5 @@
 import React from 'react';
-// import { Slide } from 'react-slideshow-image';
+import { useState, useEffect} from 'react';
 import 'react-slideshow-image/dist/styles.css';
 import styled from 'styled-components';
 import slide1 from './images/slide1.png';
@@ -7,10 +7,6 @@ import slide2 from './images/slide2.png';
 import slide3 from './images/slide3.png';
 import slide4 from './images/slide4.png';
 import slide5 from './images/slide5.png';
-import { getDownloadURL } from 'firebase/storage';
-import { storage } from '../../../firebase/firebase'
-import { useState, useEffect } from 'react';
-import { ref } from 'firebase/storage'
 
 const SlideshowContainer = styled.div`
   display: flex;
@@ -89,64 +85,6 @@ const Slideshow = styled.div`
   }
 `;
 
-const Button = styled.button`
-  position: absolute;
-  cursor: pointer;
-  z-index: 1;
-  width: 40%;
-  min-width: 100px;
-  bottom: 20%;
-  left: 50%;
-  transform: translate(-50%, 0);
-  padding: 5px 10px;
-  font-family: 'Bungee Inline', cursive;
-  color: #FFC24B;
-  background-color: #fff4f1;
-  border: 2px dashed #FFC24B;
-  border-radius: 1rem;
-
-  @media (max-width: 1300px) {
-    width: 80%;
-    min-width: 50px;
-    font-size: 1rem;
-  }
-  @media (max-width: 912px) {
-    width: 80%;
-    font-size: 0.8rem;
-  }
-  @media (max-width: 768px) {
-    width: 80%;
-    font-size: 0.5rem;
-    border-radius: 0.5rem;
-    padding: 3px 5px;
-  }
-  @media (max-width: 540px) {
-    width: 90%;
-    font-size: 0.5rem;
-  }
-  @media (max-width: 300px) {
-    width: 100%;
-    font-size: 0.3rem;
-    padding: 1px 1px;  
-  }
-`;
-
-
-function handleClick(e) {
-  const target = e.target;
-  const div = target.closest("div");
-  if (div) {
-    div.classList.add("active");
-  }
-}
-
-function handleMouseLeave(e) {
-  const target = e.target;
-  const div = target.closest("div");
-  if (div) {
-    div.classList.remove("active");
-  }
-}
 
 
 let vocabs = [];
@@ -174,62 +112,44 @@ function getVocabulary(index) {
 }
 
 const Carousel = () => {
-  // const [slide1, setSlide1] = useState('');
-  // const [slide2, setSlide2] = useState('');
-  // const [slide3, setSlide3] = useState('');
-  // const [slide4, setSlide4] = useState('');
-  // const [slide5, setSlide5] = useState('');
 
-  // useEffect(() => {
-  //   const getImages = async () => {
-  //     try {
-  //       // const path = await getVocabulary(0);
-  //       const path = 'thiện.jpg';
-  //       const path2 = await getVocabulary(1);
-  //       const downloadURL = await getDownloadURL(ref(storage, path));
-  //       const downloadURL2 = await getDownloadURL(ref(storage, path2));
-        
-  //       setSlide1(downloadURL);
-  //       setSlide2(downloadURL2);
-  //       setSlide3(downloadURL);
-  //       setSlide4(downloadURL2);
-  //       setSlide5(downloadURL);
-   
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
+  const [activeSlide, setActiveSlide] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
 
-  //   getImages();
-  // }, []);
+  const slides = [slide1, slide2, slide3, slide4, slide5];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      if (!isPaused) {
+        setActiveSlide((prevSlide) => (prevSlide + 1) % slides.length);
+      }
+    }, 1000);
+
+    return () => {
+      clearInterval(timer);
+    };
+  }, [isPaused]);
+
+  const handleSlideClick = (e) => {
+    setIsPaused(true);
+  };
+  
+  const handleSlideMouseLeave = (e) => {
+    setIsPaused(false);
+  };
 
   return (
     <SlideshowContainer bgImage={slide2}>
-      <Slideshow bgImage={slide1}
-        onMouseLeave={handleMouseLeave}
-      >
-        <Button onClick={handleClick}>Click Me</Button>
-      </Slideshow>
-      <Slideshow bgImage={slide2}
-        onMouseLeave={handleMouseLeave}
-      >
-        <Button onClick={handleClick}>Click Me</Button>
-      </Slideshow>
-      <Slideshow bgImage={slide3}
-        onMouseLeave={handleMouseLeave}
-      >
-        <Button onClick={handleClick}>Click Me</Button>
-      </Slideshow>
-      <Slideshow bgImage={slide4}
-        onMouseLeave={handleMouseLeave}
-      >
-        <Button onClick={handleClick}>Click Me</Button>
-      </Slideshow>
-      <Slideshow bgImage={slide5}
-        onMouseLeave={handleMouseLeave}
-      >
-        <Button onClick={handleClick}>Click Me</Button>
-      </Slideshow>
+      {slides.map((slide, index) => (
+        <Slideshow
+          key={index}
+          bgImage={slide}
+          onMouseLeave={handleSlideMouseLeave}
+          className={index === activeSlide ? 'active' : ''}
+          onClick={handleSlideClick}
+        >
+        </Slideshow>
+      ))}
 
     </SlideshowContainer>
   );
