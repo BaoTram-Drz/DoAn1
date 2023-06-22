@@ -132,10 +132,18 @@ const LinkText = styled(Link)`
 `;
 
 const CoursesInfo = () => {
+<<<<<<< Updated upstream
     const location = useLocation();
     const [productName, setProductName] = useState('Product A');
     
     const [data, setData] = useState([]);
+=======
+  const location = useLocation();
+  const [lessonType, setLessonType] = useState('');
+  const [productName, setProductName] = useState('Product A');
+  const [productImage, setProductImage] = useState(null);
+  const [data, setData] = useState([]);
+>>>>>>> Stashed changes
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {

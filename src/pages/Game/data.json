@@ -1,0 +1,134 @@
+[
+    {
+      "_id": {
+        "$oid": "646b33846ab3c546adefb8c9"
+      },
+      "kind": "Game",
+      "category": "Game1",
+      "lesson": "1",
+      "topic": "fruits",
+      "lessonTitle": "Lesson 1",
+      "state": "false",
+      "question": "What does 'water melon' means in Vietnamese?",
+      "answerOptions": [
+        {
+          "id": "A",
+          "text": "Quả dưa hấu"
+        },
+        {
+          "id": "B",
+          "text": "Quả táo"
+        },
+        {
+          "id": "C",
+          "text": "Quả xoài"
+        },
+        {
+          "id": "D",
+          "text": "Quả măng cụt"
+        }
+      ],
+      "image": "watermelon.jpg",
+      "correctAnswer": "A",
+      "score": 5
+    },
+    {
+      "_id": {
+        "$oid": "646b33846ab3c546adefb8ca"
+      },
+      "kind": "Game",
+      "category": "Game2",
+      "lesson": "2",
+      "topic": "fruits",
+      "lessonTitle": "Lesson 2",
+      "state": "false",
+      "question": "Write text",
+      "vietnamesePhrase": "Trái táo",
+      "image": "https://via.placeholder.com/200x200.png",
+      "correctAnswer": "apple",
+      "score": 10
+    },
+    {
+      "_id": {
+        "$oid": "646b33846ab3c546adefb8cb"
+      },
+      "kind": "Game",
+      "category": "Game3",
+      "lesson": "3",
+      "topic": "fruits",
+      "lessonTitle": "Lesson 3",
+      "state": "false",
+      "question": "What does 'rambutan' means in Vietnamese?",
+      "textOptions": [
+        { "id": "1", "text": "Apple" },
+        { "id": "2", "text": "Bút chì" },
+        { "id": "3", "text": "Ruler" },
+        { "id": "4", "text": "Nước" }
+      ],
+      "answerOptions": [
+        { "id": "a", "text": "Cây thước" },
+        { "id": "b", "text": "Water" },
+        { "id": "c", "text": "Pencil" },
+        { "id": "d", "text": "Trái táo" }
+      ],
+      "correctAnswer": [
+        { "id": "1", "text": "d" },
+        { "id": "2", "text": "c" },
+        { "id": "3", "text": "a" },
+        { "id": "4", "text": "b" }
+      ],
+      "score" : 20
+    },
+    {
+      "_id": {
+        "$oid": "646b33846ab3c546adefb8cc"
+      },
+      "kind": "Game",
+      "category": "Game4",
+      "lesson": "4",
+      "topic": "fruits",
+      "lessonTitle": "Lesson 4",
+      "state": "false",
+      "question": "What does 'payaya' means in Vietnamese?",
+      "answerOptions": [
+        { "id": "A", "text": "I"  },
+        { "id": "B", "text": "student"  },
+        { "id": "C", "text": "am"  },
+        { "id": "D", "text": "a"  }
+      ],
+      "image": "payaya.jpg",
+      "correctAnswer": "ACDB",
+      "score" : 20
+    },
+    {
+      "_id": {
+        "$oid": "646b33846ab3c546adefb8cc"
+      },
+      "kind": "MiniGame",
+      "category": "Game6",
+      "lesson": "5",
+      "topic": "fruits",
+      "lessonTitle": "Lesson 5",
+      "state": "true",
+      "question": "Complete matching",
+      "answerOptions": [
+        { "id": "1", "img": "https://via.placeholder.com/200x200.png", "stat": " " },
+        { "id": "1", "img": "https://via.placeholder.com/200x200.png", "stat": " " },
+        { "id": "2", "img": "https://via.placeholder.com/300x300.png", "stat": " " },
+        { "id": "2", "img": "https://via.placeholder.com/300x300.png", "stat": " " },
+        { "id": "3", "img": "https://via.placeholder.com/400x400.png", "stat": " " },
+        { "id": "3", "img": "https://via.placeholder.com/400x400.png", "stat": " " },
+        { "id": "4", "img": "https://via.placeholder.com/500x500.png", "stat": " " },
+        { "id": "4", "img": "https://via.placeholder.com/500x500.png", "stat": " " },
+        { "id": "5", "img": "https://via.placeholder.com/600x600.png", "stat": " " },
+        { "id": "5", "img": "https://via.placeholder.com/600x600.png", "stat": " " },
+        { "id": "6", "img": "https://via.placeholder.com/700x700.png", "stat": " " },
+        { "id": "6", "img": "https://via.placeholder.com/700x700.png", "stat": " " },
+        { "id": "7", "img": "https://via.placeholder.com/800x800.png", "stat": " " },
+        { "id": "7", "img": "https://via.placeholder.com/800x800.png", "stat": " " },
+        { "id": "8", "img": "https://via.placeholder.com/900x900.png", "stat": " " },
+        { "id": "8", "img": "https://via.placeholder.com/900x900.png", "stat": " " }
+      ]
+    }
+  ]
+  
