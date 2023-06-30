@@ -94,8 +94,7 @@ const Game3 = ({ data, onSelectAnswer }) => {
     }
   
     const calculatedScore = (matchedPairs.length * parseInt(data.score)) / 4;
-    console.log(matchedPairs.length)
-  
+
     setScore(calculatedScore);
     onSelectAnswer(calculatedScore);
   
@@ -110,6 +109,11 @@ const Game3 = ({ data, onSelectAnswer }) => {
     setDraggedItems((prev) => [...prev, id]);
     setTableData((prev) => [...prev, { id, text }]);
   };
+ 
+
+  if (!data) {
+    return <p>Loading...</p>;
+  }
 
   const resetDraggedItems = (resetItems) => {
     setDraggedItems((prev) => prev.filter((item) => !resetItems.includes(item)));

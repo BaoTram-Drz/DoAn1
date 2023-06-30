@@ -51,7 +51,7 @@ const BigText = styled.p`
 `;
 
 const TableContainer = styled.div`
-  height: 300px;
+  height: 400px;
   overflow: auto;
   scrollbar-width: thin;
   scrollbar-color: transparent transparent;

@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import About from '../About/About';
 import Contact from '../Contact/Contact';
 import Carousel from '../Component/Carousel/Carousel';
+import {CiRainbow} from 'react-icons/ci'
+
 
 // import Cube from '../Component/TestThree/Testthree';
 
@@ -34,7 +36,7 @@ const BigText2 = styled.p`
 function Home() {
     return (
       <Container>
-        <BigText>Welcome to Engplaygrond</BigText>
+        <BigText><CiRainbow/> Welcome to Engplaygrond <CiRainbow/></BigText>
         <Carousel/>          
         <About />
         <Contact/>

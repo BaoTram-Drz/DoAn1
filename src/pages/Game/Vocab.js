@@ -7,6 +7,7 @@ import { ref } from 'firebase/storage'
 import { FaVolumeUp } from 'react-icons/fa'
 import { useLocation } from 'react-router-dom';
 import { getVocab } from "../../API/vocabApi";
+import { FaSpinner } from 'react-icons/fa';
 
 const BigText = styled.p`
   margin: 8% auto 3% auto;
@@ -219,6 +220,7 @@ const Vocab = () => {
     fetchData();
   }, [productName]);
 
+  //âm thanh
   const handleVoice = (item) => {
     if ('speechSynthesis' in window) {
       const utterance = new SpeechSynthesisUtterance(item);
@@ -231,7 +233,6 @@ const Vocab = () => {
   return (
     <>
       <BigText>Learn Vocabulary</BigText>
-
       <TableWrapper>
         <Table>
           <TableHeader>
@@ -252,6 +253,7 @@ const Vocab = () => {
             </th>
           </TableHeader>
           <tbody>
+            
             {data.map((item) => (
               <TableRow key={item.id}>
                 <TableCellEng>{item.name}</TableCellEng>

@@ -8,7 +8,7 @@
       "lesson": "1",
       "topic": "fruits",
       "lessonTitle": "Lesson 1",
-      "state": "false",
+      "state": "true",
       "question": "What does 'water melon' means in Vietnamese?",
       "answerOptions": [
         {
@@ -41,7 +41,7 @@
       "lesson": "2",
       "topic": "fruits",
       "lessonTitle": "Lesson 2",
-      "state": "false",
+      "state": "true",
       "question": "Write text",
       "vietnamesePhrase": "Trái táo",
       "image": "https://via.placeholder.com/200x200.png",
@@ -57,8 +57,8 @@
       "lesson": "3",
       "topic": "fruits",
       "lessonTitle": "Lesson 3",
-      "state": "true",
-      "question": "What does 'rambutan' means in Vietnamese?",
+      "state": "false",
+      "question": "Drag and drop words that match their meanings",
       "textOptions": [
         { "id": "1", "text": "Apple" },
         { "id": "2", "text": "Bút chì" },
@@ -89,7 +89,7 @@
       "topic": "fruits",
       "lessonTitle": "Lesson 4",
       "state": "false",
-      "question": "What does 'payaya' means in Vietnamese?",
+      "question": "Match the words into correct sentences",
       "answerOptions": [
         { "id": "A", "text": "I"  },
         { "id": "B", "text": "student"  },
@@ -100,6 +100,7 @@
       "correctAnswer": "ACDB",
       "score" : 20
     },
+    
     {
       "_id": {
         "$oid": "646b33846ab3c546adefb8cc"

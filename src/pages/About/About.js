@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import aboutround from "./aboutround.png";
+import aboutround from "./mini-round.jpg"
 
 const PageContainer = styled.div`
   position: relative;
@@ -113,7 +113,7 @@ const SmallDescription = styled.p`
   }
 `;
 
-const RoundedImage = styled.img`
+const RoundedImage = styled.div`
   position: absolute;
   box-sizing: border-box;
   width: 20%;
@@ -122,6 +122,10 @@ const RoundedImage = styled.img`
   top: 5%;
   border: 25px solid #FFF4F1;
   border-radius: 250px;
+  background-image: url(${(props) => props.bgImage});
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  background-size: 100% 120%;
   
   @media (max-width: 1300px) {
     width: 25%;
@@ -162,7 +166,7 @@ function AboutPage() {
         Welcome to our website where you can learn English through simple games. Our platform offers engaging and interactive games designed to improve your vocabulary, grammar, and comprehension skills. Whether you're a beginner or an advanced learner, our games cater to all levels of proficiency. Start learning today and have fun while doing it!
         </SmallDescription>
       </BigContainer>
-      <RoundedImage src={aboutround}/>
+      <RoundedImage bgImage={aboutround}/>
     </PageContainer>
   );
 };

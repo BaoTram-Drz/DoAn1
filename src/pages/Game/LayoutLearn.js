@@ -5,6 +5,7 @@ import Game1 from './BigTest/Game1';
 import Game2 from './BigTest/Game2';
 import Game3 from './BigTest/Game3';
 import Game4 from './BigTest/Game4';
+import Game5 from './BigTest/Game5';
 import datas from './data.json';
 import { getLearns } from '../../API/coursesData';
 import MyLottieAnimation from './LottieAnimation/MyLottieAnimation';
@@ -154,6 +155,15 @@ const LayoutLearn = () => {
   const [isFireWork, setIsFireWork] = useState(null);
   const location = useLocation();
 
+  //nếu ban đầu đã đúng
+  useEffect(() => {
+    if (data[currentIndex]?.state === 'true') {
+      setIsAnswerCorrect(true);
+    }
+    if (data[currentIndex]?.state === 'false') {
+      setIsAnswerCorrect(false);
+    }
+  });
   //kiểm tra bài này đã pass chưa
   useEffect(() => {
     if (data[currentIndex]?.state === 'true') {
@@ -224,11 +234,11 @@ const LayoutLearn = () => {
 
   return (
     <>
-      <BigText>Word pairing {answerScore}</BigText>
+      <BigText>Word pairing</BigText>
         <HeadersContainer>
         <Header>{data[currentIndex]?.kind}</Header>
         <Header>{data[currentIndex]?.lessonTitle}</Header>
-        <Header>{data[currentIndex]?.order}/10</Header>
+        <Header>{data[currentIndex]?.lesson}/10</Header>
       </HeadersContainer>
   
       <>
@@ -243,6 +253,9 @@ const LayoutLearn = () => {
         )}
         {data[currentIndex]?.category === 'Game4' && (
           <Game4 data={data[currentIndex]} onSelectAnswer={handleGetAnswerScore} />
+        )}
+        {data[currentIndex]?.category === 'Game5' && (
+          <Game5 data={data[currentIndex]} onSelectAnswer={handleGetAnswerScore} />
         )}
       </>
       {isFireWork === true && 
@@ -263,14 +276,13 @@ const LayoutLearn = () => {
 
         {data[currentIndex + 1]?.kind === 'Game' ? (
           <ButtonRight
-            onClick={handleNextButtonClick}
-            disabled={!isAnswerCorrect}
+            onClick={isAnswerCorrect ? handleNextButtonClick : ""}            
             isAnswerCorrect={isAnswerCorrect}
           >
             Next
           </ButtonRight>
         ) : (
-          <ButtonRight to="/bigtest" state={{ productname: productName }} >Next</ButtonRight>
+          <ButtonRight to={isAnswerCorrect ? "/bigtest" : ""} state={{ productname: productName }} >Next</ButtonRight>
           
         )}
       </ButtonsContainer>

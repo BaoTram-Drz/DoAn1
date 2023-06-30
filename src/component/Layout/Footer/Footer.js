@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FaInstagram, FaFacebookF, FaTwitter } from 'react-icons/fa';
+import logo from './logo.png';
 
 const FooterContainer = styled.footer`
   padding: 40px;
@@ -66,6 +67,10 @@ const SocialLink = styled.a`
   background-color: #1697a6;
   }
 `;
+const Img = styled.img` 
+  text-align: center; 
+  width: 30%;
+`;
 
 const Copyright = styled.p` 
   text-align: center; 
@@ -78,9 +83,10 @@ const Footer = () => {
       <Row>
         <Column>
           <Heading>EngPlayground</Heading>
-          <Content>
-          EngPlayground is a platform for interactive English learning. We provide engaging and fun activities to improve your language skills. Whether you are a beginner or an advanced learner, EngPlayground offers a wide range of resources to enhance your English proficiency.
-          </Content>
+          <Content>EngPlayground is a platform for interactive English learning.</Content>
+          <Content>Email: 20520183@gm.uit.edu.vn</Content>
+          <Content>Email: 20522033@gm.uit.edu.vn</Content>
+          <Content>Phone number: 0xxxxxxxx</Content>
         </Column>
         <Column>
           <Heading>Skill</Heading>
@@ -102,6 +108,7 @@ const Footer = () => {
               <FaInstagram />
             </SocialLink>
           </SocialLinks>
+          <Img src={logo}/>
         </Column>
       </Row>
       <div>

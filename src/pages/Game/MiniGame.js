@@ -2,6 +2,10 @@ import { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { useLocation } from 'react-router-dom';
 import MyLottieAnimation from './LottieAnimation/MyLottieAnimation'; 
+import { getDownloadURL } from 'firebase/storage';
+import { storage } from '../../firebase/firebase'
+import { ref } from 'firebase/storage'
+import { getVocab } from "../../API/vocabApi";
 
 const BigText = styled.p`
   margin: 6% auto -3% auto;
@@ -96,6 +100,15 @@ const hideImage = keyframes`
     transform: scale(0);
   }
 `;
+const hideText = keyframes`
+  0%, 70% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+    display: none;
+  }
+`;
 const CardWrapper = styled.div`
   background-color: #fff;
   display: flex;
@@ -105,21 +118,43 @@ const CardWrapper = styled.div`
   border-radius: 5px;
   transform: rotateY(180deg);
   animation: ${hideCard} 2s linear;
-  transition: transform 0.5s;
+  transition: transform 0.5s;    
+  height: 250px;
 
   &.active {
     transform: rotateY(0);
     img {
-        transform: scale(1);
-      }
+      transform: scale(1);
+    }
+    .text {
+      transform: scale(1);
+    }
   }
 
   &.correct {
-    background-color: #65e469;
+    background-color: #1697A6;
   }
 
   &.wrong {
-    background-color: #fd245a;
+    background-color: #ffb3ae;
+  }
+  @media (max-width: 1100px) {
+    height: 220px;
+  }
+  @media (max-width: 900px) {
+    height: 200px;
+  }
+  @media (max-width: 700px) {
+    height: 180px;
+  }
+  @media (max-width: 550px) {
+    height: 150px;
+  }
+  @media (max-width: 400px) {
+    height: 120px;
+  }
+  @media (max-width: 400px) {
+    height: 100px;
   }
 `;
 
@@ -130,50 +165,84 @@ const CardImage = styled.img`
   transform: scale(0);
   animation: ${hideImage} 2s linear;
 `;
-
+const Text = styled.div`
+  width: 90%;
+  height: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: monospace;
+  font-size: 1.5rem;
+  color: pink;
+  background-color: white;
+  animation: ${hideText} 2s linear;
+  transform: scale(0);
+`;
 
 function Card({ item, id, handleClick }) {
   const itemClass = item.stat ? ` active ${item.stat}` : "";
 
   return (
     <CardWrapper className={`card${itemClass}`} onClick={() => handleClick(id)}>
-      <CardImage src={item.img} alt="" />
+      {item.type === 'img' ? (
+        <CardImage src={item.content} alt="" />
+      ) : (
+        <Text className="card text">{item.content}</Text>
+      )}
     </CardWrapper>
   );
 }
 
-function MiniGame() {
-  const [items, setItems] = useState([
-    { id: 1, img: 'https://via.placeholder.com/200x200.png', stat: '' },
-    { id: 1, img: 'https://via.placeholder.com/200x200.png', stat: '' },
-    { id: 2, img: 'https://via.placeholder.com/300x300.png', stat: '' },
-    { id: 2, img: 'https://via.placeholder.com/300x300.png', stat: '' },
-    { id: 3, img: 'https://via.placeholder.com/400x400.png', stat: '' },
-    { id: 3, img: 'https://via.placeholder.com/400x400.png', stat: '' },
-    { id: 4, img: 'https://via.placeholder.com/500x500.png', stat: '' },
-    { id: 4, img: 'https://via.placeholder.com/500x500.png', stat: '' },
-    { id: 5, img: 'https://via.placeholder.com/600x600.png', stat: '' },
-    { id: 5, img: 'https://via.placeholder.com/600x600.png', stat: '' },
-    { id: 6, img: 'https://via.placeholder.com/700x700.png', stat: '' },
-    { id: 6, img: 'https://via.placeholder.com/700x700.png', stat: '' },
-  ].sort(() => Math.random() - 0.5));
-
+function MiniGame() {    
+  const [items, setItems] = useState([]);
+  const [data, setCourses] = useState([]);
   const [prev, setPrev] = useState(-1);
   const [clickCount, setClickCount] = useState(0);
   const [completedCount, setCompletedCount] = useState(0);
-  const [totalCount, setTotalCount] = useState(items.length / 2);
+  const [totalCount, setTotalCount] = useState(0);
   const [productName, setProductName] = useState('Product A');
   const location = useLocation();
-  const [isComplete, setIsComplete] = useState(false);
 
   useEffect(() => {
     if (location.state && location.state.productname) {
       setProductName(location.state.productname);
     }
   }, [location.state]);
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const topicCourse = { topic: productName.toLowerCase() };
+        const result = await getVocab(topicCourse);
+  
+        for (let i = 0; i < result.length; i++) {
+          const path = `${topicCourse.topic}/${result[i].image}`;
+          const downloadURL = await getDownloadURL(ref(storage, path));
+          result[i].image = downloadURL;
+        }
+  
+        setCourses(result);
+        result.sort(() => Math.random() - 0.5)
+        const newItems = [];
+        for (let i = 0; i < result.length-4; i++) {
+          const imageItem = { id: `${i + 1}.1`,  content: result[i].image,  type: 'img',  stat: '' };
+          const nameItem = {  id: `${i + 1}.2`,  content: result[i].name,  type: '',  stat: ''  };
+          newItems.push(imageItem, nameItem);
+        }
+
+        setItems(newItems.sort(() => Math.random() - 0.5));
+
+        setTotalCount(newItems.length/2)
+      } catch (error) {
+        console.log('Error:', error);
+      }
+    };
+    fetchData();
+  }, [productName]);
+  
 
   function check(current) {
-    if (items[current].id === items[prev].id) {
+    if ((Math.floor(items[current].id) === Math.floor(items[prev].id)) && (items[current].id !== items[prev].id)) {
       items[current].stat = 'correct';
       items[prev].stat = 'correct';
       setItems([...items]);
@@ -188,17 +257,13 @@ function MiniGame() {
         items[prev].stat = '';
         setItems([...items]);
         setPrev(-1);
-      }, 1000);
+      }, 500);
     }
 
     setClickCount(clickCount + 1);
   }
 
   function handleClick(id) {
-    if (completedCount === totalCount) {
-      // Game is already completed, do nothing
-      return;
-    }
 
     if (prev === -1) {
       items[id].stat = 'active';
@@ -215,13 +280,8 @@ function MiniGame() {
         document.body.style.pointerEvents = 'auto';
       }, 10);
     }
-  }
 
-  useEffect(() => {
-    if (completedCount === totalCount) {
-      setIsComplete(true);
-    }
-  }, [completedCount, totalCount]);
+  }
 
   return (
     <Container>
@@ -240,7 +300,10 @@ function MiniGame() {
         ))}
         
       </CardContainer>
-      {isComplete && <MyLottieAnimation />} 
+      {/* {isComplete && <MyLottieAnimation />}  */}
+      {completedCount === totalCount && completedCount > 0 && (
+        <MyLottieAnimation />
+      )}
     </Container>
   );
 }

@@ -10,6 +10,12 @@ import { useState, useEffect } from 'react';
 import { ref } from 'firebase/storage'
 import { getCoursesVocab, getCoursesRead, getCoursesListen, getCoursesUser } from '../../../API/coursesApi';
 import Game6 from '../../Game/MiniGame';
+import sintel from './sintel.jpg'
+import listen2 from './listen2.jpg'
+import listen3 from './listen3.jpg'
+import story1 from './story1.jpg'
+import story2 from './story2.jpg'
+import story3 from './story3.jpg'
 
 const Container = styled.div`
 
@@ -288,7 +294,8 @@ function CardList() {
   const [coursesVocab, setCoursesVocab] = useState([]);  
   const [coursesRead, setCoursesRead] = useState([]); 
   const [coursesListen, setCoursesListen] = useState([]); 
-  const [coursesUser, setCoursesUser] = useState([]); 
+  const [coursesUser, setCoursesUser] = useState([]);   
+  const [miniGame, setMiniGame] = useState([]); 
   const [isUser, setIsUser] = useState(true);
   const [sliderSettings, setSliderSettings] = useState({
     dots: false,
@@ -345,7 +352,20 @@ function CardList() {
           const downloadURL = await getDownloadURL(ref(storage, path));
           courseVocabList[i].image = downloadURL;     
         }
-        setCoursesVocab(courseVocabList);     
+        setCoursesVocab(courseVocabList);  
+
+        courseVocabList[0].des ="Chơi mini game để luyện tập từ vựng về FRUITS"
+        courseVocabList[1].des ="Chơi mini game để luyện tập từ vựng về KITCHEN"
+        courseVocabList[2].des ="Chơi mini game để luyện tập từ vựng về ASTRONOMY"
+        const image = courseVocabList[0].image;
+        courseVocabList[0].image = courseVocabList[1].image;
+        courseVocabList[1].image = courseVocabList[2].image;
+        courseVocabList[2].image = image;
+        
+        courseVocabList[0].name ="FRUITS"
+        courseVocabList[1].name ="KITCHEN"
+        courseVocabList[2].name ="ASTRONOMY"
+        setMiniGame(courseVocabList)
 
       } catch (error) {
         console.error(error);
@@ -365,6 +385,15 @@ function CardList() {
           const downloadURL = await getDownloadURL(ref(storage, path));
           courseReadList[i].image = downloadURL;   
         }
+        courseReadList[0].image = story1;          
+        courseReadList[1].image = story2;          
+        courseReadList[2].image = story3;   
+        courseReadList[0].name = "The Lion & Mouse";          
+        courseReadList[1].name = "The three fishes";          
+        courseReadList[2].name = "The frog prince";  
+        courseReadList[0].des = "Câu chuyện chú sư tử và chú chuột";          
+        courseReadList[1].des = "Câu chuyện về 3 chú cá";          
+        courseReadList[2].des = "Câu chuyện về hoàng tử ếch";  
         setCoursesRead(courseReadList);      
 
       } catch (error) {
@@ -384,6 +413,15 @@ function CardList() {
           const downloadURL = await getDownloadURL(ref(storage, path));
           courseListenList[i].image = downloadURL;   
         }
+        courseListenList[0].image = sintel;          
+        courseListenList[1].image = listen2;          
+        courseListenList[2].image = listen3;   
+        courseListenList[0].name = "Adventure";          
+        courseListenList[1].name = "Moana";          
+        courseListenList[2].name = "Frozen";  
+        courseListenList[0].des = "Luyện nghe 1 đạn ngắn về câu chuyện Cuộc phiêu lưu";          
+        courseListenList[1].des = "Luyện nghe 1 đạn ngắn về câu chuyện Moana";          
+        courseListenList[2].des = "Luyện nghe 1 đạn ngắn về câu chuyện Frozen";  
         setCoursesListen(courseListenList);      
 
       } catch (error) {
@@ -432,7 +470,7 @@ function CardList() {
       <CoursesTopicNameText> - Learning Vocabulary - </CoursesTopicNameText>
       <CardListContainer>
         <Slider {...sliderSettings}>
-          {coursesVocab.map((item, index) => (
+          {coursesUser.map((item, index) => (
             <Card key={index}>
               <ImgContainer><Img imageUrl={item.image} alt={item.name} />
               </ImgContainer>
@@ -498,11 +536,11 @@ function CardList() {
       <CoursesTopicNameText> -  Mini Game - </CoursesTopicNameText>
       <CardListContainer>
         <Slider {...sliderSettings}>
-          {coursesListen.map((item, index) => (
+          {miniGame.map((item, index) => (
             <Card key={index}>
               <ImgContainer><Img imageUrl={item.image} alt={item.name} />
               </ImgContainer>
-              <Name>{item.name}</Name>
+              <Name>{item.name} GAME</Name>
               <Description>{item.des}</Description>
               <LearnBtn
                 to={
