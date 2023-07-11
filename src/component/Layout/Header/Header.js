@@ -142,6 +142,7 @@ function Header() {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   
+  const user = JSON.parse(localStorage.getItem('user'));
   const handleDropdownClick = () => {
     setIsOpenInfo(!isOpenInfo);
     setIsOpenMenu(false);
@@ -186,7 +187,7 @@ function Header() {
                       setIsOpenMenu(false);
                     }}
                   >
-                    username
+                    {user.username}
                     </NavLinkStyled>
                   <NavLinkStyled onClick={handleDropdownClick}> <StyledFaEllipsisV/> </NavLinkStyled>
                   {isOpenInfo && (

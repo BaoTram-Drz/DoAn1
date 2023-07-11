@@ -52,7 +52,6 @@ const TableDiv = styled.table`
   }
   
 `;
-
 const TableCell = styled.td`
   width: 100%;
   padding: 5px 0px;

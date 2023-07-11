@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from 'react-router-dom';
-import {FaGooglePlusG} from 'react-icons/fa';
+import { FaGooglePlusG } from 'react-icons/fa';
 import image from './image.png'
-
+import { saveNewUser, saveNewUserWithGG } from "../../API/signUpApi";
+const toastr = require('toastr');
 const Container = styled.div`
   display: grid;
   grid-template-columns: 2fr 1fr;
@@ -86,11 +87,13 @@ const Input = styled.input`
   height: 55px;
   margin-top: 2%;
   background: #DBDBDB;
-  font: normal 300 1.5rem "Roboto";
+  font: normal 400 1.5rem "Roboto";
   color: white;
   border: none;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
+  padding-left: 2rem;
+
   &:focus {
     outline: none;
     border: none;
@@ -158,69 +161,95 @@ const StyledFaGooglePlusG = styled(FaGooglePlusG)`
   height: 30px;
   color: red;
 `;
-const sendInfor = (username,password,email) => {
-  const newUser = {
-    username:username,
-    password: password,
-    email: email
+
+const sendInfor = async (email,username, password, repassword, bday, name) => {
+  if (password === repassword) {
+    const newUser = {
+      username: username,
+      name: name,
+      password: password,
+      email: email,
+      dateofbirth: bday,
+    };
+    try {
+      const response = await saveNewUser(newUser);
+      console.log('Success:', response);
+      alert('Thành công.')
+      toastr.success('Đăng ký thành công.', 'Thành công.')
+    } catch (error) {
+      console.log('Error:', error);
+    }
+  } else {
+    alert(" password not same repassword !");
   }
-  fetch('http://localhost:5001/api/users/register', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(newUser)
-  })
-  .then(response => response.json())
-  .then(result => {
-    console.log('Success:', result);
-  })
-  .catch(error => {
+};
+
+const signUpWithGoogle = async () => {
+  try {
+    const response = await saveNewUserWithGG();
+    console.log('Success:', response);
+  } catch (error) {
     console.log('Error:', error);
-  });
-}
-const signUpWithGoogle = ()=>{
-  fetch('http://localhost:5001/api/users/testVoice', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-  })
-  .then(response => response.json())
-  .then(result => {
-    console.log('Success:', result);
-  })
-  .catch(error => {
-    console.log('Error:', error);
-  });
+  }
 }
 
 const SignUp = () => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [repassword, setRePassword] = useState('');
+  const [bday, setBDay] = useState('');
   return (
     <Container>
       <Image bgImage={image}></Image>
       <FormWrapper>
         <BigText>Sign Up</BigText>
-        <Input type="email" id="email" name="email"  placeholder="Email"/>
-        <Input type="text" id="name" name="name"  placeholder="Your Name"/>
-        <Input type="password" id="pass" name="pass" placeholder="Password"/>
-        <Input type="password" id="repass" name="repass" placeholder="Re-Password"/>
-        <Input type="date" id="bday" name="bday"/>
+
+        <Input type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          name="name" placeholder="Your Name" />
+          
+        <Input type="date"
+          value={bday}
+          onChange={(e) => setBDay(e.target.value)}
+          name="bday" placeholder="Date Of Birth"/>
+
+        <Input type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          name="username" placeholder="Username" />
+
+        <Input type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          name="email" placeholder="Email" />
+
+        <Input type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          name="pass" placeholder="Password" />
+
+        <Input type="password"
+          value={repassword}
+          onChange={(e) => setRePassword(e.target.value)}
+          name="repass" placeholder="Re-Password" />
+
+
         <SubmitButton>
-          <LinkLoginBtn  to="/" onClick={()=>sendInfor(document.getElementById('username').value,
-                                                        document.getElementById('nome').value,
-                                                        document.getElementById('email').value)}>
-          Sign Up
+          <LinkLoginBtn onClick={() => sendInfor(email,username, password, repassword, bday, name)}>
+            Sign Up
           </LinkLoginBtn>
-        </SubmitButton> 
+        </SubmitButton>
         <Line>--------------------or--------------------</Line>
-        
-        <SubmitGGButton onClick={()=>signUpWithGoogle()}
-        ><StyledFaGooglePlusG/><LinkLoginGG>&ensp;Continue with Google</LinkLoginGG></SubmitGGButton>
-              {/*  set giá trị của header là có người dùng  */}
+
+        <SubmitGGButton onClick={() => signUpWithGoogle()}
+        ><StyledFaGooglePlusG /><LinkLoginGG>&ensp;Continue with Google</LinkLoginGG></SubmitGGButton>
+        {/*  set giá trị của header là có người dùng  */}
       </FormWrapper>
     </Container>
-   
+
   );
 };
 

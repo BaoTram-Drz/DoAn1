@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useDrop } from 'react-dnd';
-import styled,{css} from "styled-components";
+import styled, { css } from 'styled-components';
 
 const TextBox = styled.div`
   width: 100%;
   height: 50px;
   margin: auto;
   padding: 12px 0px;
-  font: normal 400 2rem "Roboto";
+  font: normal 400 2rem 'Roboto';
   color: #ffc24b;
   text-align: center;
   border: 2px dashed #ffb3ae;
@@ -22,6 +22,21 @@ const TextBox = styled.div`
     css`
       background-color: white;
     `}
+    @media (max-width: 1200px) {
+      font-size: 2rem;
+    }
+    
+    @media (max-width: 540px) {
+      font-size: 1.5rem;
+    }
+  
+    @media (max-width: 480px) {
+      font-size: 1.2rem;
+    }
+  
+    @media (max-width: 300px) {
+      font-size: 1rem;
+    }
 `;
 
 const Game3Drop = ({onDrop}) => {
@@ -47,10 +62,9 @@ const Game3Drop = ({onDrop}) => {
   };
 
   return (
-    <TextBox isOver={isOver} ref={drop}  onClick={handleReset}>
-     {droppedText}
+    <TextBox isOver={isOver} ref={drop} onClick={handleReset}>
+      {droppedText}
     </TextBox>
-    
   );
 };
 

@@ -6,8 +6,6 @@ import Carousel from '../Component/Carousel/Carousel';
 import {CiRainbow} from 'react-icons/ci'
 
 
-// import Cube from '../Component/TestThree/Testthree';
-
 const Container = styled.div`
   overflow: hidden;
   width: 100%;
