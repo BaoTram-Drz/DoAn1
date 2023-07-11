@@ -5,7 +5,13 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import DraggableButton from './Button/DraggableButton'
 import DropZone from './Button/DropZone'
 
+const Container = styled.p`
+  margin: 1% auto 5% auto;
 
+  @media (max-width: 540px) {
+    margin: 5% auto 10% auto;
+  }    
+`;
 const Answers = styled.p`
     text-align: center;
     padding: 0px 24px;
@@ -27,23 +33,37 @@ const Answers = styled.p`
     }
 `;
 const ButtonsContainer = styled.div`
-    width: 80%;
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    margin: 3% auto 5% auto;
+  width: 80%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1%;
+  margin: 3% auto 5% auto;
+  @media (max-width: 912px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width: 540px) {
+    width: 90%;
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;
 const Game4 = ({data, onSelectAnswer}) => {
 
-    const [draggedItems, setDraggedItems] = useState([]);
+    const [draggedItems, setDraggedItems] = useState([]);    
+    const [score, setScore] = useState(0);
 
     useEffect(() => {
       const ids = Object.values(draggedItems).reduce((acc, value) => acc + value, '');
-      onSelectAnswer(ids);
-    }, [draggedItems, onSelectAnswer]);
+      if (ids === data.correctAnswer) {
+        setScore(data.score)
+      } else {
+        setScore(0);
+      }
+      onSelectAnswer(score);
+    }, [draggedItems, onSelectAnswer, score]);
     
     const handleDrop = (id) => {
       setDraggedItems((prev) => [...prev, id]);
+      console.log(draggedItems)
     };
 
     if (!data) {
@@ -57,7 +77,7 @@ const Game4 = ({data, onSelectAnswer}) => {
     const answerOptions = data.answerOptions;
 
     return (
-      <>
+      <Container>
         <Answers>{data.question}</Answers>
         <DndProvider backend={HTML5Backend}>
           <DropZone onDrop={handleDrop}  resetDraggedItems={resetDraggedItems}/>
@@ -72,7 +92,7 @@ const Game4 = ({data, onSelectAnswer}) => {
             })}
           </ButtonsContainer>
         </DndProvider>
-      </>
+      </Container>
     );
 };
 

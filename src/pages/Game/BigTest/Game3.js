@@ -28,16 +28,20 @@ const Answers = styled.p`
 
 const TablesContainer = styled.div`
   width: 80%;
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1%;
   margin: 3% auto 5% auto;
+  @media (max-width: 912px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
   @media (max-width: 540px) {
-    width: 100%;
+    width: 90%;
+    grid-template-columns: repeat(1, 1fr);
   }
 `;
 const TableDiv = styled.table`
-  width: 24%;  
+  width: 100%;
   margin: 1%;
   padding: 5px 24px;
   border: 3px dashed #0e606b;
@@ -47,13 +51,6 @@ const TableDiv = styled.table`
     width: 100%;
   }
   
-`;
-const TableRow = styled.div`
-  width: 80%;
-  @media (max-width: 540px) {
-    display: flex;
-    flex-direction: column;
-  }
 `;
 const TableCell = styled.td`
   width: 100%;
@@ -80,13 +77,28 @@ const TableCell = styled.td`
 `;
 
 const Game3 = ({ data, onSelectAnswer }) => {
-  const [draggedItems, setDraggedItems] = useState([]);
+  const [draggedItems, setDraggedItems] = useState([]);  
+  const [score, setScore] = useState(0);
   const [tableData, setTableData] = useState([]);
 
   useEffect(() => {
-    const tableStrings = JSON.stringify(tableData);
-    onSelectAnswer(tableStrings);
-  }, [tableData, onSelectAnswer]);
+    let matchedPairs = [];
+  
+    if (tableData && data.correctAnswer) {
+      matchedPairs = tableData.filter((selectedItem) =>
+        data.correctAnswer.some((item) =>
+          selectedItem.id === item.id && selectedItem.text === item.text
+        )
+      );
+    }
+  
+    const calculatedScore = (matchedPairs.length * parseInt(data.score)) / 4;
+
+    setScore(calculatedScore);
+    onSelectAnswer(calculatedScore);
+  
+  }, [tableData, onSelectAnswer, data.correctAnswer, data.score]);
+  
 
   if (!data) {
     return <p>Loading...</p>;
@@ -96,6 +108,11 @@ const Game3 = ({ data, onSelectAnswer }) => {
     setDraggedItems((prev) => [...prev, id]);
     setTableData((prev) => [...prev, { id, text }]);
   };
+ 
+
+  if (!data) {
+    return <p>Loading...</p>;
+  }
 
   const resetDraggedItems = (resetItems) => {
     setDraggedItems((prev) => prev.filter((item) => !resetItems.includes(item)));
@@ -109,8 +126,7 @@ const Game3 = ({ data, onSelectAnswer }) => {
       <Answers>{data.question}</Answers>
       <DndProvider backend={HTML5Backend}>
         <TablesContainer>
-          <TableRow>
-            {textOptions.map((item, index) => (
+          {textOptions.map((item, index) => (
               <TableDiv key={index}>
                 <tbody>                
                     <TableCell>{item.text}</TableCell>                
@@ -125,17 +141,14 @@ const Game3 = ({ data, onSelectAnswer }) => {
                 </tbody>
               </TableDiv>
             ))}
-          </TableRow>
         </TablesContainer>
         <TablesContainer>
-          <TableRow>
-            {answerOptions.map((item) => {
+         {answerOptions.map((item) => {
               if (draggedItems.includes(item.id)) {
                 return null;
               }
               return <DraggableButton key={item.id} id={item.id} text={item.text} />;
             })}
-          </TableRow>
         </TablesContainer>
       </DndProvider>
     </>

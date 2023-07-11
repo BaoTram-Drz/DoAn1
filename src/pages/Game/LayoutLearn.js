@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
 import { Link, useLocation } from 'react-router-dom';
 import Game1 from './BigTest/Game1';
 import Game2 from './BigTest/Game2';
 import Game3 from './BigTest/Game3';
 import Game4 from './BigTest/Game4';
-import Fireworks from './FireWorks';
+import Game5 from './BigTest/Game5';
 import datas from './data.json';
 import { getLearns } from '../../API/coursesData';
+import MyLottieAnimation from './LottieAnimation/MyLottieAnimation';
 
 
 const BigText = styled.p`
@@ -16,75 +17,16 @@ const BigText = styled.p`
   font-family: 'Bungee Inline';
   font-weight: 400;
   font-size: 3rem;
-  color: #f47068;
+  color: #F47068;
   text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
-
-  @media (max-width: 768px) {
-    font-size: 2.5rem;
-  }
-  @media (max-width: 800px) {
-    margin: 15% auto auto auto;
-  }
-
-  @media (max-width: 1200px) {
-    margin-top: 10%;
-    font-size: 2.5rem;
-  }
-
-  @media (max-width: 912px) {
-    margin-top: 10%;
-    font-size: 2.5rem;
-  }
-
-  @media (max-width: 768px) {
-    margin-top: 10%;
-    font-size: 2.5rem;
-  }
-
-  @media (max-width: 540px) {
-    margin-top: 15%;
-    font-size: 2.5rem;
-  }
-
-  @media (max-width: 480px) {
-    margin-top: 20%;
-    font-size: 2rem;
-  }
-
-  @media (max-width: 300px) {
-    margin-top: 30%;
-    font-size: 1.5rem;
-  }
 `;
 
 const Header = styled.div`
   padding: 12px 24px;
-  font: normal 400 2rem 'Autour One';
+  font: normal 400 2rem "Autour One";
   color: #ffc24b;
   border-bottom: 3px dashed #0e606b;
   border-radius: 20px;
-  text-align: center;
-  
-  @media (max-width: 1200px) {
-    width: 150px;
-    font-size: 1.8rem;
-  }
-
-  @media (max-width: 540px) {
-    width: 100px;
-    font-size: 1.2rem;
-  }
-
-  @media (max-width: 480px) {
-    width: 80px;
-    padding: 5px 12px;
-    font-size: 1rem;
-    border-width: 2px;
-  }
-  @media (max-width: 280px) {
-    padding: 5px 0px;
-    font-size: 0.8rem;
-  }
 `;
 
 const HeadersContainer = styled.div`
@@ -152,47 +94,24 @@ const ButtonRight = styled(Link)`
   }
 `;
 
-const ButtonTest = styled(Link)`
+const SubButton = styled.button`
   width: 200px;
   padding: 5px 24px;
-  text-decoration: none;
-  text-align: center;
+  font: normal 400 2rem "Autour One";
+  color: white;
+  background-color: #f47068;
+  border: 3px solid #f47068;
+  border-radius: 20px;
   font: normal 400 2rem 'Autour One';
-  color: #ffc24b;
+  color: #f47068;
   background-color: white;
   border: 3px solid #f47068;
   border-radius: 20px;
   z-index: 2;
 
-  @media (max-width: 1200px) {
-    width: 100px;
-    font-size: 1.8rem;
-  }
-
-  @media (max-width: 540px) {
-    width: 60px;
-    font-size: 1.5rem;
-  }
-
-  @media (max-width: 480px) {
-    width: 30px;
-    padding: 5px 12px;
-    font-size: 1rem;
-  }
-`;
-
-const SubButton = styled.button`
-  width: 200px;
-  padding: 5px 24px;
-  font: normal 400 2rem 'Autour One';
-  color: white;
-  background-color: #f47068;
-  border: 3px solid #f47068;
-  border-radius: 20px;
-  z-index: 2;
-
   &:hover{
-    border: 3px solid black;
+    color: white;
+    background-color: #f47068;
   }
 
   @media (max-width: 1200px) {
@@ -211,31 +130,11 @@ const SubButton = styled.button`
     font-size: 1rem;
   }
 `;
-
 const ButtonsContainer = styled.div`
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
   margin: 3% auto;
-`;
-
-const FireContainer = styled.div`
-  position: relative;
-  width: 40%;
-  margin: 0 auto;
-  z-index: 2;
-  margin-top: -5%;
-  margin-bottom: 0px;
-`;
-
-const Text = styled.p`
-  width: 100%;  
-  padding: 12px 24px;
-  margin: 0% auto 5% auto;
-  font: normal 400 1.5rem 'Autour One';
-  text-align: center;
-  color: #ffc24b;
-  position: relative;
 `;
 
 const Text1  = styled.p`
@@ -250,13 +149,22 @@ const Text1  = styled.p`
 const LayoutLearn = () => {
   const [data, setData] = useState([]);  
   const [productName, setProductName] = useState('Product A');
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [selectedAnswer, setSelectedAnswer] = useState(null);
-  const [answerArray, setAnswerArray] = useState();
+  const [currentIndex, setCurrentIndex] = useState(0);  
+  const [answerScore, setAnswerScore] = useState(0);
   const [isAnswerCorrect, setIsAnswerCorrect] = useState(false);
   const [isFireWork, setIsFireWork] = useState(null);
   const location = useLocation();
 
+  //nếu ban đầu đã đúng
+  useEffect(() => {
+    if (data[currentIndex]?.state === 'true') {
+      setIsAnswerCorrect(true);
+    }
+    if (data[currentIndex]?.state === 'false') {
+      setIsAnswerCorrect(false);
+    }
+  });
+  //kiểm tra bài này đã pass chưa
   useEffect(() => {
     if (data[currentIndex]?.state === 'true') {
       setIsAnswerCorrect(true);
@@ -264,14 +172,16 @@ const LayoutLearn = () => {
       setIsAnswerCorrect(false);
     }
     setIsFireWork(null);
-  }, [data, currentIndex]);
+  }, [currentIndex]);
 
+  //lấy tên chủ đề từ trang trước 
   useEffect(() => {
     if (location.state && location.state.productname) {
       setProductName(location.state.productname);
     }
   }, [location.state]);
 
+  //Api lấy dữ liệu
   useEffect(() => {
     const fetchLearns = async () => {
       try {
@@ -289,86 +199,68 @@ const LayoutLearn = () => {
     if (currentIndex > 0) {
       setCurrentIndex(currentIndex - 1);
     }
-  };
+  };  
 
   const handleNextButtonClick = () => {
+    if (currentIndex < data.length - 1) {
+        setCurrentIndex(currentIndex + 1);
+    }
     if (currentIndex < data.length - 1 && isAnswerCorrect) {
       setCurrentIndex(currentIndex + 1);
-      setSelectedAnswer(null);
       setIsAnswerCorrect(false);
     }
+    console.log(data[currentIndex + 1]?.lesson)
+    console.log(data[currentIndex + 1]?.kind)
   };
+  
 
-  const handleAnswerSelected = (answerId) => {
-    setSelectedAnswer(answerId);
-  };
-
-  const handleAnswerArray = (tableStrings) => {
-    const parsedArray = JSON.parse(tableStrings);
-    setAnswerArray(parsedArray);
+  const handleGetAnswerScore = (score) => {
+    setAnswerScore(score); // lấy số điểm mà người dùng đạt được
   };
 
   const submitAnswerSelected = () => {
-    const correctAnswer = data[currentIndex]?.correctAnswer;
-
-    if (typeof correctAnswer === 'string') {
-      if (data[currentIndex]?.state === 'true') {
-        setIsAnswerCorrect(true);
-      } else if (correctAnswer === selectedAnswer) {
-        setIsAnswerCorrect(true);
-        setIsFireWork(true);
-      } else {
-        setIsAnswerCorrect(false);    
-        setIsFireWork(false)    
-      }
-    } 
-    
-    else {
-      const isMatch = correctAnswer.every((item) =>
-        answerArray.some((selectedItem) =>
-          selectedItem.id === item.id && selectedItem.text === item.text
-        )
-      );
-
-      if (data[currentIndex]?.state === 'true') {
-        setIsAnswerCorrect(true);
-      } else if (isMatch) {
-        setIsAnswerCorrect(true);
-        setIsFireWork(true);
-      } else {
-        setIsAnswerCorrect(false);    
-        setIsFireWork(false)    
-      }
-    }
+    const dataScore = data[currentIndex]?.score; //điểm của câu hỏi
+    if (data[currentIndex]?.state === 'true') { //trường hợp đã pass
+      setIsAnswerCorrect(true);
+    } else if (dataScore === answerScore) { //trường hợp so sánh điểm => full
+      setIsAnswerCorrect(true);
+      setIsFireWork(true);
+    } else { //trường hợp so sánh điểm => bằng 0
+      setIsAnswerCorrect(false);    
+      setIsFireWork(false)    
+    }      
+    setAnswerScore(0); 
   };
 
   return (
     <>
       <BigText>Word pairing</BigText>
-      <HeadersContainer>
+        <HeadersContainer>
         <Header>{data[currentIndex]?.kind}</Header>
         <Header>{data[currentIndex]?.lessonTitle}</Header>
-        <Header>{data[currentIndex]?.lesson}/4</Header>
+        <Header>{data[currentIndex]?.lesson}/10</Header>
       </HeadersContainer>
   
       <>
         {data[currentIndex]?.category === 'Game1' && (
-          <Game1 data={data[currentIndex]} onSelectAnswer={handleAnswerSelected} />
+          <Game1 data={data[currentIndex]} onSelectAnswer={handleGetAnswerScore} />
         )}
         {data[currentIndex]?.category === 'Game2' && (
-          <Game2 data={data[currentIndex]} onSelectAnswer={handleAnswerSelected} />
+          <Game2 data={data[currentIndex]} onSelectAnswer={handleGetAnswerScore} />
         )}
         {data[currentIndex]?.category === 'Game3' && (
-          <Game3 data={data[currentIndex]} onSelectAnswer={handleAnswerArray} />
+          <Game3 data={data[currentIndex]} onSelectAnswer={handleGetAnswerScore} />
         )}
         {data[currentIndex]?.category === 'Game4' && (
-          <Game4 data={data[currentIndex]} onSelectAnswer={handleAnswerSelected} />
+          <Game4 data={data[currentIndex]} onSelectAnswer={handleGetAnswerScore} />
+        )}
+        {data[currentIndex]?.category === 'Game5' && (
+          <Game5 data={data[currentIndex]} onSelectAnswer={handleGetAnswerScore} />
         )}
       </>
       {isFireWork === true && 
         <>
-          <Text> Bingo </Text>
-          <FireContainer><Fireworks/></FireContainer>         
+          <MyLottieAnimation/>
         </>
       }
       <ButtonsContainer>
@@ -384,20 +276,21 @@ const LayoutLearn = () => {
 
         {data[currentIndex + 1]?.kind === 'Game' ? (
           <ButtonRight
-            onClick={handleNextButtonClick}
-            disabled={!isAnswerCorrect}
+            onClick={isAnswerCorrect ? handleNextButtonClick : ""}            
             isAnswerCorrect={isAnswerCorrect}
           >
             Next
           </ButtonRight>
         ) : (
-          <ButtonTest to="/bigtest" state={{ productname: productName }} >Next</ButtonTest>
+          <ButtonRight to={isAnswerCorrect ? "/bigtest" : ""} state={{ productname: productName }} >Next</ButtonRight>
           
         )}
       </ButtonsContainer>
+
       
-      {isFireWork === false && <Text1>Bạn đã chọn sai</Text1>}
+      {isFireWork === false && <Text1>Oh no</Text1>}
     </>
+   
   );
 };
 

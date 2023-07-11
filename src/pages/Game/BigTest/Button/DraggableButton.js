@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 import { useDrag } from 'react-dnd';
 
 const StyledButton = styled.button`
-  width: 24%;
+  width: 100%;
   padding: 5px 24px;
   font: normal 400 2rem "Roboto";
   background-color: white;

@@ -2,11 +2,11 @@ import React from 'react';
 import { useState, useEffect} from 'react';
 import 'react-slideshow-image/dist/styles.css';
 import styled from 'styled-components';
-import slide1 from './images/slide1.png';
-import slide2 from './images/slide2.png';
-import slide3 from './images/slide3.png';
-import slide4 from './images/slide4.png';
-import slide5 from './images/slide5.png';
+import slide1 from './images/slide1.jpg';
+import slide2 from './images/slide2.jpg';
+import slide3 from './images/slide3.jpg';
+import slide4 from './images/slide4.jpg';
+import slide5 from './images/slide5.jpg';
 
 const SlideshowContainer = styled.div`
   display: flex;
@@ -27,10 +27,11 @@ const Slideshow = styled.div`
   position: relative;
   flex: 1;
   border-radius: 1rem;
+  background-color: #1697a6;
   background-image: url(${(props) => props.bgImage});
   background-position: center;
   background-repeat: no-repeat;
-  background-size: auto 100%;
+  background-size: auto 99%;
   transition: all 0.8s cubic-bezier(.25,.4,.45,1);
 
   &.active {
@@ -48,7 +49,7 @@ const Slideshow = styled.div`
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(128, 128, 128, 0.5); /* Màu xám gần trong suốt */
+    background-color: rgba(175, 175, 175, 0.3); /* Màu xám gần trong suốt */
     z-index: 1;
     border-radius: 1rem;
   }
@@ -56,6 +57,7 @@ const Slideshow = styled.div`
   > div {
     position: relative;
     z-index: 2;
+    border-radius: 0.5rem;
   }
 
   @media (max-width: 1300px) {

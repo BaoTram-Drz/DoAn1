@@ -108,6 +108,21 @@ const Button = styled(Link)`
   background-color: white;
   border: 3px solid #f47068;
   border-radius: 20px;
+  @media (max-width: 1200px) {
+    width: 200px;
+    font-size: 1.8rem;
+  }
+
+  @media (max-width: 540px) {
+    width: 150px;
+    font-size: 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    width: 100px;
+    padding: 5px 12px;
+    font-size: 1rem;
+  }
 `;
 const SubButton = styled(Link)`
   width: 200px;
@@ -119,6 +134,21 @@ const SubButton = styled(Link)`
   background-color: #f47068;
   border: 3px solid #f47068;
   border-radius: 20px;
+  @media (max-width: 1200px) {
+    width: 200px;
+    font-size: 1.8rem;
+  }
+
+  @media (max-width: 540px) {
+    width: 150px;
+    font-size: 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    width: 100px;
+    padding: 5px 12px;
+    font-size: 1rem;
+  }
 `;
 const ButtonsContainer = styled.div`
   display: flex;
@@ -130,7 +160,8 @@ const ButtonsContainer = styled.div`
 const BigTest = () => {
   const [data, setData] = useState([]);  
   const [productName, setProductName] = useState('Product A');
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);  
+  const [answerScore, setAnswerScore] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [answerArray, setAnswerArray] = useState();
   const [isAnswerCorrect, setIsAnswerCorrect] = useState(false);
@@ -148,8 +179,9 @@ const BigTest = () => {
 
   useEffect(() => {
     if (location.state && location.state.productname) {
-      setProductName(location.state.productname);
+      setProductName(productName);
     }
+    console.log(data);
   }, [location.state]);
 
   useEffect(() => {
@@ -165,27 +197,8 @@ const BigTest = () => {
     fetchLearns();
   }, []);
 
-  const handlePrevButtonClick = () => {
-    if (currentIndex > 0) {
-      setCurrentIndex(currentIndex - 1);
-    }
-  };
-
-  const handleNextButtonClick = () => {
-    if (currentIndex < data.length - 1 && isAnswerCorrect) {
-      setCurrentIndex(currentIndex + 1);
-      setSelectedAnswer(null);
-      setIsAnswerCorrect(false);
-    }
-  };
-
-  const handleAnswerSelected = (answerId) => {
-    setSelectedAnswer(answerId);
-  };
-
-  const handleAnswerArray = (tableStrings) => {
-    const parsedArray = JSON.parse(tableStrings);
-    setAnswerArray(parsedArray);
+  const handleGetAnswerScore = (score) => {
+    setAnswerScore(score); // lấy số điểm mà người dùng đạt được
   };
 
   const submitAnswerSelected = () => {
@@ -236,12 +249,12 @@ const BigTest = () => {
             return null;
             }
             return (
-                <>
-                    {item?.category === 'Game1' && <Game1  data={item} onSelectAnswer={handleAnswerSelected}/>} 
-                    {item?.category === 'Game2' && <Game2  data={item} onSelectAnswer={handleAnswerSelected}/>}
-                    {item?.category === 'Game3' && <Game3  data={item} onSelectAnswer={handleAnswerArray}/>}
-                    {item?.category === 'Game4' && <Game4  data={item} onSelectAnswer={handleAnswerSelected}/>} 
-                </>                    
+              <>              
+                {item?.category === 'Game1' && <Game1  data={item} onSelectAnswer={handleGetAnswerScore}/>} 
+                {item?.category === 'Game2' && <Game2  data={item} onSelectAnswer={handleGetAnswerScore}/>}
+                {item?.category === 'Game3' && <Game3  data={item} onSelectAnswer={handleGetAnswerScore}/>}
+                {item?.category === 'Game4' && <Game4  data={item} onSelectAnswer={handleGetAnswerScore}/>} 
+            </>                   
             );
         })}
 
@@ -249,8 +262,6 @@ const BigTest = () => {
         <Button to="/layoutlearn">Pre</Button>
         <SubButton to="/scores">Submit</SubButton>
       </ButtonsContainer>
-      <Link to="/league"> League</Link>
-      <Link to="/game1"> game</Link>
       
     </>
    

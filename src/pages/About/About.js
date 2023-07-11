@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import aboutround from "./aboutround.png";
+import aboutround from "./mini-round.jpg"
 
 const PageContainer = styled.div`
   position: relative;
@@ -9,30 +9,23 @@ const PageContainer = styled.div`
   padding-top: 2.5%;
   background: #FFB3AE;
 
-
   @media (max-width: 1300px) {
-    margin-top: 0px;
-    height: 650px;
+    margin-top: 5%;
   }
-  @media (max-width: 912px) {
-    margin-top: -10%;
-    height: 600px;
+  @media (max-width: 1200px) {
+    margin-top: 0px;
   }
   @media (max-width: 768px) {
-    margin-top: -20%;
-    height: 550px;
+    margin-top: 0px;
   }
   @media (max-width: 540px) {
     margin-top: -40%;
-    height: 500px;
   }
-  @media (max-width: 415px) {
+  @media (max-width: 480px) {
     margin-top: -80%;
-    height: 450px;
   }
   @media (max-width: 300px) {
-    margin-top: -150%;
-    height: 450px;
+    margin-top: -100%;
   }
 `;
 
@@ -58,32 +51,30 @@ const BigDescription = styled.p`
   text-shadow: 0px 0.125rem 0.125rem #FFF4F1;
   
   @media (max-width: 1300px) {
-   
     font-size: 2.7rem;
   }
   @media (max-width: 1200px) {
-    
     font-size: 2.5rem;
   }
   @media (max-width: 912px) {
-    
-    font-size: 2.5rem;
+    margin: 10% auto 5% auto;
+    font-size: 2.2rem;
   }
   @media (max-width: 768px) {
-     
+    margin: 10% auto 5% auto;
     font-size: 2rem;
   }
   @media (max-width: 540px) {
-     
-    font-size: 1.5rem;
+    margin: 15% auto 10% auto;
+    font-size: 1.8rem;
   }
   @media (max-width: 480px) {
-     margin: 15% 22% 3% auto;
-    font-size: 1.2rem;
+    margin: 20% auto 10% auto;
+    font-size: 1.5rem;
   }
   @media (max-width: 300px) {
-     
-    font-size: 1rem;
+    margin: 30% auto 15% auto;
+    font-size: 1.5rem;
   }
 `;
 
@@ -122,7 +113,7 @@ const SmallDescription = styled.p`
   }
 `;
 
-const RoundedImage = styled.img`
+const RoundedImage = styled.div`
   position: absolute;
   box-sizing: border-box;
   width: 20%;
@@ -131,6 +122,10 @@ const RoundedImage = styled.img`
   top: 5%;
   border: 25px solid #FFF4F1;
   border-radius: 250px;
+  background-image: url(${(props) => props.bgImage});
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  background-size: 100% 120%;
   
   @media (max-width: 1300px) {
     width: 25%;
@@ -170,7 +165,7 @@ function AboutPage() {
         <SmallDescription>
         Chào mừng bạn đến với trang web của chúng tôi, nơi bạn có thể học tiếng Anh thông qua những trò chơi đơn giản. Nền tảng của chúng tôi cung cấp những trò chơi hấp dẫn và tương tác được thiết kế để cải thiện từ vựng, ngữ pháp và kỹ năng hiểu. Dù bạn là người mới học hay người học nâng cao, những trò chơi của chúng tôi phù hợp với mọi cấp độ. Hãy bắt đầu học ngay hôm nay và tận hưởng niềm vui trong quá trình học!</SmallDescription>
       </BigContainer>
-      <RoundedImage src={aboutround}/>
+      <RoundedImage bgImage={aboutround}/>
     </PageContainer>
   );
 };

@@ -39,15 +39,15 @@ const TextBox = styled.div`
     }
 `;
 
-const Game3Drop = ({ onDrop }) => {
+const Game3Drop = ({onDrop}) => {
   const [droppedText, setDroppedText] = useState(null);
 
   const [{ isOver }, drop] = useDrop(() => ({
     accept: 'button',
     drop: (item) => {
-      if (droppedText == null) {
+      if (droppedText === null) {
         setDroppedText(item.text);
-        onDrop(item.id, item.text);
+        onDrop(item.id, item.text); // Gọi callback onDrop với id và text
       } else {
         setDroppedText(null);
       }

@@ -285,8 +285,8 @@ const LinkText = styled(Link)`
 
 const CoursesInfo = () => {
   const location = useLocation();
-  const [lessonType, setLessonType] = useState('Listen');
-  const [productName, setProductName] = useState('Product A');
+  const [lessonType, setLessonType] = useState('a');
+  const [productName, setProductName] = useState('');
   const [productImage, setProductImage] = useState(null);
   const [data, setData] = useState([]);
 
@@ -305,9 +305,16 @@ const CoursesInfo = () => {
   useEffect(() => {
     const data = [
       { id: 1, name: "Học từ vựng" },
-      { id: 2, name: "Làm bài tập về từ vựng" },
-      { id: 3, name: "Big Test" }
+      { id: 2, name: "Làm bài tập về từ vựng 1" },      
+      { id: 3, name: "Làm bài tập về từ vựng 2" },            
+      { id: 4, name: "Làm bài tập về từ vựng 3" },      
+      { id: 5, name: "Làm bài tập về từ vựng 4" },       
+      { id: 6, name: "Làm bài tập về từ vựng 5" },
+      { id: 7, name: "Big Test" }
     ];
+    // const data = [
+    //   { id: 1, name: "Đây là mẫu chuyện kể về cuộc phiêu lưu thám hiểm của ....." }
+    // ];
     setData(data);
     // const fetchCoursesDetail = async () => {
     //   try {
