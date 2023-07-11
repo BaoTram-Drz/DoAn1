@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { Link } from 'react-router-dom';
 import { FaGooglePlusG } from 'react-icons/fa';
 import image from './image.png'
 import { saveNewUser, saveNewUserWithGG } from "../../API/signUpApi";
+import { SnackBarContext } from "../../App";
 const toastr = require('toastr');
 const Container = styled.div`
   display: grid;
@@ -162,7 +163,7 @@ const StyledFaGooglePlusG = styled(FaGooglePlusG)`
   color: red;
 `;
 
-const sendInfor = async (email,username, password, repassword, bday, name) => {
+const sendInfor = async (email, username, password, repassword, bday, name) => {
   if (password === repassword) {
     const newUser = {
       username: username,
@@ -174,8 +175,9 @@ const sendInfor = async (email,username, password, repassword, bday, name) => {
     try {
       const response = await saveNewUser(newUser);
       console.log('Success:', response);
-      alert('Thành công.')
-      toastr.success('Đăng ký thành công.', 'Thành công.')
+
+      // alert('Thành công.')
+      // toastr.success('Đăng ký thành công.', 'Thành công.')
     } catch (error) {
       console.log('Error:', error);
     }
@@ -200,21 +202,28 @@ const SignUp = () => {
   const [password, setPassword] = useState('');
   const [repassword, setRePassword] = useState('');
   const [bday, setBDay] = useState('');
+  const handleOpenSnackbar = useContext(SnackBarContext);
+
   return (
     <Container>
+
       <Image bgImage={image}></Image>
       <FormWrapper>
         <BigText>Sign Up</BigText>
-
+        <div onClick={(e) => {
+          handleOpenSnackbar('green', 'hello', 1000)
+        }} style={{ background: 'red' }}>
+          Hieu
+        </div>
         <Input type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
           name="name" placeholder="Your Name" />
-          
+
         <Input type="date"
           value={bday}
           onChange={(e) => setBDay(e.target.value)}
-          name="bday" placeholder="Date Of Birth"/>
+          name="bday" placeholder="Date Of Birth" />
 
         <Input type="text"
           value={username}
@@ -238,10 +247,13 @@ const SignUp = () => {
 
 
         <SubmitButton>
-          <LinkLoginBtn onClick={() => sendInfor(email,username, password, repassword, bday, name)}>
+          <LinkLoginBtn
+            onClick={() => sendInfor(email, username, password, repassword, bday, name)}
+          >
             Sign Up
           </LinkLoginBtn>
         </SubmitButton>
+
         <Line>--------------------or--------------------</Line>
 
         <SubmitGGButton onClick={() => signUpWithGoogle()}
@@ -249,7 +261,6 @@ const SignUp = () => {
         {/*  set giá trị của header là có người dùng  */}
       </FormWrapper>
     </Container>
-
   );
 };
 
