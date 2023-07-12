@@ -187,7 +187,7 @@ function Header() {
                       setIsOpenMenu(false);
                     }}
                   >
-                    {user.username}
+                    {/* {user.username} */}username
                     </NavLinkStyled>
                   <NavLinkStyled onClick={handleDropdownClick}> <StyledFaEllipsisV/> </NavLinkStyled>
                   {isOpenInfo && (

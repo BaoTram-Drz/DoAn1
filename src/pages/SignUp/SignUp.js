@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { FaGooglePlusG } from 'react-icons/fa';
 import image from './image.png'
 import { saveNewUser, saveNewUserWithGG } from "../../API/signUpApi";
-const toastr = require('toastr');
+
 const Container = styled.div`
   display: grid;
   grid-template-columns: 2fr 1fr;
@@ -175,7 +175,7 @@ const sendInfor = async (email,username, password, repassword, bday, name) => {
       const response = await saveNewUser(newUser);
       console.log('Success:', response);
       alert('Thành công.')
-      toastr.success('Đăng ký thành công.', 'Thành công.')
+      // toastr.success('Đăng ký thành công.', 'Thành công.')
     } catch (error) {
       console.log('Error:', error);
     }

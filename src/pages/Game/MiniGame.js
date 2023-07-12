@@ -224,7 +224,7 @@ function MiniGame() {
         setCourses(result);
         result.sort(() => Math.random() - 0.5)
         const newItems = [];
-        for (let i = 0; i < result.length-4; i++) {
+        for (let i = 0; i < 6; i++) {
           const imageItem = { id: `${i + 1}.1`,  content: result[i].image,  type: 'img',  stat: '' };
           const nameItem = {  id: `${i + 1}.2`,  content: result[i].name,  type: '',  stat: ''  };
           newItems.push(imageItem, nameItem);
