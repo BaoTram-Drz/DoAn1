@@ -6,6 +6,7 @@ import { getDownloadURL } from 'firebase/storage';
 import { storage } from '../../firebase/firebase'
 import { ref } from 'firebase/storage'
 import { getVocab } from "../../API/vocabApi";
+import { saveScore } from "../../API/saveMiniGameApi";
 
 const BigText = styled.p`
   margin: 6% auto -3% auto;
@@ -248,6 +249,9 @@ function MiniGame() {
       setItems([...items]);
       setPrev(-1);
       setCompletedCount(completedCount + 1);
+      if(completedCount === totalCount) {
+        saveMiniGame(clickCount, productName);
+      }
     } else {
       items[current].stat = 'wrong';
       items[prev].stat = 'wrong';
@@ -282,7 +286,10 @@ function MiniGame() {
     }
 
   }
-
+  const saveMiniGame = async(clickCount, productName)=> {
+   const response = await saveScore(clickCount, productName);
+   console.log(response);
+  }
   return (
     <Container>
       <BigText>MiniGame - {productName}</BigText>
@@ -301,7 +308,8 @@ function MiniGame() {
         
       </CardContainer>
       {/* {isComplete && <MyLottieAnimation />}  */}
-      {completedCount === totalCount && completedCount > 0 && (
+      {completedCount === totalCount && completedCount > 0 &&(
+
         <MyLottieAnimation />
       )}
     </Container>
