@@ -155,7 +155,7 @@ const VerifyCode = () => {
         <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)}  placeholder="Enter your pass"/>
         <Input type="password" value={rePassword} onChange={(e) => setRePassword(e.target.value)}  placeholder="Enter your pass again"/>
         <SubmitButton onClick={handleSaveNewPass}>
-          <LinkLoginBtn  to="/">
+          <LinkLoginBtn  to="/Home">
           Save
           </LinkLoginBtn>
         </SubmitButton> 

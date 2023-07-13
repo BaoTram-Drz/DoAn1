@@ -5,7 +5,8 @@ import { FaGooglePlusG } from 'react-icons/fa';
 import image from './image.png'
 import { saveNewUser, saveNewUserWithGG } from "../../API/signUpApi";
 import { SnackBarContext } from "../../App";
-const toastr = require('toastr');
+import { useNavigate } from 'react-router-dom';
+//const toastr = require('toastr');
 const Container = styled.div`
   display: grid;
   grid-template-columns: 2fr 1fr;
@@ -163,36 +164,59 @@ const StyledFaGooglePlusG = styled(FaGooglePlusG)`
   color: red;
 `;
 
-const sendInfor = async (email, username, password, repassword, bday, name) => {
-  if (password === repassword) {
-    const newUser = {
-      username: username,
-      name: name,
-      password: password,
-      email: email,
-      dateofbirth: bday,
-    };
-    try {
-      const response = await saveNewUser(newUser);
-      console.log('Success:', response);
 
-      // alert('Thành công.')
-      // toastr.success('Đăng ký thành công.', 'Thành công.')
-    } catch (error) {
-      console.log('Error:', error);
-    }
-  } else {
-    alert(" password not same repassword !");
-  }
-};
 
 const signUpWithGoogle = async () => {
   try {
     const response = await saveNewUserWithGG();
     console.log('Success:', response);
+
   } catch (error) {
     console.log('Error:', error);
+
   }
+}
+
+function SignUpBtn(props) {
+  const navigate = useNavigate();
+  const { email, username, password, repassword, bday, name } = props;
+  const handleOpenSnackbar = useContext(SnackBarContext);
+
+  const sendInfor = async (email, username, password, repassword, bday, name) => {
+    if (password === repassword) {
+      const newUser = {
+        username: username,
+        name: name,
+        password: password,
+        email: email,
+        dateofbirth: bday,
+      };
+      try {
+        const response = await saveNewUser(newUser);
+        console.log('Success:', response);
+        navigate('/login')
+      } catch (error) {
+        console.log('Error:', error);
+
+      }
+    } else {
+      alert(" password not same repassword !");
+    }
+  };
+  return (
+    <>
+      <LinkLoginBtn
+        onClick={(e) => {
+          e.preventDefault();
+          sendInfor(email, username, password, repassword, bday, name);
+          handleOpenSnackbar('#66ff66', 'Success', 1000);
+        }}
+        to='/login'
+      >
+        Sign Up
+      </LinkLoginBtn>
+    </>
+  )
 }
 
 const SignUp = () => {
@@ -202,7 +226,6 @@ const SignUp = () => {
   const [password, setPassword] = useState('');
   const [repassword, setRePassword] = useState('');
   const [bday, setBDay] = useState('');
-  const handleOpenSnackbar = useContext(SnackBarContext);
 
   return (
     <Container>
@@ -210,11 +233,11 @@ const SignUp = () => {
       <Image bgImage={image}></Image>
       <FormWrapper>
         <BigText>Sign Up</BigText>
-        <div onClick={(e) => {
+        {/* <div onClick={(e) => {
           handleOpenSnackbar('green', 'hello', 1000)
         }} style={{ background: 'red' }}>
           Hieu
-        </div>
+        </div> */}
         <Input type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
@@ -246,13 +269,12 @@ const SignUp = () => {
           name="repass" placeholder="Re-Password" />
 
 
-        <SubmitButton>
-          <LinkLoginBtn
-            onClick={() => sendInfor(email, username, password, repassword, bday, name)}
-          >
-            Sign Up
-          </LinkLoginBtn>
+        <SubmitButton to='/home'>
+          <Link to="/signUp">
+            <SignUpBtn name={name} email={email} username={username} password={password} repassword={repassword} bday={bday} />
+          </Link>
         </SubmitButton>
+
 
         <Line>--------------------or--------------------</Line>
 

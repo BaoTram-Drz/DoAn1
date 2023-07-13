@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { FaCarrot} from 'react-icons/fa'
-import {FaArrowLeft} from 'react-icons/fa';
+import { FaCarrot } from 'react-icons/fa'
+import { FaArrowLeft } from 'react-icons/fa';
 import { getInfo, saveChangeInfo } from '../../API/changeInfoApi';
 
 const BackHome = styled(FaArrowLeft)`
@@ -94,6 +94,7 @@ const ImageAcc = styled.img`
     padding: 3%;
     border: 2px dashed #ffc24b;
     border-radius: 50%;
+    object-fit: cover;
 
     @media (max-width: 1200px) {
       width: 200px;
@@ -110,7 +111,7 @@ const ImageAcc = styled.img`
       height: 120px;
     }
 `;
-const Text =  styled.div`
+const Text = styled.div`
   margin: 10% auto;
   font-family: 'Autour One';
   font-style: normal;
@@ -309,7 +310,7 @@ function ChangeInfo() {
       name: 'John Doe',
       email: 'johndoe@example.com',
       password: '******',
-      image:'https://via.placeholder.com/200x200.png'
+      image: 'https://via.placeholder.com/200x200.png'
     };
     setUserAva(data.image);
     setName(data.name);
@@ -351,13 +352,13 @@ function ChangeInfo() {
     nameInputRef.current.focus();
     nameInputRef.current.style.color = '#FFC24B';
   };
-  
+
   const handleCarrotClickEmail = () => {
     setIsEditableEmail(true);
     emailInputRef.current.focus();
     emailInputRef.current.style.color = '#FFC24B';
   };
-  
+
   const handleCarrotClickPass = () => {
     setIsEditablePass(true);
     passwordInputRef.current.focus();
@@ -365,21 +366,21 @@ function ChangeInfo() {
     setPassword("");
     setPasswordPlaceholder('Enter old password');
   };
-  
+
   const handleSubmit = async () => {
-    
+
     try {
-     if(newpassword=== renewpassword) {
-      const changeInfo = {
-        name: name,
-        userAva: userAva,
-        email: email,
-        password: password,
-        newPassword: renewpassword
-      };
-      const response = await saveChangeInfo(changeInfo);
-      console.log('Thay đổi thông tin thành công:', response);
-     } else return alert("mật khẩu không khớp");
+      if (newpassword === renewpassword) {
+        const changeInfo = {
+          name: name,
+          userAva: userAva,
+          email: email,
+          password: password,
+          newPassword: renewpassword
+        };
+        const response = await saveChangeInfo(changeInfo);
+        console.log('Thay đổi thông tin thành công:', response);
+      } else return alert("mật khẩu không khớp");
 
     } catch (error) {
       console.error('Lỗi thay đổi thông tin:', error);
@@ -387,105 +388,105 @@ function ChangeInfo() {
   };
 
   return (
-        <>
-          <Link to="/"><BackHome/></Link>
-          <BigText>Change your information</BigText>
-          <Container>
-            <Left>
-              <ImageAcc src={userAva} alt="Mô tả hình ảnh" />
-              <Text>
-                Change Your Avatar  
-                <ButtonChange><Carrot onClick={handleCarrotClickChange}/></ButtonChange>
-              </Text>
-            </Left>
-            <Right>
-              <Table>
-                <tbody>
-                  <tr>
-                    <TableCellLeft><Title>Your name:</Title></TableCellLeft>
-                    <TableCellRight>
-                      <FormInput 
-                        type="text"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        readOnly={!isEditableName}
-                        ref={nameInputRef}
-                      />
-                      </TableCellRight>
-                    <td><Carrot onClick={handleCarrotClickName}/></td>
-                  </tr>
-                  <tr>
-                    <TableCellLeft><Title>Your email:</Title></TableCellLeft>
-                    <TableCellRight>
-                      <FormInput 
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        readOnly={!isEditableEmail}
-                        ref={emailInputRef}                        
-                      />
-                      </TableCellRight>
-                    <td><Carrot onClick={handleCarrotClickEmail}/></td>
-                  </tr>
-                  <tr>
-                    <TableCellLeft><Title>Password:</Title></TableCellLeft>
-                    <TableCellRight>
-                      <FormInput 
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        readOnly={!isEditablePass}
-                        ref={passwordInputRef}
-                        placeholder={passwordPlaceholder}
-                      />
-                      </TableCellRight>
-                    <td><Carrot onClick={handleCarrotClickPass}/></td>
-                  </tr>
-                  <tr>
-                    <TableCellLeft>
-                      <Title style={{ display: isEditablePass ? 'block' : 'none' }}>
-                          New-Password:
-                      </Title>
-                    </TableCellLeft>
-                    <TableCellRight>
-                      <FormInput 
-                        type="password"
-                        value={newpassword}
-                        onChange={(e) => setNewPassword(e.target.value)}
-                        readOnly={!isEditablePass}
-                        ref={newPasswordInputRef}
-                        style={{ display: isEditablePass ? 'block' : 'none' }}
-                        placeholder="Enter new password"
-                      />
-                      </TableCellRight>
-                    <td></td>
-                  </tr>
-                  <tr>
-                  <TableCellLeft>
-                      <Title style={{ display: isEditablePass ? 'block' : 'none' }}>
-                          Re-New-Password:
-                      </Title>
-                   </TableCellLeft>
-                  <TableCellRight>
-                      <FormInput 
-                        type="password"
-                        value={renewpassword}
-                        onChange={(e) => setReNewPassword(e.target.value)}
-                        readOnly={!isEditablePass}
-                        ref={newPasswordInputRef}
-                        style={{ display: isEditablePass ? 'block' : 'none' }}
-                        placeholder="Re-enter new password"
-                      />
-                      </TableCellRight>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </Table>                                            
-            </Right>
-          </Container>
-          <But><Button onClick={handleSubmit}>Save</Button></But>
-        </>
-    );
+    <>
+      <Link to="/home"><BackHome /></Link>
+      <BigText>Change your information</BigText>
+      <Container>
+        <Left>
+          <ImageAcc src={userAva} alt="Mô tả hình ảnh" />
+          <Text>
+            Change Your Avatar
+            <ButtonChange><Carrot onClick={handleCarrotClickChange} /></ButtonChange>
+          </Text>
+        </Left>
+        <Right>
+          <Table>
+            <tbody>
+              <tr>
+                <TableCellLeft><Title>Your name:</Title></TableCellLeft>
+                <TableCellRight>
+                  <FormInput
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    readOnly={!isEditableName}
+                    ref={nameInputRef}
+                  />
+                </TableCellRight>
+                <td><Carrot onClick={handleCarrotClickName} /></td>
+              </tr>
+              <tr>
+                <TableCellLeft><Title>Your email:</Title></TableCellLeft>
+                <TableCellRight>
+                  <FormInput
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    readOnly={!isEditableEmail}
+                    ref={emailInputRef}
+                  />
+                </TableCellRight>
+                <td><Carrot onClick={handleCarrotClickEmail} /></td>
+              </tr>
+              <tr>
+                <TableCellLeft><Title>Password:</Title></TableCellLeft>
+                <TableCellRight>
+                  <FormInput
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    readOnly={!isEditablePass}
+                    ref={passwordInputRef}
+                    placeholder={passwordPlaceholder}
+                  />
+                </TableCellRight>
+                <td><Carrot onClick={handleCarrotClickPass} /></td>
+              </tr>
+              <tr>
+                <TableCellLeft>
+                  <Title style={{ display: isEditablePass ? 'block' : 'none' }}>
+                    New-Password:
+                  </Title>
+                </TableCellLeft>
+                <TableCellRight>
+                  <FormInput
+                    type="password"
+                    value={newpassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                    readOnly={!isEditablePass}
+                    ref={newPasswordInputRef}
+                    style={{ display: isEditablePass ? 'block' : 'none' }}
+                    placeholder="Enter new password"
+                  />
+                </TableCellRight>
+                <td></td>
+              </tr>
+              <tr>
+                <TableCellLeft>
+                  <Title style={{ display: isEditablePass ? 'block' : 'none' }}>
+                    Re-New-Password:
+                  </Title>
+                </TableCellLeft>
+                <TableCellRight>
+                  <FormInput
+                    type="password"
+                    value={renewpassword}
+                    onChange={(e) => setReNewPassword(e.target.value)}
+                    readOnly={!isEditablePass}
+                    ref={newPasswordInputRef}
+                    style={{ display: isEditablePass ? 'block' : 'none' }}
+                    placeholder="Re-enter new password"
+                  />
+                </TableCellRight>
+                <td></td>
+              </tr>
+            </tbody>
+          </Table>
+        </Right>
+      </Container>
+      <But><Button onClick={handleSubmit}>Save</Button></But>
+    </>
+  );
 };
 
 export default ChangeInfo;

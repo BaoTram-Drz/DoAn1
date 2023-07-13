@@ -290,7 +290,7 @@ const League = () => {
   
   return (
     <>
-      <Link to="/"><BackHome/></Link>
+      <Link to="/home"><BackHome/></Link>
       <BigText>Top league</BigText>
       <Table>
           <tbody>

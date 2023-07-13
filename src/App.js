@@ -10,13 +10,13 @@ export const SnackBarContext = createContext(() => { });
 
 function SnackbarWrapper({ children }) {
 
-  const [openSnackbar_Success, closeSnackbarSucess] = useSnackbar(SnackBarOption('green'));
-  const [openSnackbar_Failure, closeSnackbarFailure] = useSnackbar(SnackBarOption('red'));
-  const [openSnackbar_Info, closeSnackbarInfo] = useSnackbar(SnackBarOption('blue'));
+  const [openSnackbar_Success, closeSnackbarSucess] = useSnackbar(SnackBarOption('#66ff66'));
+  const [openSnackbar_Failure, closeSnackbarFailure] = useSnackbar(SnackBarOption('#ff6230'));
+  const [openSnackbar_Info, closeSnackbarInfo] = useSnackbar(SnackBarOption('#66ff66'));
 
   function handleOpenSnackbar(color, message, duration = 3000) {
     switch (color) {
-      case 'green':
+      case '#66ff66':
         openSnackbar_Success(message, duration);
         break;
       case 'red':

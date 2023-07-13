@@ -111,7 +111,7 @@ const Scores = () => {
   ];
   return (
     <>
-      <Link to="/"><BackHome/></Link>
+      <Link to="/home"><BackHome/></Link>
       <BigText>Your Scores</BigText>
 
       <Container>

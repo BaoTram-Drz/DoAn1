@@ -1,10 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { Link } from 'react-router-dom';
-import login from './login.png'
-import LoginWithGoogle from './LoginWithGG'
-import { useState } from "react";
-import { loginUser} from "../../API/loginApi";
+import { Link, useNavigate } from 'react-router-dom';
+import login from './login.png';
+import { loginUser } from "../../API/loginApi";
 
 const Container = styled.div`
   display: grid;
@@ -13,6 +11,7 @@ const Container = styled.div`
     grid-template-columns: 1fr;
   }
 `;
+
 const Image = styled.div`
   width: 80%;
   height: 500px;
@@ -32,22 +31,23 @@ const Image = styled.div`
   }
   @media (max-width: 912px) {
     width: 80%;
-    height: 400px ;
+    height: 400px;
   }
   @media (max-width: 540px) {
     width: 100%;
-    height: 350px ;
+    height: 350px;
   }
   @media (max-width: 412px) {
     width: 100%;
-    height: 300px ;
+    height: 300px;
   }
   @media (max-width: 412px) {
     width: 90%;
     margin: 15% auto auto auto;
-    height: 260px ;
+    height: 260px;
   }
 `;
+
 const FormWrapper = styled.form`
   position: relative;
   display: flex;
@@ -73,6 +73,7 @@ const FormWrapper = styled.form`
     width: 100%;
   }
 `;
+
 const BigText = styled.label`
   margin: 10% ;
   text-align: center;
@@ -104,6 +105,7 @@ const Input = styled.input`
     padding-left: 1rem;
   }
 `;
+
 const LinkForgot = styled(Link)`
   align-self: flex-end;
   padding-right: 10%;
@@ -125,6 +127,7 @@ const SubmitButton = styled.button`
   border-radius: 20px;
   cursor: pointer;
 `;
+
 const LinkLoginBtn = styled(Link)`
   text-decoration: none;
   font-family: 'Autour One';
@@ -144,58 +147,62 @@ const Line = styled.label`
   color: #F47068;
 `;
 
-const SubmitGGButton = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 80%;
-  height: 40px;
-  margin: 5% auto 10% auto;
-  background: #FFFFFF;
-
-`;
-const sendInfor = async (email, password) => {
- 
-    const User = {
-      password: password,
-      email: email,
-    };
-    try {
-      const response = await loginUser(User);
-      localStorage.setItem('isLoggedIn', 'true');
-      localStorage.setItem('user', JSON.stringify(response.user));
-    } catch (error) {
-      console.log('Error:', error);
-    }
-  } 
-
-
-
 const Login = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const sendInfo = async (email, password) => {
+    const user = {
+      email: email,
+      password: password
+    };
+
+    try {
+      const response = await loginUser(user);
+      localStorage.setItem('isLoggedIn', 'true');
+      localStorage.setItem('user', JSON.stringify(response.user));
+      console.log(response.user);
+      console.log(localStorage);
+      navigate('/home');
+      location.reload();
+    
+    } catch (error) {
+      localStorage.setItem('isLoggedIn', 'false');
+      localStorage.setItem('user', '');
+      console.log('Error:', error);
+    }
+  };
+
   return (
     <Container>
-      <Image bgImage={login}></Image>
+      <Image bgImage={login} />
       <FormWrapper>
-        <BigText>welcome back</BigText>
-        <Input type="email" id="email" name="email"  value={email}
-          onChange={(e) => setEmail(e.target.value)} placeholder="Email"/>
-        <Input type="password" id="password" value={password}
-          onChange={(e) => setPassword(e.target.value)} name="password" placeholder="Password"/>
-        <LinkForgot to="/forgot">Forgot Passwword</LinkForgot>
-        <SubmitButton to="/" onClick={() => sendInfor(email, password)}>
-          <LinkLoginBtn>
-          Send
-          </LinkLoginBtn>
-        </SubmitButton> 
-        <Line>--------------------or--------------------</Line>
-        
-        <SubmitGGButton><LoginWithGoogle/></SubmitGGButton>
-              {/*  set giá trị của header là có người dùng  */}
+        <BigText>Welcome back</BigText>
+        <Input
+          type="email"
+          id="email"
+          name="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Email"
+        />
+        <Input
+          type="password"
+          id="password"
+          name="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Password"
+        />
+        <LinkForgot to="/forgot">Forgot Password</LinkForgot>
+        <SubmitButton type="button" onClick={() => sendInfo(email, password)}>
+          <LinkLoginBtn>Send</LinkLoginBtn>
+        </SubmitButton>
+        <Line>----------------- or -----------------</Line>
       </FormWrapper>
     </Container>
-    );    
+  );
 };
 
 export default Login;

@@ -16,6 +16,7 @@ import MiniGame from '../pages/Game/MiniGame'
 
 const publicRoutes = [
     { path: '/', component: Home },
+    { path: '/home', component: Home },
     { path: '/bigtest', component: BigTest },
     { path: '/cardlist', component: CardList },
     { path: '/changeInfo', component: ChangeInfo },

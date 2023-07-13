@@ -5,6 +5,6 @@ export const loginUser = async (User) => {
     const response = await api.post('/users/login', User);
     return response.data;
   } catch (error) {
-    throw new Error(error.response.data.message);
+    throw new Error(error.message);
   }
 };

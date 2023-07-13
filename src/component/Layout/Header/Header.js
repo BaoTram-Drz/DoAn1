@@ -2,12 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Link as ScrollLink } from 'react-scroll';
 import styled from 'styled-components';
-import { useState} from 'react';
+import { useState } from 'react';
 import { FaBars, FaEllipsisV } from 'react-icons/fa';
 import logo from './logo.png';
 
 
-const HeaderStyled  = styled.header`
+const HeaderStyled = styled.header`
   position: fixed;
   display: flex;
   top: 0;
@@ -141,7 +141,7 @@ function Header() {
   const [isOpenInfo, setIsOpenInfo] = useState(false);
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
-  
+
   const user = JSON.parse(localStorage.getItem('user'));
   const handleDropdownClick = () => {
     setIsOpenInfo(!isOpenInfo);
@@ -152,24 +152,26 @@ function Header() {
     setIsOpenInfo(false);
   };
 
-  return ( 
+  return (
     <HeaderStyled>
-    <LogoImage bgImage={logo} to="/"/>
-    <LogoText  to="/">EngPlayground</LogoText>
-    <NavMenuStyled>
-      <NavLinkStyled 
-        to="/" 
-        active={ activeSection === 'home'} 
-        onClick={() => {
-          setActiveSection('home');
-          setIsOpenMenu(false);
-        }}
-      >
-        Home
-      </NavLinkStyled>          
-      <NavLinkStyled
-          to="/cardlist" 
-          active={ activeSection === 'coursesCard'} 
+      <LogoImage to="/" />
+      <LogoText to="/">EngPlayground</LogoText>
+      <NavMenuStyled>
+        <NavLinkStyled
+          to="/"
+          //active={activeSection === 'home'}
+          active={activeSection === 'home' ? 'true' : 'false'}
+          onClick={() => {
+            setActiveSection('home');
+            setIsOpenMenu(false);
+          }}
+        >
+          Home
+        </NavLinkStyled>
+        <NavLinkStyled
+          to="/cardlist"
+          //active={activeSection === 'coursesCard'}
+          active={activeSection === 'coursesCard' ? 'true' : 'false'}
           onClick={() => {
             setActiveSection('coursesCard');
             setIsOpenMenu(false);
@@ -177,135 +179,145 @@ function Header() {
         >
           Courses
         </NavLinkStyled>
-      {isLoggedIn ? (
+        {isLoggedIn ? (
           <>
-                  <NavLinkStyled
-                    to="/changeinfo" 
-                    active={ activeSection === 'changeinfo'} 
-                    onClick={() => {
-                      setActiveSection('changeinfo');
-                      setIsOpenMenu(false);
-                    }}
-                  >
-                    {user.username}
-                    </NavLinkStyled>
-                  <NavLinkStyled onClick={handleDropdownClick}> <StyledFaEllipsisV/> </NavLinkStyled>
-                  {isOpenInfo && (
-                    <DropdownContent>
-                      <DropdownItem
-                        to="/changeinfo" 
-                        active={ activeSection === 'changeinfo' } 
-                        onClick={() => {
-                          setActiveSection('changeinfo');
-                          setIsLoggedIn(true);
-                        }}
-                      >
-                        Change info
-                      </DropdownItem>
-                      <DropdownItem 
-                        to="/login" 
-                        active={ activeSection === 'login'} 
-                        onClick={() => {
-                          setActiveSection('login');
-                          setIsLoggedIn(false);
-                        }}
-                      >
-                        Logout
-                      </DropdownItem>
-                    </DropdownContent>
-                  )}
-                </>
-              ) : (
-                <>
-                  <NavLinkStyled 
-                    to="/signup" 
-                    active={ activeSection === 'signup'} 
-                    onClick={() => {
-                      setActiveSection('signup');
-                      setIsOpenMenu(false);
-                    }}
-                  >
-                    Sign Up
-                  </NavLinkStyled>
-                  <NavLinkStyled 
-                    to="/login" 
-                    active={ activeSection === 'login'} 
-                    onClick={() => {
-                      setActiveSection('login');
-                      setIsOpenMenu(false);
-                    }}
-                  >
-                    Login
-                  </NavLinkStyled>              
-                </>
-              )}
-        </NavMenuStyled> 
-        <StyledFaBars onClick={handleMenuClick}/>
-          {isOpenMenu && (
+            <NavLinkStyled
+              to="/changeinfo"
+              //active={activeSection === 'changeinfo'}
+              active={activeSection === 'changeinfo' ? 'true' : 'false'}
+              onClick={() => {
+                setActiveSection('changeinfo');
+                setIsOpenMenu(false);
+              }}
+            >
+               {user.username}
+            </NavLinkStyled>
+            <NavLinkStyled onClick={handleDropdownClick}> <StyledFaEllipsisV /> </NavLinkStyled>
+            {isOpenInfo && (
               <DropdownContent>
+                <DropdownItem
+                  to="/changeinfo"
+                  // active={activeSection === 'changeinfo'}
+                  active={activeSection === 'changeinfo' ? 'true' : 'false'}
+                  onClick={() => {
+                    setActiveSection('changeinfo');
+                    setIsLoggedIn(true);
+                  }}
+                >
+                  Change info
+                </DropdownItem>
+                <DropdownItem
+                  to="/login"
+                  //active={activeSection === 'login'}
+                  active={activeSection === 'login' ? 'true' : 'false'}
+                  onClick={() => {
+                    setActiveSection('login');
+                    setIsLoggedIn(false);
+                  }}
+                >
+                  Logout
+                </DropdownItem>
+              </DropdownContent>
+            )}
+          </>
+        ) : (
+          <>
+            <NavLinkStyled
+              to="/signup"
+              //active={activeSection === 'signup'}
+              active={activeSection === 'signup' ? 'true' : 'false'}
+              onClick={() => {
+                setActiveSection('signup');
+                setIsOpenMenu(false);
+              }}
+            >
+              Sign Up
+            </NavLinkStyled>
+            <NavLinkStyled
+              to="/login"
+              //active={activeSection === 'login'}
+              active={activeSection === 'login' ? 'true' : 'false'}
+              onClick={() => {
+                setActiveSection('login');
+                setIsOpenMenu(false);
+              }}
+            >
+              Login
+            </NavLinkStyled>
+          </>
+        )}
+      </NavMenuStyled>
+      <StyledFaBars onClick={handleMenuClick} />
+      {isOpenMenu && (
+        <DropdownContent>
+          <DropdownItem
+            to="/"
+            //active={activeSection === 'home'}
+            active={activeSection === 'home' ? 'true' : 'false'}
+            onClick={() => {
+              setActiveSection('home');
+              setIsOpenMenu(false);
+            }}
+          >
+            Home
+          </DropdownItem>
+          {isLoggedIn ? (
+            <>
               <DropdownItem
-                to="/" 
-                active={ activeSection === 'home'} 
+                to="/changeinfo"
+                // active={activeSection === 'changeinfo'}
+                active={activeSection === 'changeinfo' ? 'true' : 'false'}
                 onClick={() => {
-                  setActiveSection('home');
+                  setActiveSection('changeinfo');
                   setIsOpenMenu(false);
                 }}
               >
-                Home
+                Change Info
               </DropdownItem>
-              {isLoggedIn ? (
-                <>
-                  <DropdownItem
-                    to="/changeinfo" 
-                    active={ activeSection === 'changeinfo'} 
-                    onClick={() => {
-                      setActiveSection('changeinfo');
-                      setIsOpenMenu(false);
-                    }}
-                  >
-                    Change Info
-                  </DropdownItem>
-                  <DropdownItem 
-                    to="/login" 
-                    active={ activeSection === 'login'} 
-                    onClick={() => {
-                      setActiveSection('login');
-                      setIsOpenMenu(false);
-                      setIsLoggedIn(false);
-                    }}
-                  >
-                    Logout
-                  </DropdownItem>
-                </>
-              ) : (
-                <>
-                  <DropdownItem
-                    to="/signup"  
-                    active={ activeSection === 'signup'} 
-                    onClick={() => {
-                      setActiveSection('signup');
-                      setIsOpenMenu(false);
-                    }}
-                  >
-                    Sign Up
-                  </DropdownItem>
-                  <DropdownItem 
-                    to="/login" 
-                    active={ activeSection === 'login'} 
-                    onClick={() => {
-                      setActiveSection('login');
-                      setIsOpenMenu(false);
-                    }}
-                  >
-                    Login
-                  </DropdownItem>           
-                </>
-              )}
-              
-            </DropdownContent> 
-          )} 
-        </HeaderStyled >
-     );
+              <DropdownItem
+                to="/login"
+                //active={activeSection === 'login'}
+                active={activeSection === 'login' ? 'true' : 'false'}
+                onClick={() => {
+                  setActiveSection('login');
+                  setIsOpenMenu(false);
+                  setIsLoggedIn(false);
+                }}
+              >
+                Logout
+              </DropdownItem>
+            </>
+          ) : (
+            <>
+              <DropdownItem
+                to="/signup"
+                //active={activeSection === 'signup'}
+                active={activeSection === 'signup' ? 'true' : 'false'}
+                onClick={() => {
+                  setActiveSection('signup');
+                  setIsOpenMenu(false);
+                }}
+              >
+                Sign Up
+              </DropdownItem>
+              <DropdownItem
+                to="/login"
+                //active={activeSection === 'login'}
+                active={activeSection === 'login' ? 'true' : 'false'}
+                onClick={() => {
+                  setActiveSection('login');
+                  setIsOpenMenu(false);
+                }}
+              >
+                Login
+              </DropdownItem>
+            </>
+          )}
+
+        </DropdownContent>
+      )}
+    </HeaderStyled >
+  );
 }
 
 export default Header;
