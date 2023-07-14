@@ -190,6 +190,7 @@ function SignUpBtn(props) {
         password: password,
         email: email,
         dateofbirth: bday,
+        image: "",
       };
       try {
         const response = await saveNewUser(newUser);
@@ -211,7 +212,7 @@ function SignUpBtn(props) {
           sendInfor(email, username, password, repassword, bday, name);
           handleOpenSnackbar('#66ff66', 'Success', 1000);
         }}
-        to='/login'
+        href='/login'
       >
         Sign Up
       </LinkLoginBtn>
@@ -269,10 +270,15 @@ const SignUp = () => {
           name="repass" placeholder="Re-Password" />
 
 
-        <SubmitButton to='/home'>
-          <Link to="/signUp">
-            <SignUpBtn name={name} email={email} username={username} password={password} repassword={repassword} bday={bday} />
-          </Link>
+        <SubmitButton>
+          <SignUpBtn
+            name={name}
+            email={email}
+            username={username}
+            password={password}
+            repassword={repassword}
+            bday={bday}
+          />
         </SubmitButton>
 
 

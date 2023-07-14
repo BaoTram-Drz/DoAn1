@@ -86,6 +86,8 @@ const SmallDescription = styled.p`
   font-weight: 400;
   font-size: 1.7rem; 
   line-height: 1.25;
+  text-align: justify;
+  color: #ffb3ae;
   
   @media (max-width: 1300px) {
     width: 65%;

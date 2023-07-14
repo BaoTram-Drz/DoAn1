@@ -6,6 +6,7 @@ import Game2 from "./Game2";
 import Game3 from "./Game3";
 import Game4 from "./Game4";
 import datas from '../data.json'
+import api from '../../../API/index'
 
 
 const BigText = styled.p`
@@ -234,7 +235,20 @@ const BigTest = () => {
       }
     }
   };
-
+const saveScore = () => {
+  const saveScore = {
+    score: 1.25,
+    productName: "productName",
+    user: localStorage.getItem('user'),
+    image:"test"
+  }
+  try {
+    const response = api.post('/games/saveLeague', saveScore);
+    return response.data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}
 
   return (
     <>   
@@ -260,7 +274,7 @@ const BigTest = () => {
 
       <ButtonsContainer>
         <Button to="/layoutlearn">Pre</Button>
-        <SubButton to="/scores">Submit</SubButton>
+        <SubButton to="/scores" onClick={() => saveScore()}>Submit</SubButton>
       </ButtonsContainer>
       
     </>
