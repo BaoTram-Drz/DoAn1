@@ -267,7 +267,7 @@ const saveScore = () => {
       
       <ButtonsContainer>        
         <Button to="/layoutlearn">Pre</Button>
-        <SubButton onClick={submitAnswerSelected} onClick={() => saveScore()}>Submit</SubButton>
+        <SubButton  onClick={() => {saveScore(); submitAnswerSelected()}}>Submit</SubButton>
         {isFireWork === true && 
         <>
           <Button to={ '/scores' }
