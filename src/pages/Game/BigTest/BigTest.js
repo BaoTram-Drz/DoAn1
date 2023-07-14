@@ -6,6 +6,7 @@ import Game2 from "./Game2";
 import Game3 from "./Game3";
 import Game4 from "./Game4";
 import datas from '../data.json'
+import MyLottieAnimation from '../LottieAnimation/MyLottieAnimation';
 
 
 const BigText = styled.p`
@@ -108,6 +109,8 @@ const Button = styled(Link)`
   background-color: white;
   border: 3px solid #f47068;
   border-radius: 20px;
+  z-index: 999;
+
   @media (max-width: 1200px) {
     width: 200px;
     font-size: 1.8rem;
@@ -160,15 +163,13 @@ const ButtonsContainer = styled.div`
 const BigTest = () => {
   const [data, setData] = useState([]);  
   const [productName, setProductName] = useState('Product A');
-  const [currentIndex, setCurrentIndex] = useState(0);  
+  const [allScore, setAllScore] = useState(0);
   const [answerScore, setAnswerScore] = useState(0);
-  const [selectedAnswer, setSelectedAnswer] = useState(null);
-  const [answerArray, setAnswerArray] = useState();
-  const [isAnswerCorrect, setIsAnswerCorrect] = useState(false);
+  const [answerData, setAnswerData] = useState([]);
   const [isFireWork, setIsFireWork] = useState(null);
   const location = useLocation();
-
-
+  const [correctData, setCorrectData] = useState('');
+  const [wrongData, setWrongData] = useState('');
 
   useEffect(() => {
     if (location.state && location.state.productname) {
@@ -190,53 +191,52 @@ const BigTest = () => {
     fetchLearns();
   }, []);
 
-  const handleGetAnswerScore = (score) => {
-    setAnswerScore(answerScore + score); // lấy số điểm mà người dùng đạt được
-  };
-
-  const submitAnswerSelected = () => {
-    const correctAnswer = data[currentIndex]?.correctAnswer;
-
-    if (typeof correctAnswer === 'string') {
-      if (data[currentIndex]?.state === 'true') {
-        setIsAnswerCorrect(true);
-      } else if (correctAnswer === selectedAnswer) {
-        setIsAnswerCorrect(true);
-        setIsFireWork(true);
-      } else {
-        setIsAnswerCorrect(false);    
-        setIsFireWork(false)    
-      }
-    } 
-    
-    else {
-      const isMatch = correctAnswer.every((item) =>
-        answerArray.some((selectedItem) =>
-          selectedItem.id === item.id && selectedItem.text === item.text
-        )
+  const handleGetAnswerScore = (dataAnswer) => {
+    const smallAnswerData = JSON.parse(dataAnswer);
+    setAnswerData((prevAnswerData) => {
+      const updatedAnswerData = prevAnswerData.filter(
+        (answer) => answer.id.$oid !== smallAnswerData.id.$oid
       );
-
-      if (data[currentIndex]?.state === 'true') {
-        setIsAnswerCorrect(true);
-      } else if (isMatch) {
-        setIsAnswerCorrect(true);
-        setIsFireWork(true);
-      } else {
-        setIsAnswerCorrect(false);    
-        setIsFireWork(false)    
-      }
-    }
+      updatedAnswerData.push(smallAnswerData);
+      return updatedAnswerData;
+    });
   };
-
-
+  
+  const submitAnswerSelected = () => {
+    setIsFireWork(true);
+  
+    let totalScore = 0;
+    let allTotalScore = 0;
+  
+    data.forEach((item) => {
+      const answerItem = answerData.find((answer) => answer.id.$oid === item._id.$oid);
+  
+      if (answerItem && answerItem.answerState === true && item.kind === 'Game') {
+        setCorrectData(prevCorrectData => `${prevCorrectData} ${item.question}:${item.correctText}`);
+      } else if (item.kind === 'Game') {
+        setWrongData(prevWrongData => `${prevWrongData} ${item.question}:${item.correctText}`);
+      }
+      totalScore += answerItem.score;
+      if (item.kind === "Game") {        
+        allTotalScore += item.score;
+      }
+    });
+    setAllScore(allTotalScore)
+    setAnswerScore(totalScore);
+  };
+  
   return (
     <>   
-      <BigText>BigTest {answerScore}</BigText>   
+      <BigText>BigTest</BigText>   
       <HeadersContainer>
         <Header>Test</Header>        
         <Header>4/4</Header>
       </HeadersContainer>
-        
+      {isFireWork === true && 
+          <>
+            <MyLottieAnimation/>
+          </>
+        }
         {data.map((item) => {
             if (data.includes(item.id)) {
             return null;
@@ -250,10 +250,19 @@ const BigTest = () => {
             </>                   
             );
         })}
-
-      <ButtonsContainer>
+      
+      <ButtonsContainer>        
         <Button to="/layoutlearn">Pre</Button>
-        <SubButton to="/scores">Submit</SubButton>
+        <SubButton onClick={submitAnswerSelected}>Submit</SubButton>
+        {isFireWork === true && 
+        <>
+          <Button to={ '/scores' }
+            state={{ score: answerScore, allScore: allScore, right: correctData, wrong: wrongData}} 
+          >
+            Score
+          </Button>
+        </>
+      }
       </ButtonsContainer>
       
     </>

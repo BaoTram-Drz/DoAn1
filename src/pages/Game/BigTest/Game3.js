@@ -78,8 +78,15 @@ const TableCell = styled.td`
 
 const Game3 = ({ data, onSelectAnswer }) => {
   const [draggedItems, setDraggedItems] = useState([]);  
+  const [state, setState] = useState(false);
   const [score, setScore] = useState(0);
   const [tableData, setTableData] = useState([]);
+
+  const dataAnswer = {
+    id: data._id,
+    answerState: state,
+    score: score,
+  };
 
   useEffect(() => {
     let matchedPairs = [];
@@ -90,14 +97,18 @@ const Game3 = ({ data, onSelectAnswer }) => {
           selectedItem.id === item.id && selectedItem.text === item.text
         )
       );
-    }
-  
-    const calculatedScore = (matchedPairs.length * parseInt(data.score)) / 4;
-
+    }  
+    const calculatedScore = (matchedPairs.length * parseInt(data.score)) / 4; //score
     setScore(calculatedScore);
-    onSelectAnswer(calculatedScore);
-  
-  }, [tableData, onSelectAnswer, data.correctAnswer, data.score]);
+    if(matchedPairs.length === 4){
+      setState(true);
+    }
+
+    const answerString = JSON.stringify(dataAnswer);
+    onSelectAnswer(answerString);
+    console.log(tableData)
+    console.log(dataAnswer)
+  }, [tableData, state, score]);
   
 
   if (!data) {
@@ -106,7 +117,13 @@ const Game3 = ({ data, onSelectAnswer }) => {
 
   const handleDrop = (id, text) => {
     setDraggedItems((prev) => [...prev, id]);
-    setTableData((prev) => [...prev, { id, text }]);
+    setTableData((prev) => {
+      const updatedId = prev.filter(
+        (preId) => preId.id !== id
+      );
+      updatedId.push({ id, text });
+      return updatedId;
+    });
   };
  
 

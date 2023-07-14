@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { PieChart, Pie, Cell, Tooltip } from 'recharts';
 import {FaArrowLeft} from 'react-icons/fa';
 
@@ -105,20 +105,45 @@ const StyledPieChartComponent = ({ data }) => {
 };
 
 const Scores = () => {
+  const location = useLocation();
+  const [allScore, setAllScore] = useState(0);
+  const [answerScore, setAnswerScore] = useState(0);
+  const [correctData, setCorrectData] = useState('');
+  const [wrongData, setWrongData] = useState('');
+
+  useEffect(() => {
+    if (location.state && location.state.score ) {
+      setAnswerScore(location.state.score);
+    }
+    if (location.state && location.state.allScore ) {
+      setAllScore(location.state.allScore);
+    }
+    if (location.state && location.state.right ) {
+      setCorrectData(location.state.right);
+    }
+    if (location.state && location.state.wrong ) {
+      setWrongData(location.state.wrong);
+    }
+    console.log(correctData)
+  }, [location.state, correctData, wrongData]);
+
   const data = [
-    { name: 'Right', value: 70 },
-    { name: 'no', value: 30 },
+    { name: 'Right', value: answerScore },
+    { name: 'no', value: allScore - answerScore },
   ];
+
   return (
     <>
       <Link to="/"><BackHome/></Link>
-      <BigText>Your Scores</BigText>
+      <BigText>Your Scores {allScore} {answerScore}</BigText>
 
       <Container>
         <StyledPieChartComponent data={data} />
         <Score>
-            <p>Right: {data[0].value}% </p>
-            <p>Wrong: {data[1].value}%</p>
+            <p>Right: {answerScore} = {data[0].value}% </p>
+            <p>{correctData}</p>
+            <p>Wrong: {allScore - answerScore} = {data[1].value}%</p>
+            <p>{wrongData}</p>
         </Score>
       </Container>
 

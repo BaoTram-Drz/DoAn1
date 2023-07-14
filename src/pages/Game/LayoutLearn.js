@@ -150,7 +150,7 @@ const LayoutLearn = () => {
   const [data, setData] = useState([]);  
   const [productName, setProductName] = useState('Product A');
   const [currentIndex, setCurrentIndex] = useState(0);  
-  const [answerScore, setAnswerScore] = useState(0);
+  const [answerData, setAnswerData] = useState();
   const [isAnswerCorrect, setIsAnswerCorrect] = useState(false);
   const [isFireWork, setIsFireWork] = useState(null);
   const location = useLocation();
@@ -214,22 +214,21 @@ const LayoutLearn = () => {
   };
   
 
-  const handleGetAnswerScore = (score) => {
-    setAnswerScore(score); // lấy số điểm mà người dùng đạt được
+  const handleGetAnswerScore = (dataAnswer) => {
+    setAnswerData(JSON.parse(dataAnswer));
   };
 
   const submitAnswerSelected = () => {
-    const dataScore = data[currentIndex]?.score; //điểm của câu hỏi
+    console.log(answerData)
     if (data[currentIndex]?.state === 'true') { //trường hợp đã pass
       setIsAnswerCorrect(true);
-    } else if (dataScore === answerScore) { //trường hợp so sánh điểm => full
+    } else if (answerData.answerState === true) { //trường hợp so sánh điểm => full
       setIsAnswerCorrect(true);
       setIsFireWork(true);
     } else { //trường hợp so sánh điểm => bằng 0
       setIsAnswerCorrect(false);    
       setIsFireWork(false)    
     }      
-    setAnswerScore(0); 
   };
 
   return (
@@ -254,9 +253,9 @@ const LayoutLearn = () => {
         {data[currentIndex]?.category === 'Game4' && (
           <Game4 data={data[currentIndex]} onSelectAnswer={handleGetAnswerScore} />
         )}
-        {data[currentIndex]?.category === 'Game5' && (
+        {/* {data[currentIndex]?.category === 'Game5' && (
           <Game5 data={data[currentIndex]} onSelectAnswer={handleGetAnswerScore} />
-        )}
+        )} */}
       </>
       {isFireWork === true && 
         <>
