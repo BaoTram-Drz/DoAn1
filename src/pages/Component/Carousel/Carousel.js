@@ -87,57 +87,17 @@ const Slideshow = styled.div`
   }
 `;
 
-
-
-let vocabs = [];
-
-function getVocabulary(index) {
-  return new Promise((resolve, reject) => {
-    fetch('http://localhost:5001/api/vocabulary/getVocab', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-    })
-      .then(response => response.json())
-      .then(result => {
-        console.log('Success:', result);
-        vocabs = result;
-        console.log('Hình của Vocab nè:', vocabs[index].image);
-        resolve(vocabs[index].image);
-      })
-      .catch(error => {
-        console.log('Error:', error);
-        reject(error);
-      });
-  });
-}
-
 const Carousel = () => {
 
   const [activeSlide, setActiveSlide] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
 
   const slides = [slide1, slide2, slide3, slide4, slide5];
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      if (!isPaused) {
-        setActiveSlide((prevSlide) => (prevSlide + 1) % slides.length);
-      }
-    }, 1000);
-
-    return () => {
-      clearInterval(timer);
-    };
-  }, [isPaused]);
-
-  const handleSlideClick = (e) => {
-    setIsPaused(true);
+  const handleSlideMouseOn = (index) => {
+    setActiveSlide(index);
   };
-  
   const handleSlideMouseLeave = (e) => {
-    setIsPaused(false);
+    setActiveSlide(false);
   };
 
   return (
@@ -146,9 +106,10 @@ const Carousel = () => {
         <Slideshow
           key={index}
           bgImage={slide}
-          onMouseLeave={handleSlideMouseLeave}
+          onMouseEnter={() => handleSlideMouseOn(index)}
+          onMouseLeave={handleSlideMouseLeave}          
           className={index === activeSlide ? 'active' : ''}
-          onClick={handleSlideClick}
+          
         >
         </Slideshow>
       ))}

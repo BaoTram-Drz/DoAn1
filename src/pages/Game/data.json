@@ -6,7 +6,7 @@
       "kind": "Game",
       "category": "Game1",
       "lesson": "1",
-      "topic": "fruits",
+      "topic": "true",
       "lessonTitle": "Lesson 1",
       "state": "true",
       "question": "What does 'water melon' means in Vietnamese?",
@@ -30,6 +30,7 @@
       ],
       "image": "watermelon.jpg",
       "correctAnswer": "A",
+      "correctText": "Quả dưa hấu",
       "score": 5
     },
     {
@@ -46,6 +47,7 @@
       "vietnamesePhrase": "Trái táo",
       "image": "https://via.placeholder.com/200x200.png",
       "correctAnswer": "apple",
+      "correctText": "apple",
       "score": 10
     },
     {
@@ -77,6 +79,12 @@
         { "id": "3", "text": "a" },
         { "id": "4", "text": "b" }
       ],
+      "correctText": [
+        { "id": "Apple", "text": "Trái táo" },
+        { "id": "Bút chì", "text": "Pencil" },
+        { "id": "Ruler", "text": "Cây thước" },
+        { "id": "Nước", "text": "Water" }
+      ],
       "score" : 20
     },
     {
@@ -98,6 +106,7 @@
       ],
       "image": "payaya.jpg",
       "correctAnswer": "ACDB",
+      "correctText": "I am a student",
       "score" : 20
     },
     

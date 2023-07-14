@@ -150,16 +150,27 @@ const ImageAns = styled.img`
 
 const Game1 = ({ data, onSelectAnswer }) => {
   const [activeId, setActiveId] = useState("null");
+  const [state, setState] = useState(false);
   const [score, setScore] = useState(0);
-  
-  useEffect(() => {
+
+  const dataAnswer = {
+    id: data._id,
+    answerState: state,
+    score: score,
+  };
+
+  useEffect(() => {    
     if (activeId === data.correctAnswer) {
       setScore(data.score);
+      setState(true)
     } else {
       setScore(0);
+      setState(false)
     }
-    onSelectAnswer(score);
-  },  [activeId, data.correctAnswer, data.score, onSelectAnswer, score]);
+    const answerString = JSON.stringify(dataAnswer);
+    onSelectAnswer(answerString);
+  },  [activeId, state, score]);
+
 
   if (!data) {
     return <p>Loading...</p>;

@@ -47,19 +47,28 @@ const ButtonsContainer = styled.div`
   }
 `;
 const Game4 = ({data, onSelectAnswer}) => {
+  const [draggedItems, setDraggedItems] = useState([]);    
+  const [state, setState] = useState(false);
+  const [score, setScore] = useState(0);
 
-    const [draggedItems, setDraggedItems] = useState([]);    
-    const [score, setScore] = useState(0);
-
+  const dataAnswer = {
+    id: data._id,
+    answerState: state,
+    score: score,
+  };
     useEffect(() => {
       const ids = Object.values(draggedItems).reduce((acc, value) => acc + value, '');
       if (ids === data.correctAnswer) {
         setScore(data.score)
+        setState(true)
       } else {
         setScore(0);
+        setState(false)
       }
-      onSelectAnswer(score);
-    }, [draggedItems, onSelectAnswer, score]);
+      
+      const answerString = JSON.stringify(dataAnswer);
+      onSelectAnswer(answerString);
+    }, [draggedItems,state, score]);
     
     const handleDrop = (id) => {
       setDraggedItems((prev) => [...prev, id]);

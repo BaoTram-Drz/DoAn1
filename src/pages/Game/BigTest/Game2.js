@@ -130,17 +130,27 @@ const ImageAns = styled.img`
 
 const Game2 = ({ data, onSelectAnswer }) => {
   const [answer, setAnswer] = useState("");
-  const [score, setScore] = useState("0");
+  const [state, setState] = useState(false);
+  const [score, setScore] = useState(0);
+
+  const dataAnswer = {
+    id: data._id,
+    answerState: state,
+    score: score,
+  };
 
   useEffect(() => {
     if (answer === data.correctAnswer) {
       setScore(data.score);
+      setState(true)
     } else {
       setScore(0);
+      setState(false)
     }
-    onSelectAnswer(score);
-    console.log( answer  + " " + score);
-  }, [answer, data.correctAnswer, data.score, onSelectAnswer, score]);
+
+    const answerString = JSON.stringify(dataAnswer);
+    onSelectAnswer(answerString);
+  }, [answer,state, score]);
 
   if (!data) {
     return <p>Loading...</p>;
