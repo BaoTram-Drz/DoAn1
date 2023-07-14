@@ -168,14 +168,7 @@ const BigTest = () => {
   const [isFireWork, setIsFireWork] = useState(null);
   const location = useLocation();
 
-  useEffect(() => {
-    if (data[currentIndex]?.state === 'true') {
-      setIsAnswerCorrect(true);
-    } else {
-      setIsAnswerCorrect(false);
-    }
-    setIsFireWork(null);
-  }, [data, currentIndex]);
+
 
   useEffect(() => {
     if (location.state && location.state.productname) {
@@ -198,7 +191,7 @@ const BigTest = () => {
   }, []);
 
   const handleGetAnswerScore = (score) => {
-    setAnswerScore(score); // lấy số điểm mà người dùng đạt được
+    setAnswerScore(answerScore + score); // lấy số điểm mà người dùng đạt được
   };
 
   const submitAnswerSelected = () => {
@@ -238,7 +231,7 @@ const BigTest = () => {
 
   return (
     <>   
-      <BigText>BigTest</BigText>   
+      <BigText>BigTest {answerScore}</BigText>   
       <HeadersContainer>
         <Header>Test</Header>        
         <Header>4/4</Header>

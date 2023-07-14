@@ -163,7 +163,7 @@ const LayoutLearn = () => {
     if (data[currentIndex]?.state === 'false') {
       setIsAnswerCorrect(false);
     }
-  });
+  }, [currentIndex]);
   //kiểm tra bài này đã pass chưa
   useEffect(() => {
     if (data[currentIndex]?.state === 'true') {
@@ -282,7 +282,13 @@ const LayoutLearn = () => {
             Next
           </ButtonRight>
         ) : (
-          <ButtonRight to={isAnswerCorrect ? "/bigtest" : ""} state={{ productname: productName }} >Next</ButtonRight>
+          <ButtonRight 
+            to={isAnswerCorrect ? "/bigtest" : ""} 
+            state={{ productname: productName }} 
+            isAnswerCorrect={isAnswerCorrect}
+            >
+              Next
+            </ButtonRight>
           
         )}
       </ButtonsContainer>
