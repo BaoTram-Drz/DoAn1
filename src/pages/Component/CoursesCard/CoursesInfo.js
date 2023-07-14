@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import {getCourseDetail} from '../../../API/coursesDetailApi'
+import { getCourseDetail } from '../../../API/coursesDetailApi'
+import {saveUser_Course} from '../../../API/saveUserCourseApi'
 
 const BigText = styled.div`
   margin: 7% auto auto auto;
@@ -285,6 +286,7 @@ const LinkText = styled(Link)`
 
 const CoursesInfo = () => {
   const location = useLocation();
+  //const [lessonType, setLessonType] = useState('Listen');
   const [lessonType, setLessonType] = useState('a');
   const [productName, setProductName] = useState('');
   const [productImage, setProductImage] = useState(null);
@@ -305,10 +307,10 @@ const CoursesInfo = () => {
   useEffect(() => {
     const data = [
       { id: 1, name: "Học từ vựng" },
-      { id: 2, name: "Làm bài tập về từ vựng 1" },      
-      { id: 3, name: "Làm bài tập về từ vựng 2" },            
-      { id: 4, name: "Làm bài tập về từ vựng 3" },      
-      { id: 5, name: "Làm bài tập về từ vựng 4" },       
+      { id: 2, name: "Làm bài tập về từ vựng 1" },
+      { id: 3, name: "Làm bài tập về từ vựng 2" },
+      { id: 4, name: "Làm bài tập về từ vựng 3" },
+      { id: 5, name: "Làm bài tập về từ vựng 4" },
       { id: 6, name: "Làm bài tập về từ vựng 5" },
       { id: 7, name: "Big Test" }
     ];
@@ -327,7 +329,19 @@ const CoursesInfo = () => {
 
     // fetchCoursesDetail();
   }, []);
-
+  const saveUserCourse = async (course, user) => {
+    const user_course = {
+     course: course,
+     user: user
+    };
+    try {
+      const response = await saveUser_Course(user_course);
+    
+    } catch (error) {
+      console.log('Error:', error);
+    }
+  };
+  
   return (
     <>
       <BigText>Course Detail</BigText>
@@ -359,7 +373,7 @@ const CoursesInfo = () => {
             {lessonType === "Listen" ? (
               <Button to="/listenstories" state={{ productname: productName }}>Listen Stories</Button>
             ) : (
-              <Button to="/vocab" state={{ productname: productName }}>
+              <Button to="/vocab" state={{ productname: productName }} onClick={() => saveUserCourse(productName, (JSON.parse(localStorage.getItem('user')))._id)}>
                 Start Learn
               </Button>
             )}

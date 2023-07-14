@@ -11,7 +11,8 @@ export const getInfo = async () => {
 
 export const saveChangeInfo = async (changeInfo) => {
   try {
-    const response = await api.post('/changeInfo', changeInfo);
+    const response = await api.put('users/changeInfo', changeInfo);
+    console.log(changeInfo)
     return response.data;
   } catch (error) {
     throw new Error(error.response.data.message);

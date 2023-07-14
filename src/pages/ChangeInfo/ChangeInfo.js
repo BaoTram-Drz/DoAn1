@@ -5,6 +5,9 @@ import { FaCarrot } from 'react-icons/fa'
 import { FaArrowLeft } from 'react-icons/fa';
 import { getInfo, saveChangeInfo } from '../../API/changeInfoApi';
 
+import { getDownloadURL } from 'firebase/storage';
+import { storage } from '../../firebase/firebase'
+import { ref } from 'firebase/storage'
 const BackHome = styled(FaArrowLeft)`
     width: 30px;
     height: 30px;
@@ -305,12 +308,17 @@ function ChangeInfo() {
   const [userAva, setUserAva] = useState(null);
   const [passwordPlaceholder, setPasswordPlaceholder] = useState('Enter old password');
 
-  const fetchData = () => {
+  const fetchData = async() => {
+    const currentUser = JSON.parse(localStorage.getItem('user'));
+    const path = `users/${currentUser.image}`;
+    const downloadURL = await getDownloadURL(ref(storage, path));
+    currentUser.image = downloadURL;
+
     const data = {
-      name: 'John Doe',
-      email: 'johndoe@example.com',
-      password: '******',
-      image: 'https://via.placeholder.com/200x200.png'
+      name: currentUser.name,
+      email: currentUser.email,
+      password: currentUser.password,
+      image: currentUser.image
     };
     setUserAva(data.image);
     setName(data.name);
@@ -368,15 +376,15 @@ function ChangeInfo() {
   };
 
   const handleSubmit = async () => {
-
+    const currentUser = JSON.parse(localStorage.getItem('user'));
     try {
       if (newpassword === renewpassword) {
         const changeInfo = {
+          _id: currentUser._id,
           name: name,
-          userAva: userAva,
+          image: userAva,
           email: email,
-          password: password,
-          newPassword: renewpassword
+          password: newpassword,
         };
         const response = await saveChangeInfo(changeInfo);
         console.log('Thay đổi thông tin thành công:', response);
