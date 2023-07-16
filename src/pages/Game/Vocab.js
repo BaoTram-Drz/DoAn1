@@ -256,8 +256,8 @@ const Vocab = () => {
             
             {data.map((item) => (
               <TableRow key={item.id}>
-                <TableCellEng>{item.sound}</TableCellEng>
-                <TableCellViet>{item.name}</TableCellViet>
+                <TableCellViet>{item.sound}</TableCellViet>
+                <TableCellEng>{item.name}</TableCellEng>
                 <TableCellViet>{item.meaning}</TableCellViet>
                 <TableCellEng>
                   <ImageAcc src={item.image} alt={item.name} />

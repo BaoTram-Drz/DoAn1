@@ -191,9 +191,13 @@ const Scores = () => {
   const [allScore, setAllScore] = useState(0);
   const [answerScore, setAnswerScore] = useState(0);
   const [correctData, setCorrectData] = useState('');
-  const [wrongData, setWrongData] = useState('');
+  const [wrongData, setWrongData] = useState('');  
+  const [productName, setProductName] = useState('Product A');
 
   useEffect(() => {
+    if (location.state && location.state.productname) {
+      setAnswerScore(location.state.productname);
+    }
     if (location.state && location.state.score) {
       setAnswerScore(location.state.score);
     }
@@ -231,7 +235,7 @@ const Scores = () => {
       </Container>
 
       <ButtonsContainer>
-        <Button to="/bigtest">Test Again</Button>
+        <Button to="/bigtest" state={{ productname:productName}} >Test Again</Button>
         <Button to="/league">League</Button>
       </ButtonsContainer>
     </>

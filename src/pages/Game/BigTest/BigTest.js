@@ -271,7 +271,7 @@ const saveScore = () => {
         {isFireWork === true && 
         <>
           <Button to={ '/scores' }
-            state={{ score: answerScore, allScore: allScore, right: correctData, wrong: wrongData}} 
+            state={{ productname:productName , score: answerScore, allScore: allScore, right: correctData, wrong: wrongData}} 
           >
             Score
           </Button>
