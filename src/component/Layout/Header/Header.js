@@ -229,6 +229,7 @@ function Header() {
                   onClick={() => {
                     setActiveSection('login');
                     setIsLoggedIn(false);
+                    setUser(null);
                   }}
                 >
                   Logout
