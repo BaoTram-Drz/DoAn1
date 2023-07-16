@@ -213,11 +213,11 @@ const BigTest = () => {
       const answerItem = answerData.find((answer) => answer.id.$oid === item._id.$oid);
   
       if (answerItem && answerItem.answerState === true && item.kind === 'Game') {
+        totalScore += answerItem.score;
         setCorrectData(prevCorrectData => `${prevCorrectData} ${item.question}:${item.correctText}`);
       } else if (item.kind === 'Game') {
-        setWrongData(prevWrongData => `${prevWrongData} ${item.question}:${item.correctText}`);
+        setWrongData(prevWrongData => `${prevWrongData}  ${item.question}: ${item.correctText}  :::`);
       }
-      totalScore += answerItem.score;
       if (item.kind === "Game") {        
         allTotalScore += item.score;
       }

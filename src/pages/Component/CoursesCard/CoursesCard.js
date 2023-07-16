@@ -311,6 +311,25 @@ function CardList() {
     prevArrow: <PrevArrow />,
     nextArrow: <NextArrow />,
   });
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const userString = localStorage.getItem('user');
+    if (userString) {
+      try {
+        const user1 = JSON.parse(userString);
+        setUser(user1);
+        setIsUser(true);
+      } catch (error) {
+        console.error('Error parsing user data from localStorage:', error);
+        setUser(null);
+        setIsUser(false);
+      }
+    } else {
+      setUser(null);
+      setIsUser(false);
+    }
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -444,9 +463,7 @@ function CardList() {
         <CoursesNameText>Courses for You</CoursesNameText>
       </CoursesName>
 
-      { isUser ? (
-        <>
-          <CoursesTopicNameText> - Suggestions for you - </CoursesTopicNameText>
+      <CoursesTopicNameText> - Suggestions for you - </CoursesTopicNameText>
           <CardListContainer>
           <Slider {...sliderSettings}>
             {coursesUser.map((item, index) => (
@@ -467,10 +484,34 @@ function CardList() {
             ))}
           </Slider>
           </CardListContainer>
+
+      { isUser ? (
+        <>
+          <CoursesTopicNameText> - Continue Learn - </CoursesTopicNameText>
+          <CardListContainer>
+            <Slider {...sliderSettings}>
+              {coursesRead.map((item, index) => (
+                <Card key={index}>
+                  <ImgContainer><Img imageUrl={item.image} alt={item.name} />
+                  </ImgContainer>
+                  <Name>{item.name}</Name>
+                  <Description>Number of participants: {item.amount}</Description>
+                  <LearnBtn
+                    to={
+                    '/coursesinfo'
+                      }
+                    state= { {productname: item.name, image: item.image, lessonType: item.lessonType }}
+                  >
+                    Learn
+                  </LearnBtn>
+                </Card>
+              ))}
+            </Slider>
+          </CardListContainer>
         </>
        
         ) : ( null )}
-      
+        
       <CoursesTopicNameText> - Learning Vocabulary - </CoursesTopicNameText>
       <CardListContainer>
         <Slider {...sliderSettings}>
@@ -493,27 +534,7 @@ function CardList() {
         </Slider>
       </CardListContainer>
 
-      <CoursesTopicNameText> - Read stories - </CoursesTopicNameText>
-      <CardListContainer>
-        <Slider {...sliderSettings}>
-          {coursesRead.map((item, index) => (
-            <Card key={index}>
-              <ImgContainer><Img imageUrl={item.image} alt={item.name} />
-              </ImgContainer>
-              <Name>{item.name}</Name>
-              <Description>Number of participants: {item.amount}</Description>
-              <LearnBtn
-                to={
-                 '/coursesinfo'
-                  }
-                state= { {productname: item.name, image: item.image, lessonType: item.lessonType }}
-              >
-                Learn
-              </LearnBtn>
-            </Card>
-          ))}
-        </Slider>
-      </CardListContainer>
+      
 
       <CoursesTopicNameText> -  Listen stories - </CoursesTopicNameText>
       <CardListContainer>

@@ -53,31 +53,27 @@ const Score = styled.div`
   color: #0E606B;
 `;
 
-// const Button = styled.button`
-//   width: 300px;
-//   padding: 10px 24px;
-//   font: normal 400 2rem "Autour One";
-//   color: #ffc24b;
-//   background-color: white;
-//   border: 3px solid #f47068;
-//   border-radius: 20px;
-// `;
 const Button = styled(Link)`
-  width: 200px;
-  padding: 5px 24px;
-  text-decoration: none;
-  text-align: center;
-  font: normal 400 2rem "Autour One";
-  color: #ffc24b;
-  background-color: white;
-  border: 3px solid #f47068;
-  border-radius: 20px;
+width: 200px;
+padding: 5px 24px;
+text-decoration: none;
+text-align: center;
+font: normal 400 2rem "Autour One";
+color: #ffc24b;
+background-color: white;
+border: 3px solid #f47068;
+border-radius: 20px;
 `;
 const ButtonsContainer = styled.div`
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  margin: 3% auto;
+display: flex;
+justify-content: space-around;
+flex-wrap: wrap;
+margin: 3% auto;
+`;
+const WrongText = styled.p`
+  font: normal 300 2rem "Roboto";
+  color: #ffc24b;
+  text-align: left;
 `;
 
 const StyledPieChartComponent = ({ data }) => {
@@ -126,12 +122,14 @@ const Scores = () => {
     }
     console.log(correctData)
   }, [location.state, correctData, wrongData]);
+  const dung = ((answerScore/allScore)*100).toFixed(0);
+  const sai = (((allScore - answerScore)/allScore)*100).toFixed(0);
 
   const data = [
-    { name: 'Right', value: answerScore },
-    { name: 'no', value: allScore - answerScore },
+    { name: 'Right', value:(answerScore/allScore)*100 },
+    { name: 'no', value: ((allScore - answerScore)/allScore)*100 },
   ];
-
+  const formattedData = wrongData.replace(/:::/g, '\n');
   return (
     <>
       <Link to="/"><BackHome /></Link>
@@ -140,10 +138,9 @@ const Scores = () => {
       <Container>
         <StyledPieChartComponent data={data} />
         <Score>
-          <p>Right: {answerScore} = {data[0].value}% </p>
-          <p>{correctData}</p>
-          <p>Wrong: {allScore - answerScore} = {data[1].value}%</p>
-          <p>{wrongData}</p>
+          <p>Right: {dung}% </p>
+          <p>Wrong: {sai}%</p>
+          <WrongText>{formattedData}</WrongText>
         </Score>
       </Container>
 

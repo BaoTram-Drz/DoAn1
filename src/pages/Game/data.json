@@ -79,12 +79,7 @@
         { "id": "3", "text": "a" },
         { "id": "4", "text": "b" }
       ],
-      "correctText": [
-        { "id": "Apple", "text": "Trái táo" },
-        { "id": "Bút chì", "text": "Pencil" },
-        { "id": "Ruler", "text": "Cây thước" },
-        { "id": "Nước", "text": "Water" }
-      ],
+      "correctText": "Apple: Trái táo, Bút chì: Pencil, Ruler: Cây thước, Nước: Water ",
       "score" : 20
     },
     {

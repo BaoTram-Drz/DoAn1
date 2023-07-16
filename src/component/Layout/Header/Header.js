@@ -143,10 +143,6 @@ function Header() {
   const [activeSection, setActiveSection] = useState('home');
   const [user, setUser] = useState(null);
 
-  // const user = JSON.parse(localStorage.getItem('user'));
-  // if (!user) {
-  //   setIsLoggedIn(false);
-  // } 
   useEffect(() => {
     const userString = localStorage.getItem('user');
     if (userString) {
@@ -164,6 +160,13 @@ function Header() {
       setIsLoggedIn(false);
     }
   }, []);
+
+  const handleLogOut = () => {    
+    setIsLoggedIn(false);
+    localStorage.setItem('isLoggedIn', 'false');
+    localStorage.setItem('user', '');
+  };
+
   const handleDropdownClick = () => {
     setIsOpenInfo(!isOpenInfo);
     setIsOpenMenu(false);
@@ -228,8 +231,7 @@ function Header() {
                   active={activeSection === 'login'}
                   onClick={() => {
                     setActiveSection('login');
-                    setIsLoggedIn(false);
-                    setUser(null);
+                    handleLogOut();
                   }}
                 >
                   Logout

@@ -200,7 +200,7 @@ function SignUpBtn(props) {
         handleOpenSnackbar(color_constants.green_color, 'Success', 3000);
       } catch (error) {
         console.log('Error:', error);
-        handleOpenSnackbar(color_constants.red_color, 'Failor', 3000);
+        handleOpenSnackbar(color_constants.red_color, 'Fail to Sign Up', 3000);
       }
     } else {
       alert(" password not same repassword !");

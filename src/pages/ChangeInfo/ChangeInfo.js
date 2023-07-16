@@ -8,6 +8,7 @@ import { getInfo, saveChangeInfo } from '../../API/changeInfoApi';
 import { getDownloadURL } from 'firebase/storage';
 import { storage } from '../../firebase/firebase'
 import { ref } from 'firebase/storage'
+
 const BackHome = styled(FaArrowLeft)`
     width: 30px;
     height: 30px;

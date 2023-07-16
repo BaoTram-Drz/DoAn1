@@ -175,7 +175,7 @@ const Login = () => {
       localStorage.setItem('isLoggedIn', 'false');
       localStorage.setItem('user', '');
       console.log('Error:', error);      
-      handleOpenSnackbar(color_constants.red_color, 'Failor', 3000);
+      handleOpenSnackbar(color_constants.red_color, 'Fail to Login', 3000);
     }
   };
 
