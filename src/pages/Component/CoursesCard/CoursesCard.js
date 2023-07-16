@@ -34,18 +34,22 @@ const CoursesName = styled.div`
     font-size: 2.5rem;
   }
   @media (max-width: 912px) {
+    margin-top: 15%;
     width: 70%;
     height: 150px;
   }
   @media (max-width: 540px) {
+    margin-top: 20%;
     width: 70%;
     height: 120px;
   }
   @media (max-width: 480px) {
+    margin-top: 25%;
     width: 80%;
     height: 100px;
   }
   @media (max-width: 300px) {
+    margin-top: 30%;
     width: 90%;
     height: 80px;
   }
