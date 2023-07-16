@@ -379,7 +379,7 @@ const CoursesInfo = () => {
             )}
           </DivWrapper>
           <ButtonL>
-            <LinkText to="/league">Top League</LinkText>
+            <LinkText to="/league" state={{ productname: productName }} >Top League</LinkText>
           </ButtonL>
         </RightDiv>
       </Container>

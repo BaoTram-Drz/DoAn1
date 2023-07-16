@@ -3,7 +3,7 @@ import styled from "styled-components";
 import top1 from './image/top1.png'
 import top2 from './image/top2.png'
 import top3 from './image/top3.png'
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import {FaArrowLeft} from 'react-icons/fa';
 import data from './data.json'
 
@@ -270,16 +270,25 @@ const League = () => {
   const [data1, setData1] = useState([]);
   const [data2, setData2] = useState([]);
   const [user, setUser] = useState([]);
+  const [productName, setProductName] = useState('');
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.state && location.state.productname) {
+      setProductName(location.state.productname);
+    }
+    
+  }, [location.state]);
 
   useEffect(() => {
     const fetchLearns = async () => {
       try {
         //const learnData = await getLearns();
         const topAll = data.data1;
-        const topMonth = data.data2;
+        const topThisCourse = data.data2;
         const user = data.user;
         setData1(topAll);
-        setData2(topMonth);
+        setData2(topThisCourse);
         setUser(user);
       } catch (error) {
         console.error(error);
@@ -291,12 +300,32 @@ const League = () => {
   return (
     <>
       <Link to="/home"><BackHome/></Link>
-      <BigText>Top league</BigText>
+      <BigText>Top league of {productName}</BigText>
       <Table>
           <tbody>
-            <FlexContainer>                
+            <FlexContainer>  
+            <td>
+                      <TableHeaderLeftRes>THIS COURSE</TableHeaderLeftRes>
+                      <TableContainer>
+                        {data2.map((item) => (
+                            <TableRow key={item.id}>
+                                <TableCellRight>
+                                    {item.top === 1 ? <ImageTop src={top1} alt="Top 1" /> : null}
+                                    {item.top === 2 ? <ImageTop src={top2} alt="Top 2" /> : null}
+                                    {item.top === 3 ? <ImageTop src={top3} alt="Top 3" /> : null}
+                                    {item.top === 1 ?  null :  item.top === 2 ? null: item.top === 3 ?  null: item.id}
+                                </TableCellRight>
+                                <TableCellRight>
+                                    <ImageAcc src={item.image} alt={item.name} />
+                                </TableCellRight>
+                                <TableCellRight>{item.name}</TableCellRight>
+                                <Exp>{item.exp} exp</Exp>
+                            </TableRow>
+                        ))}
+                      </TableContainer>
+                  </td>               
                   <td>
-                      <TableHeaderLeftRes>All Courses</TableHeaderLeftRes>
+                      <TableHeaderRightRes>ALL COURSES</TableHeaderRightRes>
                       <TableContainer>
                         {data1.map((item) => (
                             <TableRow key={item.id}>
@@ -315,26 +344,7 @@ const League = () => {
                         ))}
                       </TableContainer>
                   </td>
-                  <td>
-                      <TableHeaderRightRes>Month</TableHeaderRightRes>
-                      <TableContainer>
-                        {data2.map((item) => (
-                            <TableRow key={item.id}>
-                                <TableCellRight>
-                                    {item.top === 1 ? <ImageTop src={top1} alt="Top 1" /> : null}
-                                    {item.top === 2 ? <ImageTop src={top2} alt="Top 2" /> : null}
-                                    {item.top === 3 ? <ImageTop src={top3} alt="Top 3" /> : null}
-                                    {item.top === 1 ?  null :  item.top === 2 ? null: item.top === 3 ?  null: item.id}
-                                </TableCellRight>
-                                <TableCellRight>
-                                    <ImageAcc src={item.image} alt={item.name} />
-                                </TableCellRight>
-                                <TableCellRight>{item.name}</TableCellRight>
-                                <Exp>{item.exp} exp</Exp>
-                            </TableRow>
-                        ))}
-                      </TableContainer>
-                  </td>                
+                              
             </FlexContainer>
           </tbody>
         </Table>

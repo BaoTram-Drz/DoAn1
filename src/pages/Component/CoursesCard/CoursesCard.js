@@ -8,7 +8,7 @@ import { getDownloadURL } from 'firebase/storage';
 import { storage } from '../../../firebase/firebase'
 import { useState, useEffect } from 'react';
 import { ref } from 'firebase/storage'
-import { getCoursesVocab, getCoursesRead, getCoursesListen, getCoursesUser } from '../../../API/coursesApi';
+import { getCoursesVocab, getContinueCourses, getCoursesListen, getCoursesUser } from '../../../API/coursesApi';
 import Game6 from '../../Game/MiniGame';
 import sintel from './sintel.jpg'
 import listen2 from './listen2.jpg'
@@ -295,11 +295,11 @@ const NextArrow = (props) => (
   </NextButton>
 );
 function CardList() {
-  const [coursesVocab, setCoursesVocab] = useState([]);  
-  const [coursesRead, setCoursesRead] = useState([]); 
-  const [coursesListen, setCoursesListen] = useState([]); 
-  const [coursesUser, setCoursesUser] = useState([]);   
-  const [miniGame, setMiniGame] = useState([]); 
+  const [coursesVocab, setCoursesVocab] = useState([]);
+  const [coursesRead, setCoursesRead] = useState([]);
+  const [coursesListen, setCoursesListen] = useState([]);
+  const [coursesUser, setCoursesUser] = useState([]);
+  const [miniGame, setMiniGame] = useState([]);
   const [isUser, setIsUser] = useState(true);
   const [sliderSettings, setSliderSettings] = useState({
     dots: false,
@@ -349,13 +349,13 @@ function CardList() {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const courseUserList = await getCoursesVocab(); 
+        const courseUserList = await getCoursesVocab();
         for (let i = 0; i < courseUserList.length; i++) {
           const path = 'courses/' + courseUserList[i].image;
           const downloadURL = await getDownloadURL(ref(storage, path));
-          courseUserList[i].image = downloadURL;   
+          courseUserList[i].image = downloadURL;
         }
-        setCoursesUser(courseUserList);      
+        setCoursesUser(courseUserList);
 
       } catch (error) {
         console.error(error);
@@ -373,21 +373,21 @@ function CardList() {
         for (let i = 0; i < courseVocabList.length; i++) {
           const path = 'courses/' + courseVocabList[i].image;
           const downloadURL = await getDownloadURL(ref(storage, path));
-          courseVocabList[i].image = downloadURL;     
+          courseVocabList[i].image = downloadURL;
         }
-        setCoursesVocab(courseVocabList);  
+        setCoursesVocab(courseVocabList);
 
-        courseVocabList[0].des ="Chơi mini game để luyện tập từ vựng về FRUITS"
-        courseVocabList[1].des ="Chơi mini game để luyện tập từ vựng về KITCHEN"
-        courseVocabList[2].des ="Chơi mini game để luyện tập từ vựng về ASTRONOMY"
+        courseVocabList[0].des = "Chơi mini game để luyện tập từ vựng về FRUITS"
+        courseVocabList[1].des = "Chơi mini game để luyện tập từ vựng về KITCHEN"
+        courseVocabList[2].des = "Chơi mini game để luyện tập từ vựng về ASTRONOMY"
         const image = courseVocabList[0].image;
         courseVocabList[0].image = courseVocabList[1].image;
         courseVocabList[1].image = courseVocabList[2].image;
         courseVocabList[2].image = image;
-        
-        courseVocabList[0].name ="FRUITS"
-        courseVocabList[1].name ="KITCHEN"
-        courseVocabList[2].name ="ASTRONOMY"
+
+        courseVocabList[0].name = "FRUITS"
+        courseVocabList[1].name = "KITCHEN"
+        courseVocabList[2].name = "ASTRONOMY"
         setMiniGame(courseVocabList)
 
       } catch (error) {
@@ -401,24 +401,24 @@ function CardList() {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const courseReadList = await getCoursesVocab(); 
+        const continueCourses = await getContinueCourses();
 
-        for (let i = 0; i < courseReadList.length; i++) {
-          const path = 'courses/' + courseReadList[i].image;
+        for (let i = 0; i < continueCourses.length; i++) {
+          const path = 'courses/' + continueCourses[i].image;
           const downloadURL = await getDownloadURL(ref(storage, path));
-          courseReadList[i].image = downloadURL;   
+          continueCourses[i].image = downloadURL;
         }
-        courseReadList[0].image = story1;          
-        courseReadList[1].image = story2;          
-        courseReadList[2].image = story3;   
-        courseReadList[0].name = "The Lion & Mouse";          
-        courseReadList[1].name = "The three fishes";          
-        courseReadList[2].name = "The frog prince";  
-        courseReadList[0].des = "Câu chuyện chú sư tử và chú chuột";          
-        courseReadList[1].des = "Câu chuyện về 3 chú cá";          
-        courseReadList[2].des = "Câu chuyện về hoàng tử ếch";  
-        setCoursesRead(courseReadList);      
-
+        // courseReadList[0].image = story1;
+        // courseReadList[1].image = story2;
+        // courseReadList[2].image = story3;
+        // courseReadList[0].name = "The Lion & Mouse";
+        // courseReadList[1].name = "The three fishes";
+        // courseReadList[2].name = "The frog prince";
+        // courseReadList[0].des = "Câu chuyện chú sư tử và chú chuột";
+        // courseReadList[1].des = "Câu chuyện về 3 chú cá";
+        // courseReadList[2].des = "Câu chuyện về hoàng tử ếch";
+        setCoursesRead(continueCourses);
+        
       } catch (error) {
         console.error(error);
       }
@@ -430,22 +430,22 @@ function CardList() {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const courseListenList = await getCoursesVocab(); 
+        const courseListenList = await getCoursesVocab();
         for (let i = 0; i < courseListenList.length; i++) {
           const path = 'courses/' + courseListenList[i].image;
           const downloadURL = await getDownloadURL(ref(storage, path));
-          courseListenList[i].image = downloadURL;   
+          courseListenList[i].image = downloadURL;
         }
-        courseListenList[0].image = sintel;          
-        courseListenList[1].image = listen2;          
-        courseListenList[2].image = listen3;   
-        courseListenList[0].name = "Adventure";          
-        courseListenList[1].name = "Moana";          
-        courseListenList[2].name = "Frozen";  
-        courseListenList[0].des = "Luyện nghe 1 đạn ngắn về câu chuyện Cuộc phiêu lưu";          
-        courseListenList[1].des = "Luyện nghe 1 đạn ngắn về câu chuyện Moana";          
-        courseListenList[2].des = "Luyện nghe 1 đạn ngắn về câu chuyện Frozen";  
-        setCoursesListen(courseListenList);      
+        courseListenList[0].image = sintel;
+        courseListenList[1].image = listen2;
+        courseListenList[2].image = listen3;
+        courseListenList[0].name = "Adventure";
+        courseListenList[1].name = "Moana";
+        courseListenList[2].name = "Frozen";
+        courseListenList[0].des = "Luyện nghe 1 đạn ngắn về câu chuyện Cuộc phiêu lưu";
+        courseListenList[1].des = "Luyện nghe 1 đạn ngắn về câu chuyện Moana";
+        courseListenList[2].des = "Luyện nghe 1 đạn ngắn về câu chuyện Frozen";
+        setCoursesListen(courseListenList);
 
       } catch (error) {
         console.error(error);
@@ -454,9 +454,9 @@ function CardList() {
 
     fetchCourses();
   }, []);
-  
 
-  
+
+
   return (
     <Container>
       <CoursesName>
@@ -464,28 +464,28 @@ function CardList() {
       </CoursesName>
 
       <CoursesTopicNameText> - Suggestions for you - </CoursesTopicNameText>
-          <CardListContainer>
-          <Slider {...sliderSettings}>
-            {coursesUser.map((item, index) => (
-              <Card key={index}>
-                <ImgContainer><Img imageUrl={item.image} alt={item.name} />
-                </ImgContainer>
-                <Name>{item.name}</Name>
-                <Description>Number of participants: {item.amount}</Description>
-                <LearnBtn
-                  to={
-                    '/coursesinfo'
-                    }
-                  state= { {productname: item.name, image: item.image, lessonType: item.lessonType }}
-                >
-                  Learn
-                </LearnBtn>
-              </Card>
-            ))}
-          </Slider>
-          </CardListContainer>
+      <CardListContainer>
+        <Slider {...sliderSettings}>
+          {coursesUser.map((item, index) => (
+            <Card key={index}>
+              <ImgContainer><Img imageUrl={item.image} alt={item.name} />
+              </ImgContainer>
+              <Name>{item.name}</Name>
+              <Description>Number of participants: {item.amount}</Description>
+              <LearnBtn
+                to={
+                  '/coursesinfo'
+                }
+                state={{ productname: item.name, image: item.image, lessonType: item.lessonType }}
+              >
+                Learn
+              </LearnBtn>
+            </Card>
+          ))}
+        </Slider>
+      </CardListContainer>
 
-      { isUser ? (
+      {isUser ? (
         <>
           <CoursesTopicNameText> - Continue Learn - </CoursesTopicNameText>
           <CardListContainer>
@@ -498,9 +498,9 @@ function CardList() {
                   <Description>Number of participants: {item.amount}</Description>
                   <LearnBtn
                     to={
-                    '/coursesinfo'
-                      }
-                    state= { {productname: item.name, image: item.image, lessonType: item.lessonType }}
+                      '/coursesinfo'
+                    }
+                    state={{ productname: item.name, image: item.image, lessonType: item.lessonType }}
                   >
                     Learn
                   </LearnBtn>
@@ -509,9 +509,9 @@ function CardList() {
             </Slider>
           </CardListContainer>
         </>
-       
-        ) : ( null )}
-        
+
+      ) : (null)}
+
       <CoursesTopicNameText> - Learning Vocabulary - </CoursesTopicNameText>
       <CardListContainer>
         <Slider {...sliderSettings}>
@@ -523,9 +523,9 @@ function CardList() {
               <Description>Number of participants: {item.amount}</Description>
               <LearnBtn
                 to={
-                 '/coursesinfo'
-                  }
-                state= { {productname: item.name, image: item.image, lessonType: item.lessonType }}
+                  '/coursesinfo'
+                }
+                state={{ productname: item.name, image: item.image, lessonType: item.lessonType }}
               >
                 Learn
               </LearnBtn>
@@ -534,7 +534,7 @@ function CardList() {
         </Slider>
       </CardListContainer>
 
-      
+
 
       <CoursesTopicNameText> -  Listen stories - </CoursesTopicNameText>
       <CardListContainer>
@@ -547,9 +547,9 @@ function CardList() {
               <Description>Number of participants: {item.amount}</Description>
               <LearnBtn
                 to={
-                 '/coursesinfo'
-                  }
-                state= { {productname: item.name, image: item.image, lessonType: item.lessonType }}
+                  '/coursesinfo'
+                }
+                state={{ productname: item.name, image: item.image, lessonType: item.lessonType }}
               >
                 Learn
               </LearnBtn>
@@ -569,9 +569,9 @@ function CardList() {
               <Description>Number of participants: {item.amount}</Description>
               <LearnBtn
                 to={
-                 '/minigame'
-                  }
-                state= { {productname: item.name }}
+                  '/minigame'
+                }
+                state={{ productname: item.name }}
               >
                 Play
               </LearnBtn>
