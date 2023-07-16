@@ -162,8 +162,7 @@ function Header() {
       <NavMenuStyled>
         <NavLinkStyled
           to="/"
-          //active={activeSection === 'home'}
-          active={activeSection === 'home' ? 'true' : 'false'}
+          active={activeSection === 'home'}
           onClick={() => {
             setActiveSection('home');
             setIsOpenMenu(false);
@@ -173,8 +172,7 @@ function Header() {
         </NavLinkStyled>
         <NavLinkStyled
           to="/cardlist"
-          //active={activeSection === 'coursesCard'}
-          active={activeSection === 'coursesCard' ? 'true' : 'false'}
+          active={activeSection === 'coursesCard'}
           onClick={() => {
             setActiveSection('coursesCard');
             setIsOpenMenu(false);
@@ -186,8 +184,7 @@ function Header() {
           <>
             <NavLinkStyled
               to="/changeinfo"
-              //active={activeSection === 'changeinfo'}
-              active={activeSection === 'changeinfo' ? 'true' : 'false'}
+              active={activeSection === 'changeinfo'}
               onClick={() => {
                 setActiveSection('changeinfo');
                 setIsOpenMenu(false);
@@ -200,8 +197,7 @@ function Header() {
               <DropdownContent>
                 <DropdownItem
                   to="/changeinfo"
-                  // active={activeSection === 'changeinfo'}
-                  active={activeSection === 'changeinfo' ? 'true' : 'false'}
+                  active={activeSection === 'changeinfo'}
                   onClick={() => {
                     setActiveSection('changeinfo');
                     setIsLoggedIn(true);
@@ -211,8 +207,7 @@ function Header() {
                 </DropdownItem>
                 <DropdownItem
                   to="/login"
-                  //active={activeSection === 'login'}
-                  active={activeSection === 'login' ? 'true' : 'false'}
+                  active={activeSection === 'login'}
                   onClick={() => {
                     setActiveSection('login');
                     setIsLoggedIn(false);
@@ -227,8 +222,7 @@ function Header() {
           <>
             <NavLinkStyled
               to="/signup"
-              //active={activeSection === 'signup'}
-              active={activeSection === 'signup' ? 'true' : 'false'}
+              active={activeSection === 'signup'}
               onClick={() => {
                 setActiveSection('signup');
                 setIsOpenMenu(false);
@@ -238,8 +232,7 @@ function Header() {
             </NavLinkStyled>
             <NavLinkStyled
               to="/login"
-              //active={activeSection === 'login'}
-              active={activeSection === 'login' ? 'true' : 'false'}
+              active={activeSection === 'login'}
               onClick={() => {
                 setActiveSection('login');
                 setIsOpenMenu(false);
@@ -255,8 +248,7 @@ function Header() {
         <DropdownContent>
           <DropdownItem
             to="/"
-            //active={activeSection === 'home'}
-            active={activeSection === 'home' ? 'true' : 'false'}
+            active={activeSection === 'home'}
             onClick={() => {
               setActiveSection('home');
               setIsOpenMenu(false);
@@ -268,8 +260,7 @@ function Header() {
             <>
               <DropdownItem
                 to="/changeinfo"
-                // active={activeSection === 'changeinfo'}
-                active={activeSection === 'changeinfo' ? 'true' : 'false'}
+                active={activeSection === 'changeinfo'}
                 onClick={() => {
                   setActiveSection('changeinfo');
                   setIsOpenMenu(false);
@@ -279,8 +270,7 @@ function Header() {
               </DropdownItem>
               <DropdownItem
                 to="/login"
-                //active={activeSection === 'login'}
-                active={activeSection === 'login' ? 'true' : 'false'}
+                active={activeSection === 'login'}
                 onClick={() => {
                   setActiveSection('login');
                   setIsOpenMenu(false);
@@ -294,8 +284,7 @@ function Header() {
             <>
               <DropdownItem
                 to="/signup"
-                //active={activeSection === 'signup'}
-                active={activeSection === 'signup' ? 'true' : 'false'}
+                active={activeSection === 'signup'}
                 onClick={() => {
                   setActiveSection('signup');
                   setIsOpenMenu(false);
@@ -305,8 +294,7 @@ function Header() {
               </DropdownItem>
               <DropdownItem
                 to="/login"
-                //active={activeSection === 'login'}
-                active={activeSection === 'login' ? 'true' : 'false'}
+                active={activeSection === 'login'}
                 onClick={() => {
                   setActiveSection('login');
                   setIsOpenMenu(false);
