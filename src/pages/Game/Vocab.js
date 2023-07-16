@@ -90,15 +90,27 @@ const TableHeader = styled.thead`
 const TableHeaderLeft = styled.div`
   border-bottom: 3px dashed #ffc24b;
   border-bottom-left-radius: 20px;
+  
 `;
+const TableHeaderCenterOn = styled.div`
+  border-bottom: 3px dashed #ffc24b;  
+  border-bottom-right-radius: 20px;
+`;
+
 
 const TableHeaderCenter = styled.div`
   border-bottom: 3px dashed #ffc24b;
+  @media (max-width: 540px) {
+    display: none;
+  }
 `;
 
 const TableHeaderRight = styled.div`
   border-bottom: 3px dashed #ffc24b;
   border-bottom-right-radius: 20px;
+  @media (max-width: 540px) {
+    display: none;
+  }
 `;
 
 const TableRow = styled.tr`
@@ -116,7 +128,9 @@ const TableCellEng = styled.td`
   @media (max-width: 1280px) {
     font-size: 1.5rem;
   }
-
+  @media (max-width: 540px) {
+    display: none;
+  }
   @media (max-width: 415px) {
     font-size: 1rem;
   }
@@ -127,6 +141,45 @@ const TableCellEng = styled.td`
 `;
 
 const TableCellViet = styled.td`
+  padding: 12px 24px;
+  font: normal 400 28px 'Roboto';
+  color: #1697a6;
+  border-bottom: 1px dashed #ffb3ae;
+
+  @media (max-width: 1280px) {
+    font-size: 1.5rem;
+  }
+  @media (max-width: 540px) {
+    display: none;
+  }
+
+  @media (max-width: 415px) {
+    font-size: 1rem;
+  }
+
+  @media (max-width: 280px) {
+    font-size: 0.5rem;
+  }
+`;
+const TableCellEngOn = styled.td`
+  padding: 12px 24px;
+  font: normal 400 28px 'Autour One';
+  color: #1697a6;
+  border-bottom: 1px dashed #ffb3ae;
+
+  @media (max-width: 1280px) {
+    font-size: 1.5rem;
+  }
+  @media (max-width: 415px) {
+    font-size: 1rem;
+  }
+
+  @media (max-width: 280px) {
+    font-size: 0.5rem;
+  }
+`;
+
+const TableCellVietOn = styled.td`
   padding: 12px 24px;
   font: normal 400 28px 'Roboto';
   color: #1697a6;
@@ -166,16 +219,20 @@ const Button = styled(Link)`
   border: 3px solid #f47068;
   border-radius: 20px;
 
-  @media (max-width: 1280px) {
+  @media (max-width: 1200px) {
+    width: 200px;
+    font-size: 1.8rem;
+  }
+
+  @media (max-width: 540px) {
+    width: 150px;
     font-size: 1.5rem;
   }
 
-  @media (max-width: 415px) {
+  @media (max-width: 480px) {
+    width: 100px;
+    padding: 5px 12px;
     font-size: 1rem;
-  }
-
-  @media (max-width: 280px) {
-    font-size: 0.5rem;
   }
 `;
 
@@ -237,13 +294,13 @@ const Vocab = () => {
         <Table>
           <TableHeader>
             <th>
-              <TableHeaderLeft>Pronunciation</TableHeaderLeft>
+              <TableHeaderLeft>English</TableHeaderLeft>
             </th>
             <th>
-              <TableHeaderCenter>English</TableHeaderCenter>
+              <TableHeaderCenterOn>Vietnamese</TableHeaderCenterOn>
             </th>
             <th>
-              <TableHeaderCenter>Vietnamese</TableHeaderCenter>
+              <TableHeaderCenter>Pronunciation</TableHeaderCenter>
             </th>
             <th>
               <TableHeaderCenter>Image</TableHeaderCenter>
@@ -256,9 +313,9 @@ const Vocab = () => {
             
             {data.map((item) => (
               <TableRow key={item.id}>
+                <TableCellEngOn>{item.name}</TableCellEngOn>
+                <TableCellVietOn>{item.meaning}</TableCellVietOn>
                 <TableCellViet>{item.sound}</TableCellViet>
-                <TableCellEng>{item.name}</TableCellEng>
-                <TableCellViet>{item.meaning}</TableCellViet>
                 <TableCellEng>
                   <ImageAcc src={item.image} alt={item.name} />
                 </TableCellEng>
