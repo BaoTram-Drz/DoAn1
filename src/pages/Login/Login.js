@@ -153,7 +153,7 @@ const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const location = useLocation();
+ // const location = useLocation();
   const handleOpenSnackbar = useContext(SnackBarContext);
 
   const sendInfo = async (email, password) => {
