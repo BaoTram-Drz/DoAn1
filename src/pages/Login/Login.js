@@ -168,7 +168,7 @@ const Login = () => {
       console.log(response.user);
       console.log(localStorage);
       navigate('/home');
-      // location.reload();
+      // window.location.reload();
       handleOpenSnackbar(color_constants.green_color, 'Success', 3000);
     
     } catch (error) {

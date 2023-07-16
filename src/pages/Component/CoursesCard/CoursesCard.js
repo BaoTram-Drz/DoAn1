@@ -454,7 +454,7 @@ function CardList() {
                 <ImgContainer><Img imageUrl={item.image} alt={item.name} />
                 </ImgContainer>
                 <Name>{item.name}</Name>
-                <Description>{item.des}</Description>
+                <Description>Number of participants: {item.amount}</Description>
                 <LearnBtn
                   to={
                     '/coursesinfo'
@@ -479,7 +479,7 @@ function CardList() {
               <ImgContainer><Img imageUrl={item.image} alt={item.name} />
               </ImgContainer>
               <Name>{item.name}</Name>
-              <Description>{item.des}</Description>
+              <Description>Number of participants: {item.amount}</Description>
               <LearnBtn
                 to={
                  '/coursesinfo'
@@ -501,7 +501,7 @@ function CardList() {
               <ImgContainer><Img imageUrl={item.image} alt={item.name} />
               </ImgContainer>
               <Name>{item.name}</Name>
-              <Description>{item.des}</Description>
+              <Description>Number of participants: {item.amount}</Description>
               <LearnBtn
                 to={
                  '/coursesinfo'
@@ -523,7 +523,7 @@ function CardList() {
               <ImgContainer><Img imageUrl={item.image} alt={item.name} />
               </ImgContainer>
               <Name>{item.name}</Name>
-              <Description>{item.des}</Description>
+              <Description>Number of participants: {item.amount}</Description>
               <LearnBtn
                 to={
                  '/coursesinfo'
@@ -545,7 +545,7 @@ function CardList() {
               <ImgContainer><Img imageUrl={item.image} alt={item.name} />
               </ImgContainer>
               <Name>{item.name} GAME</Name>
-              <Description>{item.des}</Description>
+              <Description>Number of participants: {item.amount}</Description>
               <LearnBtn
                 to={
                  '/minigame'
