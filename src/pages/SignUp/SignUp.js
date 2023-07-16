@@ -6,6 +6,7 @@ import image from './image.png'
 import { saveNewUser, saveNewUserWithGG } from "../../API/signUpApi";
 import { SnackBarContext } from "../../App";
 import { useNavigate } from 'react-router-dom';
+import color_constants from '../../color';
 //const toastr = require('toastr');
 const Container = styled.div`
   display: grid;
@@ -195,10 +196,11 @@ function SignUpBtn(props) {
       try {
         const response = await saveNewUser(newUser);
         console.log('Success:', response);
-        navigate('/login')
+        navigate('/login')        
+        handleOpenSnackbar(color_constants.green_color, 'Success', 3000);
       } catch (error) {
         console.log('Error:', error);
-
+        handleOpenSnackbar(color_constants.red_color, 'Failor', 3000);
       }
     } else {
       alert(" password not same repassword !");

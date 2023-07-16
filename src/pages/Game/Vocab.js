@@ -237,10 +237,10 @@ const Vocab = () => {
         <Table>
           <TableHeader>
             <th>
-              <TableHeaderLeft>English</TableHeaderLeft>
+              <TableHeaderLeft>Pronunciation</TableHeaderLeft>
             </th>
             <th>
-              <TableHeaderCenter>Pronunciation</TableHeaderCenter>
+              <TableHeaderCenter>English</TableHeaderCenter>
             </th>
             <th>
               <TableHeaderCenter>Vietnamese</TableHeaderCenter>
@@ -256,8 +256,8 @@ const Vocab = () => {
             
             {data.map((item) => (
               <TableRow key={item.id}>
-                <TableCellEng>{item.name}</TableCellEng>
-                <TableCellViet>{item.sound}</TableCellViet>
+                <TableCellEng>{item.sound}</TableCellEng>
+                <TableCellViet>{item.name}</TableCellViet>
                 <TableCellViet>{item.meaning}</TableCellViet>
                 <TableCellEng>
                   <ImageAcc src={item.image} alt={item.name} />

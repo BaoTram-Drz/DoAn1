@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import login from './login.png';
 import { loginUser } from "../../API/loginApi";
+import { SnackBarContext } from "../../App";
+import color_constants from '../../color';
 
 const Container = styled.div`
   display: grid;
@@ -152,13 +154,13 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const location = useLocation();
+  const handleOpenSnackbar = useContext(SnackBarContext);
 
   const sendInfo = async (email, password) => {
     const user = {
       email: email,
       password: password
     };
-
     try {
       const response = await loginUser(user);
       localStorage.setItem('isLoggedIn', 'true');
@@ -166,12 +168,14 @@ const Login = () => {
       console.log(response.user);
       console.log(localStorage);
       navigate('/home');
-      location.reload();
+      // location.reload();
+      handleOpenSnackbar(color_constants.green_color, 'Success', 3000);
     
     } catch (error) {
       localStorage.setItem('isLoggedIn', 'false');
       localStorage.setItem('user', '');
-      console.log('Error:', error);
+      console.log('Error:', error);      
+      handleOpenSnackbar(color_constants.red_color, 'Failor', 3000);
     }
   };
 
