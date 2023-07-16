@@ -143,6 +143,9 @@ function Header() {
   const [activeSection, setActiveSection] = useState('home');
 
   const user = JSON.parse(localStorage.getItem('user'));
+  if (!user) {
+    setIsLoggedIn(false);
+  } 
   const handleDropdownClick = () => {
     setIsOpenInfo(!isOpenInfo);
     setIsOpenMenu(false);

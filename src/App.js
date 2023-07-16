@@ -5,28 +5,28 @@ import { Fragment, useCallback } from 'react';
 import SnackbarProvider, { useSnackbar } from 'react-simple-snackbar'
 import SnackBarOption from './component/Notifications/Snackbar';
 import { createContext } from 'react';
+import color_constants from './color';
 
 export const SnackBarContext = createContext(() => { });
 
 function SnackbarWrapper({ children }) {
-
-  const [openSnackbar_Success, closeSnackbarSucess] = useSnackbar(SnackBarOption('#66ff66'));
-  const [openSnackbar_Failure, closeSnackbarFailure] = useSnackbar(SnackBarOption('#ff6230'));
-  const [openSnackbar_Info, closeSnackbarInfo] = useSnackbar(SnackBarOption('#66ff66'));
+  const [openSnackbar_Success, closeSnackbarSucess] = useSnackbar(SnackBarOption(color_constants.green_color));
+  const [openSnackbar_Failure, closeSnackbarFailure] = useSnackbar(SnackBarOption(color_constants.red_color));
+  const [openSnackbar_Info, closeSnackbarInfo] = useSnackbar(SnackBarOption(color_constants.yellow_color));
 
   function handleOpenSnackbar(color, message, duration = 3000) {
     switch (color) {
-      case '#66ff66':
+      case color_constants.green_color:
         openSnackbar_Success(message, duration);
         break;
-      case 'red':
+      case color_constants.red_color:
         openSnackbar_Failure(message, duration);
         break;
-      case 'blue':
+      case color_constants.yellow_color:
         openSnackbar_Info(message, duration);
         break;
       default:
-        openSnackbar_Failure('Lỗi')
+        openSnackbar_Failure('Hệ thống đang được cập nhật', 3000);
         break;
     }
   }

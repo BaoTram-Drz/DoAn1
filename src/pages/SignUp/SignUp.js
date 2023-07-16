@@ -6,7 +6,7 @@ import image from './image.png'
 import { saveNewUser, saveNewUserWithGG } from "../../API/signUpApi";
 import { SnackBarContext } from "../../App";
 import { useNavigate } from 'react-router-dom';
-//
+//const toastr = require('toastr');
 const Container = styled.div`
   display: grid;
   grid-template-columns: 2fr 1fr;
