@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Link as ScrollLink } from 'react-scroll';
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FaBars, FaEllipsisV } from 'react-icons/fa';
 import logo from './logo.png';
 
@@ -141,11 +141,29 @@ function Header() {
   const [isOpenInfo, setIsOpenInfo] = useState(false);
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+  const [user, setUser] = useState(null);
 
-  const user = JSON.parse(localStorage.getItem('user'));
-  if (!user) {
-    setIsLoggedIn(false);
-  } 
+  // const user = JSON.parse(localStorage.getItem('user'));
+  // if (!user) {
+  //   setIsLoggedIn(false);
+  // } 
+  useEffect(() => {
+    const userString = localStorage.getItem('user');
+    if (userString) {
+      try {
+        const user1 = JSON.parse(userString);
+        setUser(user1);
+        setIsLoggedIn(true);
+      } catch (error) {
+        console.error('Error parsing user data from localStorage:', error);
+        setUser(null);
+        setIsLoggedIn(false);
+      }
+    } else {
+      setUser(null);
+      setIsLoggedIn(false);
+    }
+  }, []);
   const handleDropdownClick = () => {
     setIsOpenInfo(!isOpenInfo);
     setIsOpenMenu(false);
@@ -190,7 +208,7 @@ function Header() {
                 setIsOpenMenu(false);
               }}
             >
-               {user.username}
+               {user ? user.username: "a"}
             </NavLinkStyled>
             <NavLinkStyled onClick={handleDropdownClick}> <StyledFaEllipsisV /> </NavLinkStyled>
             {isOpenInfo && (
