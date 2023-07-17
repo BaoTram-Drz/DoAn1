@@ -8,9 +8,7 @@ import { getDownloadURL } from 'firebase/storage';
 import { storage } from '../../../firebase/firebase'
 import { ref } from 'firebase/storage'
 import { useState, useEffect } from 'react';
-import { ref } from 'firebase/storage'
-import { getCoursesVocab, getCoursesRead, getCoursesListen, getCoursesUser } from '../../../API/coursesApi';
-import { BiLoaderCircle } from 'react-icons/bi';
+import { getCoursesVocab, getContinueCourses, getCoursesListen, getCoursesUser } from '../../../API/coursesApi';import { BiLoaderCircle } from 'react-icons/bi';
 import sintel from './sintel.jpg'
 import listen2 from './listen2.jpg'
 import listen3 from './listen3.jpg'
