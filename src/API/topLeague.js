@@ -1,6 +1,6 @@
 import api from './index';
 
-export const getLeague = async () => {
+const getLeague = async () => {
   try {
     const user = JSON.parse(localStorage.getItem('user')).name;
     const response = await api.get('/games/getLeague',  { params: { user }});
@@ -11,7 +11,7 @@ export const getLeague = async () => {
   }
 };
 
-export const getLeagueThisCourse = async () => {
+const getLeagueThisCourse = async () => {
   try {
     const user = JSON.parse(localStorage.getItem('user')).name;
     const productName = localStorage.getItem('productName');
@@ -23,7 +23,7 @@ export const getLeagueThisCourse = async () => {
     throw new Error(error.response.data.message);
   }
 };
-export const getLeagueMeAll = async () => {
+const getLeagueMeAll = async () => {
   try {
     const user = JSON.parse(localStorage.getItem('user')).name;
     const response = await api.get('/games/getLeagueMeAll',  { params: { user } });
@@ -33,7 +33,7 @@ export const getLeagueMeAll = async () => {
     throw new Error(error.response.data.message);
   }
 };
-export const getLeagueMeThis =  async () => {
+const getLeagueMeThis =  async () => {
   try {
    
       const productName = localStorage.getItem('productName');
@@ -45,5 +45,6 @@ export const getLeagueMeThis =  async () => {
     throw new Error(error.response.data.message);
   }
 };
+export { getLeague, getLeagueThisCourse, getLeagueMeAll, getLeagueMeThis };
 
 
