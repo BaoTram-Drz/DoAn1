@@ -229,10 +229,10 @@ const BigTest = () => {
     const userScore = {
       score: totalScore,
       productName: productName,
-      user: JSON.parse(localStorage.getItem('user'))._id,
+      user: JSON.parse(localStorage.getItem('user')).name,
+      image: JSON.parse(localStorage.getItem('user')).image,
     }
     try {
-      console.log("score in sub: "+ userScore.score )
       const response = api.post('/games/saveLeague', userScore);
       return response.data;
     } catch (error) {
