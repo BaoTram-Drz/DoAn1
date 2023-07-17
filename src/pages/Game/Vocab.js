@@ -7,7 +7,8 @@ import { ref } from 'firebase/storage'
 import { FaVolumeUp } from 'react-icons/fa'
 import { useLocation } from 'react-router-dom';
 import { getVocab } from "../../API/vocabApi";
-import { FaSpinner } from 'react-icons/fa';
+import { BiLoaderCircle } from 'react-icons/bi';
+
 
 const BigText = styled.p`
   margin: 8% auto 3% auto;
@@ -94,7 +95,9 @@ const TableHeaderLeft = styled.div`
 `;
 const TableHeaderCenterOn = styled.div`
   border-bottom: 3px dashed #ffc24b;  
-  border-bottom-right-radius: 20px;
+  @media (max-width: 540px) {
+    border-bottom-right-radius: 20px;
+  }
 `;
 
 
@@ -242,11 +245,17 @@ const ButtonsContainer = styled.div`
   flex-wrap: wrap;
   margin: 3% auto;
 `;
+const LoadIconContainer = styled.div`
+  margin: 3% auto;
+  text-align: center;
+  color: #F47068;
+`;
 
 const Vocab = () => {
   const [data, setCourses] = useState([]);
   const location = useLocation();
   const [productName, setProductName] = useState('Product A');
+  const [isLoadFull, setIsLoadFull] = useState(false);
 
   // Get product name
   useEffect(() => {
@@ -269,6 +278,9 @@ const Vocab = () => {
         }
 
         setCourses(result);
+        setTimeout(() => {
+          setIsLoadFull(true); 
+        }, 1600);
       } catch (error) {
         console.log('Error:', error);
       }
@@ -309,7 +321,7 @@ const Vocab = () => {
               <TableHeaderRight>Voice</TableHeaderRight>
             </th>
           </TableHeader>
-          <tbody>
+          <tbody>           
             
             {data.map((item) => (
               <TableRow key={item.id}>
@@ -328,6 +340,8 @@ const Vocab = () => {
         </Table>
       </TableWrapper>
 
+      
+      <LoadIconContainer>{!isLoadFull && <BiLoaderCircle/> }</LoadIconContainer>
       <ButtonsContainer>
         <Button to="/coursesinfo">Pre</Button>
         <Button to={'/layoutlearn'} state={{ productname: productName, lesson: 1 }}>
