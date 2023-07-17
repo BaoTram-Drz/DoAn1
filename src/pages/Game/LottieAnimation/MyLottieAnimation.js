@@ -5,11 +5,11 @@ import animationData from './53513-confetti.json'; // Thay đổi đường dẫ
 
 
 const Container = styled.div`
-  width: 100%;
+  width: 90%;
   height: 100vh;
   position: fixed;
   top: 0;
-  left: 0;
+  left: 10%;
   z-index:0;
 `;
 

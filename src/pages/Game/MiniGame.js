@@ -325,7 +325,7 @@ function MiniGame() {
   return (
     <Container>      
       
-      <Link to="/home"><BackHome /></Link>
+      <Link to="/cardList"><BackHome /></Link>
       <BigText>MiniGame - {productName}</BigText>
       <Row>
         <Heading>
@@ -341,8 +341,7 @@ function MiniGame() {
         ))}
         
       </CardContainer>
-      {/* {isComplete && <MyLottieAnimation />}  */}
-      <MyLottieAnimation />
+      
       {completedCount === totalCount && completedCount > 0 &&(
 
         <MyLottieAnimation />
