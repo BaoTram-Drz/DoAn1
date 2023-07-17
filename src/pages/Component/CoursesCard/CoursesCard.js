@@ -9,7 +9,7 @@ import { storage } from '../../../firebase/firebase'
 import { useState, useEffect } from 'react';
 import { ref } from 'firebase/storage'
 import { getCoursesVocab, getCoursesRead, getCoursesListen, getCoursesUser } from '../../../API/coursesApi';
-import Game6 from '../../Game/MiniGame';
+import { BiLoaderCircle } from 'react-icons/bi';
 import sintel from './sintel.jpg'
 import listen2 from './listen2.jpg'
 import listen3 from './listen3.jpg'
@@ -279,6 +279,20 @@ const LearnBtn = styled(Link)`
       font-size: 1rem;
     }
 `;
+const LoadIconContainer = styled.div`
+  margin: 3% auto;
+  text-align: center;
+  color: #F47068;
+`;
+const BiLoaderCircleIcon = styled(BiLoaderCircle)`
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  &:active {
+    color: pink;
+  }
+`;
+
 const PrevArrow = (props) => (
   <PrevButton {...props}>
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -311,11 +325,11 @@ function CardList() {
     prevArrow: <PrevArrow />,
     nextArrow: <NextArrow />,
   });
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null);  
+  const [isLoadFull, setIsLoadFull] = useState(false);
 
   const handleLearnCourse = (namecourse) => {   
     localStorage.setItem('productName', namecourse);
-    console.log(localStorage.getItem('productName'));
   };
 
   useEffect(() => {
@@ -361,7 +375,9 @@ function CardList() {
           courseUserList[i].image = downloadURL;   
         }
         setCoursesUser(courseUserList);      
-
+        setTimeout(() => {
+          setIsLoadFull(true); 
+        }, 1000);
       } catch (error) {
         console.error(error);
       }
@@ -490,6 +506,7 @@ function CardList() {
             ))}
           </Slider>
           </CardListContainer>
+      <LoadIconContainer>{!isLoadFull && <BiLoaderCircleIcon/> }</LoadIconContainer>
 
       { isUser ? (
         <>
@@ -515,6 +532,7 @@ function CardList() {
               ))}
             </Slider>
           </CardListContainer>
+      <LoadIconContainer>{!isLoadFull && <BiLoaderCircleIcon/> }</LoadIconContainer>
         </>
        
         ) : ( null )}
@@ -540,7 +558,7 @@ function CardList() {
           ))}
         </Slider>
       </CardListContainer>
-
+      <LoadIconContainer>{!isLoadFull && <BiLoaderCircleIcon/> }</LoadIconContainer>
       
 
       <CoursesTopicNameText> -  Listen stories - </CoursesTopicNameText>
@@ -565,6 +583,7 @@ function CardList() {
           ))}
         </Slider>
       </CardListContainer>
+      <LoadIconContainer>{!isLoadFull && <BiLoaderCircleIcon/> }</LoadIconContainer>
 
       <CoursesTopicNameText> -  Mini Game - </CoursesTopicNameText>
       <CardListContainer>
@@ -587,7 +606,8 @@ function CardList() {
             </Card>
           ))}
         </Slider>
-      </CardListContainer>
+      </CardListContainer>      
+      <LoadIconContainer>{!isLoadFull && <BiLoaderCircleIcon/> }</LoadIconContainer>
 
     </Container>
   );
