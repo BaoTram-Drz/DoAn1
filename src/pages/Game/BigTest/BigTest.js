@@ -171,7 +171,7 @@ const BigTest = () => {
   const location = useLocation();
   const [correctData, setCorrectData] = useState('');
   const [wrongData, setWrongData] = useState('');
-  console.log(productName)
+  // const  [userScore, setUserScore] = useState('');
 
   // useEffect(() => {
   //   if (location.state && location.state.productname) {
@@ -225,22 +225,22 @@ const BigTest = () => {
     });
     setAllScore(allTotalScore)
     setAnswerScore(totalScore);
+
+    const userScore = {
+      score: totalScore,
+      productName: productName,
+      user: JSON.parse(localStorage.getItem('user'))._id,
+    }
+    try {
+      console.log("score in sub: "+ userScore.score )
+      const response = api.post('/games/saveLeague', userScore);
+      return response.data;
+    } catch (error) {
+      throw new Error(error.message);
+    }
+
   };
-const saveScore = (answerScore) => {
-  const saveScore = {
-    score: answerScore,
-    productName: productName,
-    user: JSON.parse(localStorage.getItem('user'))._id,
-  }
-  console.log(saveScore)
-  try {
-    const response = api.post('/games/saveLeague', saveScore);
-    return response.data;
-  } catch (error) {
-    throw new Error(error.message);
-  }
-}  
-console.log(answerScore)
+ 
   return (
     <>   
       <BigText>BigTest</BigText>   
@@ -269,10 +269,11 @@ console.log(answerScore)
       
       <ButtonsContainer>        
         <Button to="/layoutlearn">Pre</Button>
-        <SubButton  onClick={() => {saveScore(answerScore); submitAnswerSelected()}}>Submit</SubButton>
+        <SubButton  onClick={() => { submitAnswerSelected()}}>Submit</SubButton>
         {isFireWork === true && 
         <>
-          <Button to={ '/scores' }
+          <Button 
+            to={ '/scores' }
             state={{ score: answerScore, allScore: allScore, right: correctData, wrong: wrongData}} 
           >
             Score
