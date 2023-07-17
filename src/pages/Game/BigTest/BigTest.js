@@ -167,7 +167,7 @@ const BigTest = () => {
   const [allScore, setAllScore] = useState(0);
   const [answerScore, setAnswerScore] = useState(0);
   const [answerData, setAnswerData] = useState([]);
-  const [isFireWork, setIsFireWork] = useState(null);
+  const [isFireWork, setIsFireWork] = useState(false);
   const location = useLocation();
   const [correctData, setCorrectData] = useState('');
   const [wrongData, setWrongData] = useState('');
@@ -269,17 +269,19 @@ const BigTest = () => {
       
       <ButtonsContainer>        
         <Button to="/layoutlearn">Pre</Button>
-        <SubButton  onClick={() => { submitAnswerSelected()}}>Submit</SubButton>
+        {isFireWork === false &&           
+          <SubButton  onClick={() => { submitAnswerSelected()}}>Submit</SubButton>
+        }
         {isFireWork === true && 
-        <>
-          <Button 
-            to={ '/scores' }
-            state={{ score: answerScore, allScore: allScore, right: correctData, wrong: wrongData}} 
-          >
-            Score
-          </Button>
-        </>
-      }
+          <>
+            <Button 
+              to={ '/scores' }
+              state={{ score: answerScore, allScore: allScore, right: correctData, wrong: wrongData}} 
+            >
+              Score
+            </Button>
+          </>
+        }
       </ButtonsContainer>
       
     </>

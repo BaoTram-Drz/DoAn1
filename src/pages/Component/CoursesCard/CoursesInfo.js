@@ -4,51 +4,73 @@ import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { getCourseDetail } from '../../../API/coursesDetailApi'
 import {saveUser_Course} from '../../../API/saveUserCourseApi'
+import { FaArrowLeft } from 'react-icons/fa';
 
-const BigText = styled.div`
-  margin: 7% auto auto auto;
+const BackHome = styled(FaArrowLeft)`
+    width: 30px;
+    height: 30px;
+    margin: 7% auto auto 5%;  
+    color: #0E606B;
+    cursor: pointer;
+    z-index: 10;
+
+    @media (max-width: 1100px) {
+      margin-top: 10%;
+      margin-bottom: -10%;
+    }
+    @media (max-width: 768px) {
+      margin-top: 15%;
+      margin-bottom: -15%;
+    }
+    @media (max-width: 540px) {
+      margin-top: 20%;
+      margin-bottom: -25%;
+    }
+    @media (max-width: 420px) {
+      margin-left: 1%;
+      margin-top: 25%;
+      margin-bottom: -25%;
+      width: 15px;
+      height: 15px;
+    }
+    @media (max-width: 300px) {
+      margin-top: 30%;
+      margin-bottom: -30%;
+    }
+`;
+const BigText = styled.p`
+  margin: -5% auto -3% auto;
   text-align: center;
   font-family: 'Bungee Inline';
   font-weight: 400;
   font-size: 3rem;
   color: #f47068;
   text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
-
-  @media (max-width: 800px) {
-    margin: 15% auto auto auto;
-  }
-
   @media (max-width: 1200px) {
     margin-top: 10%;
     font-size: 2.5rem;
   }
-
   @media (max-width: 912px) {
     margin-top: 10%;
     font-size: 2.5rem;
   }
-
   @media (max-width: 768px) {
     margin-top: 10%;
-    font-size: 2.5rem;
-  }
-
-  @media (max-width: 540px) {
-    margin-top: 15%;
-    font-size: 2.5rem;
-  }
-
-  @media (max-width: 480px) {
-    margin-top: 20%;
     font-size: 2rem;
   }
-
-  @media (max-width: 300px) {
-    margin-top: 30%;
+  @media (max-width: 540px) {
+    margin-top: 15%;
     font-size: 1.5rem;
   }
+  @media (max-width: 480px) {
+    margin-top: 20%;
+    font-size: 1.2rem;
+  }
+  @media (max-width: 300px) {
+    margin-top: 30%;
+    font-size: 1rem;
+  }
 `;
-
 const Container = styled.div`
   width: 90%;
   display: grid;
@@ -414,6 +436,7 @@ const CoursesInfo = () => {
   
   return (
     <>
+    <Link to="/cardList"><BackHome /></Link>
       <BigText>Course Detail</BigText>
       <Container>
         <TableWrapper>
