@@ -468,26 +468,30 @@ const CoursesInfo = () => {
             ) : (
               <>
                 { user ? (
-                <Button to="/vocab" state={{ productname: productName }} onClick={() => saveUserCourse(productName, (JSON.parse(localStorage.getItem('user')))._id)}>
-                  Start Learn
-                </Button>
-                ): 
-                (
-                <>
-                    <ButtonGray>
-                      Start Learn
-                    </ButtonGray>
-                  <LoginNoti> Bạn chưa đăng nhập..... 
-                    
-                  </LoginNoti>
+                  <Button to="/vocab" state={{ productname: productName }} onClick={() => saveUserCourse(productName, (JSON.parse(localStorage.getItem('user')))._id)}>
+                    Start Learn
+                  </Button>
+                  ): 
+                  (
+                  <>
+                      <ButtonGray>
+                        Start Learn
+                      </ButtonGray>
+                    <LoginNoti> Bạn chưa đăng nhập..... 
+                      
+                    </LoginNoti>
+                  </>
+                  )}
                 </>
-                )}
-              </>
             )}
           </DivWrapper>
-          <ButtonL>
-            <LinkText to="/league" state={{ productname: productName }} >Top League</LinkText>
-          </ButtonL>
+          { user && 
+            <ButtonL>
+              <LinkText to="/league" state={{ productname: productName }} >Top League</LinkText>
+            </ButtonL>
+          }
+                
+          
         </RightDiv>
       </Container>
     </>

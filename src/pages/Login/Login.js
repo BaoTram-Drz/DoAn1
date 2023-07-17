@@ -122,7 +122,7 @@ const LinkForgot = styled(Link)`
 const SubmitButton = styled.button`
   width: 80%;
   height: 55px;
-  margin: 3%;
+  margin: 3% auto 10% auto;
   background: #FFC24B;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
   border: none;
@@ -206,7 +206,6 @@ const Login = () => {
         <SubmitButton type="button" onClick={() => sendInfo(email, password)}>
           <LinkLoginBtn>Send</LinkLoginBtn>
         </SubmitButton>
-        <Line>----------------- or -----------------</Line>
       </FormWrapper>
     </Container>
   );

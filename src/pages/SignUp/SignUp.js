@@ -112,7 +112,7 @@ const Input = styled.input`
 const SubmitButton = styled.button`
   width: 80%;
   height: 55px;
-  margin: 8%;
+  margin: 8% auto 10% auto;
   background: #FFC24B;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
   border: none;
@@ -284,10 +284,6 @@ const SignUp = () => {
         </SubmitButton>
 
 
-        <Line>--------------------or--------------------</Line>
-
-        <SubmitGGButton onClick={() => signUpWithGoogle()}
-        ><StyledFaGooglePlusG /><LinkLoginGG>&ensp;Continue with Google</LinkLoginGG></SubmitGGButton>
         {/*  set giá trị của header là có người dùng  */}
       </FormWrapper>
     </Container>

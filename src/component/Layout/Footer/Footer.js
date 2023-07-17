@@ -7,6 +7,9 @@ const FooterContainer = styled.footer`
   padding: 40px;
   background-color: #f8f8f8;
   border-top: 2px dashed #1697a6;
+  position: absolute;
+  left: 0;
+  right: 0;
 `;
 
 const Row = styled.div`
