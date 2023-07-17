@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import image from './image.png'
+import {changePassword} from '../../API/changeInfoApi';
+import { useNavigate } from 'react-router-dom';
 
 const Container = styled.div`
   display: grid;
@@ -123,27 +125,23 @@ const VerifyCode = () => {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState('');
   const [rePassword, setRePassword] = useState('');
-
-  useEffect(() => {
-    if (location.state && location.state.userMail) {
-      setEmail(location.state.userMail);
-    }
-  }, [location.state]);
-
+  // useEffect(() => {
+  //   if (location.state && location.state.userMail) {
+  //     setEmail(location.state.userMail);
+  //   }
+  // }, [location.state]);
+  const navigate = useNavigate();
   const handleSaveNewPass = async () => {
+    console.log(localStorage.getItem('email'));
     if(password === rePassword)
     {
-      const newUser = {
-        email: email,
+      const newPassword = {
+        email: localStorage.getItem('email'),
         password: password,
       };
-      alert(newUser)
-      // try {
-      //   const response = await verifyChangePass(newUser);
-      //   console.log('Success:', response);
-      // } catch (error) {
-      //   console.log('Error:', error);
-      // }
+      const response = await changePassword(newPassword);
+      navigate('/login');
+      alert('Change password successfully.');
     }  
   };
 
@@ -155,7 +153,7 @@ const VerifyCode = () => {
         <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)}  placeholder="Enter your pass"/>
         <Input type="password" value={rePassword} onChange={(e) => setRePassword(e.target.value)}  placeholder="Enter your pass again"/>
         <SubmitButton onClick={handleSaveNewPass}>
-          <LinkLoginBtn  to="/Home">
+          <LinkLoginBtn  to="/login">
           Save
           </LinkLoginBtn>
         </SubmitButton> 

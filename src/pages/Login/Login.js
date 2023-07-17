@@ -155,7 +155,8 @@ const Login = () => {
   const [password, setPassword] = useState('');
  // const location = useLocation();
   const handleOpenSnackbar = useContext(SnackBarContext);
-
+  localStorage.setItem('isLoggedIn', 'false');
+  localStorage.setItem('user','');
   const sendInfo = async (email, password) => {
     const user = {
       email: email,
@@ -163,9 +164,10 @@ const Login = () => {
     };
     try {
       const response = await loginUser(user);
+
+      console.log(response.user);
       localStorage.setItem('isLoggedIn', 'true');
       localStorage.setItem('user', JSON.stringify(response.user));
-      console.log(response.user);
       console.log(localStorage);
       navigate('/home');
       window.location.reload();

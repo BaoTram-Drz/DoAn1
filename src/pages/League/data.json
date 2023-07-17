@@ -1,23 +1,22 @@
 {
     "data1": [
-      { "id": 1, "name": "JohnJson", "image": "https://via.placeholder.com/200x200", "exp": 1000, "top": 1 },
-      { "id": 2, "name": "AliceJson", "image": "https://via.placeholder.com/200x200", "exp": 900, "top": 2 },
-      { "id": 3, "name": "BobJson", "image": "https://via.placeholder.com/200x200", "exp": 800, "top": 3 },
-      { "id": 4, "name": "BinJson", "image": "https://via.placeholder.com/200x200", "exp": 700, "top": 4  },
-      { "id": 5, "name": "JavaJson", "image": "https://via.placeholder.com/200x200", "exp": 650, "top": 5  },
-      { "id": 6, "name": "Banana", "image": "https://via.placeholder.com/200x200", "exp": 620 ,"top": 6  }
-
+      { "id": 2, "name": "A", "image": "https://via.placeholder.com/200x200", "exp": 1000, "top": 1 },
+      { "id": 7, "name": "B", "image": "https://via.placeholder.com/200x200", "exp": 900, "top": 2 },
+      { "id": 3, "name": "C", "image": "https://via.placeholder.com/200x200", "exp": 800, "top": 3 },
+      { "id": 4, "name": "D", "image": "https://via.placeholder.com/200x200", "exp": 700, "top": 4  },
+      { "id": 5, "name": "E", "image": "https://via.placeholder.com/200x200", "exp": 650, "top": 5  },
+      { "id": 6, "name": "DF", "image": "https://via.placeholder.com/200x200", "exp": 620 ,"top": 6  }
     ],
     "data2": [
-      { "id": 1, "name": "JohnJohn", "image": "https://via.placeholder.com/200x200", "exp": 100, "top": 1  },
-      { "id": 2, "name": "AliceJohn", "image": "https://via.placeholder.com/200x200", "exp": 90, "top": 2  },
-      { "id": 3, "name": "BobJohn", "image": "https://via.placeholder.com/200x200", "exp": 80, "top": 3  },
-      { "id": 4, "name": "BinJohn", "image": "https://via.placeholder.com/200x200", "exp": 70,"top": 4  },
-      { "id": 5, "name": "Banana", "image": "https://via.placeholder.com/200x200", "exp": 20 ,"top": 5  }
+      { "id": 4, "name": "A", "image": "https://via.placeholder.com/200x200", "exp": 100, "top": 1  },
+      { "id": 10, "name": "AliceJohn", "image": "https://via.placeholder.com/200x200", "exp": 90, "top": 2  },
+      { "id": 3, "name": "G", "image": "https://via.placeholder.com/200x200", "exp": 80, "top": 3  },
+      { "id": 4, "name": "Bi", "image": "https://via.placeholder.com/200x200", "exp": 70,"top": 4  },
+      { "id": 5, "name": "na", "image": "https://via.placeholder.com/200x200", "exp": 20 ,"top": 5  }
     ],
     "user":  [      
-      { "id": 6, "name": "Banana", "image": "https://via.placeholder.com/200x200", "exp": 620 ,"top": 6  },
-      { "id": 5, "name": "Banana", "image": "https://via.placeholder.com/200x200", "exp": 20 ,"top": 5  }
+      { "id": 1, "name": "Ba", "image": "https://via.placeholder.com/200x200", "exp": 620 ,"top": 6  },
+      { "id": 1, "name": "nana", "image": "https://via.placeholder.com/200x200", "exp": 20 ,"top": 5  }
     
     ]
   }

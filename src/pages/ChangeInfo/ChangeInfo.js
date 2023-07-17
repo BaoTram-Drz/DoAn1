@@ -312,9 +312,13 @@ function ChangeInfo() {
   const fetchData = async() => {
     const currentUser = JSON.parse(localStorage.getItem('user'));
     const path = `users/${currentUser.image}`;
-    const downloadURL = await getDownloadURL(ref(storage, path));
-    currentUser.image = downloadURL;
-
+    try {
+      const downloadURL = await getDownloadURL(ref(storage, path));
+      currentUser.image = downloadURL;
+    } catch (error) {
+      currentUser.image = 'https://via.placeholder.com/200x200.png';
+      console.error(error);
+    }
     const data = {
       name: currentUser.name,
       email: currentUser.email,

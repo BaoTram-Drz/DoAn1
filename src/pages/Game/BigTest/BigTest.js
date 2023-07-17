@@ -226,13 +226,13 @@ const BigTest = () => {
     setAllScore(allTotalScore)
     setAnswerScore(totalScore);
   };
-const saveScore = () => {
+const saveScore = (answerScore) => {
   const saveScore = {
-    score: 1.25,
-    productName: "productName",
-    user: localStorage.getItem('user'),
-    image:"test"
+    score: answerScore,
+    productName: productName,
+    user: JSON.parse(localStorage.getItem('user'))._id,
   }
+  console.log(saveScore)
   try {
     const response = api.post('/games/saveLeague', saveScore);
     return response.data;
@@ -240,6 +240,7 @@ const saveScore = () => {
     throw new Error(error.message);
   }
 }  
+console.log(answerScore)
   return (
     <>   
       <BigText>BigTest</BigText>   
@@ -268,7 +269,7 @@ const saveScore = () => {
       
       <ButtonsContainer>        
         <Button to="/layoutlearn">Pre</Button>
-        <SubButton  onClick={() => {saveScore(); submitAnswerSelected()}}>Submit</SubButton>
+        <SubButton  onClick={() => {saveScore(answerScore); submitAnswerSelected()}}>Submit</SubButton>
         {isFireWork === true && 
         <>
           <Button to={ '/scores' }

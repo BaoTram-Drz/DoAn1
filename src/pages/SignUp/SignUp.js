@@ -179,8 +179,8 @@ const signUpWithGoogle = async () => {
 }
 
 function SignUpBtn(props) {
-  const navigate = useNavigate();
   const { email, username, password, repassword, bday, name } = props;
+  const navigate = useNavigate();
   const handleOpenSnackbar = useContext(SnackBarContext);
 
   const sendInfor = async (email, username, password, repassword, bday, name) => {

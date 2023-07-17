@@ -6,8 +6,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { getDownloadURL } from 'firebase/storage';
 import { storage } from '../../../firebase/firebase'
-import { useState, useEffect } from 'react';
 import { ref } from 'firebase/storage'
+import { useState, useEffect } from 'react';
 import { getCoursesVocab, getContinueCourses, getCoursesListen, getCoursesUser } from '../../../API/coursesApi';
 import Game6 from '../../Game/MiniGame';
 import sintel from './sintel.jpg'
@@ -558,6 +558,7 @@ function CardList() {
                   '/coursesinfo'
                 }
                 state={{ productname: item.name, image: item.image, lessonType: item.lessonType }}
+                
               >
                 Learn
               </LearnBtn>

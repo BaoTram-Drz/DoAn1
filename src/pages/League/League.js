@@ -6,6 +6,10 @@ import top3 from './image/top3.png'
 import { Link, useLocation } from 'react-router-dom';
 import {FaArrowLeft} from 'react-icons/fa';
 import data from './data.json'
+import {getLeague} from '../../API/topLeague';
+import { getDownloadURL } from 'firebase/storage';
+import { storage } from '../../firebase/firebase'
+import { ref } from 'firebase/storage'
 
 const BackHome = styled(FaArrowLeft)`
     width: 30px;
@@ -284,7 +288,14 @@ const League = () => {
     const fetchLearns = async () => {
       try {
         //const learnData = await getLearns();
-        const topAll = data.data1;
+        const topAll = await getLeague();
+        console.log(topAll)
+        for (let i = 0; i < topAll.length; i++) {
+          const path = 'users/' + topAll[i].image;
+          const downloadURL = await getDownloadURL(ref(storage, path));
+          topAll[i].image = downloadURL;
+        }
+     
         const topThisCourse = data.data2;
         const user = data.user;
         setData1(topAll);
@@ -338,8 +349,8 @@ const League = () => {
                                 <TableCellLeft>
                                     <ImageAcc src={item.image} alt={item.name} />
                                 </TableCellLeft>
-                                <TableCellLeft>{item.name}</TableCellLeft>
-                                <Exp>{item.exp} exp</Exp>
+                                <TableCellLeft>{item.user.name}</TableCellLeft>
+                                <Exp>{item.score} exp</Exp>
                             </TableRow>
                         ))}
                       </TableContainer>

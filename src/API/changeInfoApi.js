@@ -18,3 +18,11 @@ export const saveChangeInfo = async (changeInfo) => {
     throw new Error(error.response.data.message);
   }
 };
+export const changePassword = async (newPassword) => {
+  try {
+    const response = await api.put('users/changePassword', newPassword);
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data.message);
+  }
+};
