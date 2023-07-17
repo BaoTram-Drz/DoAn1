@@ -15,6 +15,8 @@ const BackHome = styled(FaArrowLeft)`
     margin: 7% auto auto 5%;  
     color: #0E606B;
     cursor: pointer;
+    z-index: 10;
+
     @media (max-width: 1100px) {
       margin-top: 10%;
       margin-bottom: -10%;
@@ -47,7 +49,6 @@ const BigText = styled.p`
   font-size: 3rem;
   color: #ffc24b;
   text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
-
   @media (max-width: 1200px) {
     margin-top: 10%;
     font-size: 2.5rem;
@@ -322,7 +323,8 @@ function MiniGame() {
    console.log(response);
   }
   return (
-    <Container>
+    <Container>      
+      
       <Link to="/home"><BackHome /></Link>
       <BigText>MiniGame - {productName}</BigText>
       <Row>
@@ -340,6 +342,7 @@ function MiniGame() {
         
       </CardContainer>
       {/* {isComplete && <MyLottieAnimation />}  */}
+      <MyLottieAnimation />
       {completedCount === totalCount && completedCount > 0 &&(
 
         <MyLottieAnimation />

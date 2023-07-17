@@ -313,6 +313,11 @@ function CardList() {
   });
   const [user, setUser] = useState(null);
 
+  const handleLearnCourse = (namecourse) => {   
+    localStorage.setItem('productName', namecourse);
+    console.log(localStorage.getItem('productName'));
+  };
+
   useEffect(() => {
     const userString = localStorage.getItem('user');
     if (userString) {
@@ -473,6 +478,7 @@ function CardList() {
               <Name>{item.name}</Name>
               <Description>Number of participants: {item.amount}</Description>
               <LearnBtn
+                  onClick={() => {handleLearnCourse(item.name)}}
                 to={
                   '/coursesinfo'
                 }
@@ -497,6 +503,7 @@ function CardList() {
                   <Name>{item.name}</Name>
                   <Description>Number of participants: {item.amount}</Description>
                   <LearnBtn
+                    onClick={() => {handleLearnCourse(item.name)}}
                     to={
                       '/coursesinfo'
                     }
@@ -546,6 +553,7 @@ function CardList() {
               <Name>{item.name}</Name>
               <Description>Number of participants: {item.amount}</Description>
               <LearnBtn
+                onClick={() => {handleLearnCourse(item.name)}}
                 to={
                   '/coursesinfo'
                 }
@@ -568,6 +576,7 @@ function CardList() {
               <Name>{item.name} GAME</Name>
               <Description>Number of participants: {item.amount}</Description>
               <LearnBtn
+                onClick={() => {handleLearnCourse(item.name)}}
                 to={
                   '/minigame'
                 }

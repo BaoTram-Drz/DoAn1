@@ -163,7 +163,7 @@ const ButtonsContainer = styled.div`
 
 const BigTest = () => {
   const [data, setData] = useState([]);  
-  const [productName, setProductName] = useState('Product A');
+  const [productName, setProductName] = useState(localStorage.getItem('productName'));
   const [allScore, setAllScore] = useState(0);
   const [answerScore, setAnswerScore] = useState(0);
   const [answerData, setAnswerData] = useState([]);
@@ -171,13 +171,14 @@ const BigTest = () => {
   const location = useLocation();
   const [correctData, setCorrectData] = useState('');
   const [wrongData, setWrongData] = useState('');
+  console.log(productName)
 
-  useEffect(() => {
-    if (location.state && location.state.productname) {
-      setProductName(productName);
-    }
-    console.log(data);
-  }, [location.state]);
+  // useEffect(() => {
+  //   if (location.state && location.state.productname) {
+  //     setProductName(productName);
+  //   }
+  //   console.log(data);
+  // }, [location.state]);
 
   useEffect(() => {
     const fetchLearns = async () => {
