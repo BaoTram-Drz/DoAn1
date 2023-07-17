@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
+import { getDownloadURL } from 'firebase/storage';
+import { ref } from 'firebase/storage'
+import { storage } from '../../firebase/firebase'
 
 const BigText = styled.div`
   margin: 7% auto;
@@ -80,9 +83,10 @@ const ListenStory = () => {
   useEffect(() => {
     const fetchVideo = async () => {
       try {
-        //const videoLinks = await getVideo(productName);
-        const videoLinks = "https://media.w3.org/2010/05/sintel/trailer_hd.mp4";
-        setVideo(videoLinks);
+        const path = 'video/' + 'Baymax.mp4';
+        const downloadURL = await getDownloadURL(ref(storage, path));
+        console.log(downloadURL);
+        setVideo(downloadURL); 
       } catch (error) {
         console.error(error);
       }

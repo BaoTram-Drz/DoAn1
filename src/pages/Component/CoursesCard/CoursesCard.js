@@ -396,18 +396,6 @@ function CardList() {
           courseVocabList[i].image = downloadURL;
         }
         setCoursesVocab(courseVocabList);
-
-        courseVocabList[0].des = "Chơi mini game để luyện tập từ vựng về FRUITS"
-        courseVocabList[1].des = "Chơi mini game để luyện tập từ vựng về KITCHEN"
-        courseVocabList[2].des = "Chơi mini game để luyện tập từ vựng về ASTRONOMY"
-        const image = courseVocabList[0].image;
-        courseVocabList[0].image = courseVocabList[1].image;
-        courseVocabList[1].image = courseVocabList[2].image;
-        courseVocabList[2].image = image;
-
-        courseVocabList[0].name = "FRUITS"
-        courseVocabList[1].name = "KITCHEN"
-        courseVocabList[2].name = "ASTRONOMY"
         setMiniGame(courseVocabList)
 
       } catch (error) {
@@ -428,15 +416,6 @@ function CardList() {
           const downloadURL = await getDownloadURL(ref(storage, path));
           continueCourses[i].image = downloadURL;
         }
-        // courseReadList[0].image = story1;
-        // courseReadList[1].image = story2;
-        // courseReadList[2].image = story3;
-        // courseReadList[0].name = "The Lion & Mouse";
-        // courseReadList[1].name = "The three fishes";
-        // courseReadList[2].name = "The frog prince";
-        // courseReadList[0].des = "Câu chuyện chú sư tử và chú chuột";
-        // courseReadList[1].des = "Câu chuyện về 3 chú cá";
-        // courseReadList[2].des = "Câu chuyện về hoàng tử ếch";
         setCoursesRead(continueCourses);
         
       } catch (error) {
@@ -572,7 +551,7 @@ function CardList() {
               <LearnBtn
                 onClick={() => {handleLearnCourse(item.name)}}
                 to={
-                  '/coursesinfo'
+                  '/listenstories'
                 }
                 state={{ productname: item.name, image: item.image, lessonType: item.lessonType }}
                 

@@ -239,6 +239,34 @@ const Button = styled(Link)`
     font-size: 1.1rem;
   }
 `;
+const ButtonGray = styled(Link)`
+  width: 60%;
+  min-width: 100px;
+  margin: auto;
+  padding: 5px 24px;
+  text-decoration: none;
+  font: normal 400 2rem "Autour One";
+  color: gray;
+  background-color: rgb(240, 240, 240);
+  border: 3px dashed #1697A6;
+  border-radius: 20px;
+
+  @media (max-width: 912px) {
+    font-size: 1.8rem;
+  }
+
+  @media (max-width: 540px) {
+    font-size: 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.5rem;
+  }
+
+  @media (max-width: 300px) {
+    font-size: 1.1rem;
+  }
+`;
 
 const ButtonL = styled.button`
   margin: auto 10%;
@@ -284,13 +312,55 @@ const LinkText = styled(Link)`
   }
 `;
 
+const LoginNoti = styled.p`
+  margin: auto;
+  padding: 12px 24px 12px 40px;
+  font: normal 400 1.5rem 'Roboto';
+  color: white;
+  text-align: center;
+
+  @media (max-width: 1000px) {
+    font-size: 1.5rem;
+  }
+
+  @media (max-width: 912px) {
+    font-size: 1.2rem;
+  }
+
+  @media (max-width: 540px) {
+    font-size: 1rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1rem;
+  }
+
+  @media (max-width: 300px) {
+    font-size: 0.8rem;
+  }
+`;
+
 const CoursesInfo = () => {
   const location = useLocation();
   //const [lessonType, setLessonType] = useState('Listen');
   const [lessonType, setLessonType] = useState('a');
   const [productName, setProductName] = useState('');
   const [productImage, setProductImage] = useState(null);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([]);  
+  const [user, setUser] = useState(null);  
+  useEffect(() => {
+    const userString = localStorage.getItem('user');
+    if (userString) {
+      try {
+        setUser(true);
+      } catch (error) {
+        console.error('Error parsing user data from localStorage:', error);
+        setUser(null);
+      }
+    } else {
+      setUser(null);
+    }
+  }, []);
 
   useEffect(() => {
     if (location.state && location.state.productname) {
@@ -373,9 +443,23 @@ const CoursesInfo = () => {
             {lessonType === "Listen" ? (
               <Button to="/listenstories" state={{ productname: productName }}>Listen Stories</Button>
             ) : (
-              <Button to="/vocab" state={{ productname: productName }} onClick={() => saveUserCourse(productName, (JSON.parse(localStorage.getItem('user')))._id)}>
-                Start Learn
-              </Button>
+              <>
+                { user ? (
+                <Button to="/vocab" state={{ productname: productName }} onClick={() => saveUserCourse(productName, (JSON.parse(localStorage.getItem('user')))._id)}>
+                  Start Learn
+                </Button>
+                ): 
+                (
+                <>
+                    <ButtonGray>
+                      Start Learn
+                    </ButtonGray>
+                  <LoginNoti> Bạn chưa đăng nhập..... 
+                    
+                  </LoginNoti>
+                </>
+                )}
+              </>
             )}
           </DivWrapper>
           <ButtonL>
