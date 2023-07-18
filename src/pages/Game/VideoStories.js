@@ -1,13 +1,46 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { getDownloadURL } from 'firebase/storage';
 import { ref } from 'firebase/storage'
 import { storage } from '../../firebase/firebase'
 import {getVideos} from '../../API/videoApi';
+import { FaArrowLeft } from 'react-icons/fa';
 
+const BackHome = styled(FaArrowLeft)`
+    width: 30px;
+    height: 30px;
+    margin: 7% auto auto 5%;  
+    color: #0E606B;
+    cursor: pointer;
+    z-index: 10;
+
+    @media (max-width: 1100px) {
+      margin-top: 10%;
+      margin-bottom: -10%;
+    }
+    @media (max-width: 768px) {
+      margin-top: 15%;
+      margin-bottom: -15%;
+    }
+    @media (max-width: 540px) {
+      margin-top: 20%;
+      margin-bottom: -25%;
+    }
+    @media (max-width: 420px) {
+      margin-left: 1%;
+      margin-top: 25%;
+      margin-bottom: -25%;
+      width: 15px;
+      height: 15px;
+    }
+    @media (max-width: 300px) {
+      margin-top: 30%;
+      margin-bottom: -30%;
+    }
+`;
 const BigText = styled.div`
-  margin: 7% auto;
+  margin:-5% auto 7% auto;
   text-align: center;
   font-family: 'Bungee Inline';
   font-weight: 400;
@@ -107,6 +140,7 @@ const ListenStory = () => {
 
   return (
     <>
+      <Link to="/cardList"><BackHome /></Link>
       <BigText>Listen Story - {productName}</BigText>
       <VideoContainer>
         {video && <Video src={video} autoPlay controls />}

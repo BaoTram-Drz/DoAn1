@@ -110,9 +110,15 @@ const CardContainer = styled.div`
     grid-template-columns: repeat(6, 1fr);
     gap: 1em;
 
-    @media (max-width: 700px) {
+    @media (max-width: 912px) {
       width: 90%;
       grid-template-columns: repeat(4, 1fr);
+      gap: 0.5em;
+    }
+
+    @media (max-width: 440px) {
+      width: 90%;
+      grid-template-columns: repeat(2, 1fr);
       gap: 0.5em;
     }
 
@@ -181,13 +187,13 @@ const CardWrapper = styled.div`
     height: 180px;
   }
   @media (max-width: 550px) {
-    height: 150px;
-  }
-  @media (max-width: 400px) {
-    height: 120px;
+    height: 100px;
   }
   @media (max-width: 400px) {
     height: 100px;
+  }
+  @media (max-width: 300px) {
+    height: 80px;
   }
 `;
 
@@ -210,6 +216,19 @@ const Text = styled.div`
   background-color: white;
   animation: ${hideText} 2s linear;
   transform: scale(0);
+  @media (max-width: 1100px) {
+    font-size: 1.5rem;
+  }
+
+  @media (max-width: 700px) {
+    font-size: 1.5rem;
+  }
+  @media (max-width: 550px) {
+    font-size: 1.3rem;
+  }
+  @media (max-width: 400px) {
+    font-size: 1rem;
+  }
 `;
 
 function Card({ item, id, handleClick }) {

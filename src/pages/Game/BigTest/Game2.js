@@ -172,7 +172,7 @@ const Game2 = ({ data, onSelectAnswer }) => {
               <td>
                 <InputCell
                   placeholder="........."
-                  onChange={(e) => setAnswer(e.target.value)}
+                  onChange={(e) => setAnswer(e.target.value.toLowerCase())}
                 />
               </td>
             </TableRow>

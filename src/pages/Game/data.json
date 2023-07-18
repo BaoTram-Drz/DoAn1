@@ -8,7 +8,7 @@
       "lesson": "1",
       "topic": "true",
       "lessonTitle": "Lesson 1",
-      "state": "true",
+      "state": "false",
       "question": "What does 'water melon' means in Vietnamese?",
       "answerOptions": [
         {
@@ -42,7 +42,7 @@
       "lesson": "2",
       "topic": "fruits",
       "lessonTitle": "Lesson 2",
-      "state": "true",
+      "state": "false",
       "question": "Write text",
       "vietnamesePhrase": "Trái táo",
       "image": "https://via.placeholder.com/200x200.png",

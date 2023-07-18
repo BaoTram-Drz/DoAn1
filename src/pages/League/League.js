@@ -73,24 +73,11 @@ const Table = styled.table`
   width: 70%;
   margin: 2% auto 5% auto;
   border-collapse: collapse;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
-const Table1 = styled.div`
-  width: 50%;
-  margin: 2% auto 5% auto;
-  border: 1px solid gray;
-  border-radius: 50px;
-  overflow: hidden;
-  @media (max-width: 1100px) {
-    width: 70%;
-  }
-  @media (max-width: 540px) {
-    width: 90%;
-  }
-`;
-const Table2 = styled.table`
-  width: 100%;
-  border-collapse: collapse;
-`;
+
 const FlexContainer = styled.tr`
   display: flex;
   flex-direction: row;
@@ -129,7 +116,7 @@ const TableHeaderLeftRes = styled.div`
 `;
 
 const TableHeaderRightRes = styled.div`
-    margin: 12px auto;
+  margin: 12px auto;
     padding: 12px 24px;
     font: normal 400 2rem 'Autour One';
     color: #0e606b;
@@ -164,10 +151,12 @@ const TableRow = styled.tr`
 
 const TableCellLeft = styled.td`
     padding: 12px 24px;
-    font: normal 400 1.6rem 'Autour One';
-    color: #ffb3ae;
+    font: normal 400 1.6rem 'Roboto';
+    color: #ffb3ae;       
+    border-bottom: 1px dashed pink; 
     
     @media (max-width: 1200px) {
+      padding: 12px 12px;
       font-size: 1.5rem;    }
     
     @media (max-width: 540px) {
@@ -184,12 +173,19 @@ const TableCellLeft = styled.td`
       padding: 6px 8px;
     }
 `;
+const TableCellLeftText = styled.p`
+    position: relative;
+    top: -20px;
+`;
 
 const TableCellRight = styled.td`
     padding: 12px 24px;
-    font: normal 400 28px 'Autour One';
+    font: normal 400 1.6rem 'Roboto';
     color: #1697a6;
-    @media (max-width: 1200px) {
+    border-bottom: 1px dashed pink; 
+    
+    @media (max-width: 1200px) {      
+      padding: 12px 12px;
       font-size: 1.5rem;
     }
   
@@ -206,6 +202,11 @@ const TableCellRight = styled.td`
       font-size: 1rem;
       padding: 6px 8px;
     }
+`;
+
+const TableCellRightText = styled.p`
+    position: relative;
+    top: -20px;
 `;
 
 const ImageTop = styled.img`
@@ -250,9 +251,10 @@ const ImageAcc = styled.img`
 `;
 const Exp = styled.td`
     text-align: right;
-    padding: 12px 12px;
     font: normal 400 1rem 'Autour One';
     color: gray;
+    position: relative;
+    top: -20px;
     @media (max-width: 1200px) {
       font-size: 1.2rem;
     }
@@ -342,17 +344,17 @@ const League = () => {
               <TableContainer>
                 {data2.map((item) => (
                   <TableRow key={item.id}>
-                    <TableCellRight>
+                    <TableCellLeft>
                       {item.top === 1 ? <ImageTop src={top1} alt="Top 1" /> : null}
                       {item.top === 2 ? <ImageTop src={top2} alt="Top 2" /> : null}
                       {item.top === 3 ? <ImageTop src={top3} alt="Top 3" /> : null}
                       {item.top === 1 ? null : item.top === 2 ? null : item.top === 3 ? null : item.top}
-                    </TableCellRight>
-                    <TableCellRight>
+                    </TableCellLeft>
+                    <TableCellLeft>
                       <ImageAcc src={item.image} alt={item.user} />
-                    </TableCellRight>
-                    <TableCellLeft>{item.user}</TableCellLeft>
-                    <Exp>{item.score} exp</Exp>
+                    </TableCellLeft>
+                    <TableCellLeft><TableCellLeftText>{item.user}</TableCellLeftText></TableCellLeft>
+                    <Exp>{item.score}pt</Exp>
                   </TableRow>
                 ))}
               </TableContainer>
@@ -362,17 +364,17 @@ const League = () => {
               <TableContainer>
                 {data1.map((item) => (
                   <TableRow key={item.id}>
-                    <TableCellLeft>
+                    <TableCellRight>
                       {item.top === 1 ? <ImageTop src={top1} alt="Top 1" /> : null}
                       {item.top === 2 ? <ImageTop src={top2} alt="Top 2" /> : null}
                       {item.top === 3 ? <ImageTop src={top3} alt="Top 3" /> : null}
                       {item.top === 1 ? null : item.top === 2 ? null : item.top === 3 ? null : item.top}
-                    </TableCellLeft>
-                    <TableCellLeft>
+                    </TableCellRight>
+                    <TableCellRight>
                       <ImageAcc src={item.image} alt={item.user} />
-                    </TableCellLeft>
-                    <TableCellRight>{item.user}</TableCellRight>
-                    <Exp>{item.score} exp</Exp>
+                    </TableCellRight>
+                    <TableCellRight><TableCellRightText>{item.user}</TableCellRightText></TableCellRight>
+                    <Exp>{item.score}pt</Exp>
                   </TableRow>
                 ))}
               </TableContainer>
@@ -400,8 +402,8 @@ const League = () => {
                       <TableCellRight>
                         <ImageAcc src={item.image} alt={item.user} />
                       </TableCellRight>
-                      <TableCellLeft>{item.user}</TableCellLeft>
-                      <Exp>{item.score} exp</Exp>
+                      <TableCellLeft><TableCellLeftText>{item.user}</TableCellLeftText></TableCellLeft>
+                      <Exp>{item.score}pt</Exp>
                     </TableRow>
                   ))}
                
@@ -422,8 +424,8 @@ const League = () => {
                       <TableCellRight>
                         <ImageAcc src={item.image} alt={item.user} />
                       </TableCellRight>
-                      <TableCellRight>{item.user}</TableCellRight>
-                      <Exp>{item.score} exp</Exp>
+                      <TableCellRight><TableCellRightText>{item.user}</TableCellRightText></TableCellRight>
+                      <Exp>{item.score}pt</Exp>
                     </TableRow>
                   ))}
             
