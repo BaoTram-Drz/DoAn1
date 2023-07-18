@@ -277,6 +277,16 @@ function Header() {
           >
             Home
           </DropdownItem>
+          <DropdownItem
+            to="/cardlist"
+            active={activeSection === 'coursesCard'}
+            onClick={() => {
+              setActiveSection('coursesCard');
+              setIsOpenMenu(false);
+            }}
+          >
+            Courses
+          </DropdownItem>
           {isLoggedIn ? (
             <>
               <DropdownItem

@@ -9,7 +9,6 @@ import datas from '../data.json'
 import MyLottieAnimation from '../LottieAnimation/MyLottieAnimation';
 import api from '../../../API/index'
 
-
 const BigText = styled.p`
   margin: 6% auto -3% auto;
   text-align: center;

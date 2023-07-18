@@ -9,8 +9,19 @@ import Game5 from './BigTest/Game5';
 import datas from './data.json';
 import { getGamesData } from '../../API/coursesData';
 import MyLottieAnimation from './LottieAnimation/MyLottieAnimation';
+import Incorrect from './LottieAnimation/Incorrect'
+import { FaArrowRight } from 'react-icons/fa';
+import { FaArrowLeft } from 'react-icons/fa';
 
 
+const PreButton = styled(FaArrowLeft)`
+    width: 20px;
+    height: 20px;
+`;
+const NextButton = styled(FaArrowRight)`
+    width: 20px;
+    height: 20px;
+`;
 const BigText = styled.p`
   margin: 6% auto -3% auto;
   text-align: center;
@@ -313,6 +324,7 @@ const LayoutLearn = () => {
         )} */}
    
       </>
+
       {isFireWork === true && 
         <>
           <MyLottieAnimation/>
@@ -321,7 +333,7 @@ const LayoutLearn = () => {
       <ButtonsContainer>
         {currentIndex === 0 ? (
           <ButtonLeft to="/vocab" state={{ productname: productName }}>
-            Pre
+            <PreButton/>Pre
           </ButtonLeft>
         ) : (
           <ButtonLeft onClick={handlePrevButtonClick}>Pre</ButtonLeft>
@@ -334,7 +346,7 @@ const LayoutLearn = () => {
             onClick={isAnswerCorrect ? handleNextButtonClick : ""}            
             isAnswerCorrect={isAnswerCorrect}
           >
-            Next
+            Next<NextButton/>
           </ButtonRight>
         ) : (
           <ButtonRight 
@@ -342,14 +354,13 @@ const LayoutLearn = () => {
             state={{ productname: productName }} 
             isAnswerCorrect={isAnswerCorrect}
             >
-              Next
+              Next<NextButton/>
             </ButtonRight>
           
         )}
       </ButtonsContainer>
 
-      
-      {isFireWork === false && <Text1>Oh no</Text1>}
+      {isFireWork === false && <Incorrect/>}
     </>
    
   );

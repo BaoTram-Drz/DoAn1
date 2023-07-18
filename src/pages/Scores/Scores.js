@@ -228,8 +228,8 @@ const Scores = () => {
       <Container>
       <StyledPieChartComponent data={data} />
         <Score>
-          <p>Right: {dung}% </p>
-          <p>Wrong: {sai}%</p>
+          <p>Right: {dung}% ({answerScore}) </p>
+          <p>Wrong: {sai}% ({allScore - answerScore}) </p>
           <WrongText dangerouslySetInnerHTML={{ __html: formattedData }} />
         </Score>
       </Container>
