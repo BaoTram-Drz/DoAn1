@@ -1,8 +1,15 @@
 import api from './index';
 
-export const getLearns = async (courseName) => {
+export const getGamesData = async (courseName) => {
   try {
-    const response = await api.post('/learn/getLearn', courseName );
+    courseName = localStorage.getItem('productName');
+    const response = await api.get('/games/getGamesData', {
+      params: {
+        courseName: courseName
+      }
+    } );
+    console.log(courseName);
+    console.log(response.data)
     return response.data;
   } catch (error) {
     throw new Error(error.response.data.message);

@@ -149,6 +149,8 @@ const ImageAns = styled.img`
 `;
 
 const Game1 = ({ data, onSelectAnswer }) => {
+
+  
   const [activeId, setActiveId] = useState("null");
   const [state, setState] = useState(false);
   const [score, setScore] = useState(0);

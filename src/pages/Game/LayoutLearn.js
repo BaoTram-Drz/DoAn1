@@ -7,7 +7,7 @@ import Game3 from './BigTest/Game3';
 import Game4 from './BigTest/Game4';
 import Game5 from './BigTest/Game5';
 import datas from './data.json';
-import { getLearns } from '../../API/coursesData';
+import { getGamesData } from '../../API/coursesData';
 import MyLottieAnimation from './LottieAnimation/MyLottieAnimation';
 
 
@@ -240,10 +240,12 @@ const LayoutLearn = () => {
 
   //Api lấy dữ liệu
   useEffect(() => {
+    setProductName(localStorage.getItem('productName'));
     const fetchLearns = async () => {
       try {
-        //const learnData = await getLearns(productName);
-        const learnData = datas;
+        const learnData = await getGamesData(productName);
+
+       // const learnData = datas;
         setData(learnData);
       } catch (error) {
         console.error(error);
@@ -267,7 +269,7 @@ const LayoutLearn = () => {
       setIsAnswerCorrect(false);
     }
     console.log(data[currentIndex + 1]?.lesson)
-    console.log(data[currentIndex + 1]?.kind)
+
   };
   
 
@@ -292,16 +294,15 @@ const LayoutLearn = () => {
     <>
       <BigText>Word pairing</BigText>
         <HeadersContainer>
-        <Header>{data[currentIndex]?.kind}</Header>
-        <Header>{data[currentIndex]?.lessonTitle}</Header>
-        <Header>{data[currentIndex]?.lesson}/10</Header>
+        <Header>{data[currentIndex]?.category}</Header>
+        <Header>LESSON {data[currentIndex]?.lesson}</Header>
       </HeadersContainer>
   
       <>
         {data[currentIndex]?.category === 'Game1' && (
           <Game1 data={data[currentIndex]} onSelectAnswer={handleGetAnswerScore} />
         )}
-        {data[currentIndex]?.category === 'Game2' && (
+        {/* {data[currentIndex]?.category === 'Game2' && (
           <Game2 data={data[currentIndex]} onSelectAnswer={handleGetAnswerScore} />
         )}
         {data[currentIndex]?.category === 'Game3' && (
@@ -309,10 +310,8 @@ const LayoutLearn = () => {
         )}
         {data[currentIndex]?.category === 'Game4' && (
           <Game4 data={data[currentIndex]} onSelectAnswer={handleGetAnswerScore} />
-        )}
-        {/* {data[currentIndex]?.category === 'Game5' && (
-          <Game5 data={data[currentIndex]} onSelectAnswer={handleGetAnswerScore} />
         )} */}
+   
       </>
       {isFireWork === true && 
         <>
