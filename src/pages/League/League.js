@@ -338,7 +338,7 @@ const League = () => {
         <tbody>
           <FlexContainer>
             <td>
-              <TableHeaderLeftRes>THIS COURSE, {productName}</TableHeaderLeftRes>
+              <TableHeaderLeftRes>{productName}</TableHeaderLeftRes>
               <TableContainer>
                 {data2.map((item) => (
                   <TableRow key={item.id}>
@@ -346,7 +346,7 @@ const League = () => {
                       {item.top === 1 ? <ImageTop src={top1} alt="Top 1" /> : null}
                       {item.top === 2 ? <ImageTop src={top2} alt="Top 2" /> : null}
                       {item.top === 3 ? <ImageTop src={top3} alt="Top 3" /> : null}
-                      {item.top === 1 ? null : item.top === 2 ? null : item.top === 3 ? null : item.id}
+                      {item.top === 1 ? null : item.top === 2 ? null : item.top === 3 ? null : item.top}
                     </TableCellRight>
                     <TableCellRight>
                       <ImageAcc src={item.image} alt={item.user} />
@@ -366,7 +366,7 @@ const League = () => {
                       {item.top === 1 ? <ImageTop src={top1} alt="Top 1" /> : null}
                       {item.top === 2 ? <ImageTop src={top2} alt="Top 2" /> : null}
                       {item.top === 3 ? <ImageTop src={top3} alt="Top 3" /> : null}
-                      {item.top === 1 ? null : item.top === 2 ? null : item.top === 3 ? null : item.id}
+                      {item.top === 1 ? null : item.top === 2 ? null : item.top === 3 ? null : item.top}
                     </TableCellLeft>
                     <TableCellLeft>
                       <ImageAcc src={item.image} alt={item.user} />
@@ -381,12 +381,12 @@ const League = () => {
           </FlexContainer>
         </tbody>
       </Table>
-      <BigText> MY POSITION IN LEAGUE OF {productName}</BigText>
+      <BigText> MY POSITION IN LEAGUE OF</BigText>
       <Table>
         <tbody>
           <FlexContainer>
             <td>
-              <TableHeaderLeftRes>THIS COURSE, {productName}</TableHeaderLeftRes>
+              <TableHeaderLeftRes>{productName}</TableHeaderLeftRes>
               <TableContainer>
            
                   {userThis.map((item) => (
@@ -395,7 +395,7 @@ const League = () => {
                         {item.top === 1 ? <ImageTop src={top1} alt="Top 1" /> : null}
                         {item.top === 2 ? <ImageTop src={top2} alt="Top 2" /> : null}
                         {item.top === 3 ? <ImageTop src={top3} alt="Top 3" /> : null}
-                        {item.top === 1 ? null : item.top === 2 ? null : item.top === 3 ? null : item.id}
+                        {item.top === 1 ? null : item.top === 2 ? null : item.top === 3 ? null : item.top}
                       </TableCellRight>
                       <TableCellRight>
                         <ImageAcc src={item.image} alt={item.user} />
@@ -417,7 +417,7 @@ const League = () => {
                         {item.top === 1 ? <ImageTop src={top1} alt="Top 1" /> : null}
                         {item.top === 2 ? <ImageTop src={top2} alt="Top 2" /> : null}
                         {item.top === 3 ? <ImageTop src={top3} alt="Top 3" /> : null}
-                        {item.top === 1 ? null : item.top === 2 ? null : item.top === 3 ? null : item.id}
+                        {item.top === 1 ? null : item.top === 2 ? null : item.top === 3 ? null : item.top}
                       </TableCellRight>
                       <TableCellRight>
                         <ImageAcc src={item.image} alt={item.user} />
