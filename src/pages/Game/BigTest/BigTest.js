@@ -8,6 +8,7 @@ import Game4 from "./Game4";
 import datas from '../data.json'
 import MyLottieAnimation from '../LottieAnimation/MyLottieAnimation';
 import api from '../../../API/index'
+import { getGamesData } from '../../../API/coursesData';
 
 const BigText = styled.p`
   margin: 6% auto -3% auto;
@@ -170,6 +171,7 @@ const BigTest = () => {
   const location = useLocation();
   const [correctData, setCorrectData] = useState('');
   const [wrongData, setWrongData] = useState('');
+  
   // const  [userScore, setUserScore] = useState('');
 
   // useEffect(() => {
@@ -179,12 +181,13 @@ const BigTest = () => {
   //   console.log(data);
   // }, [location.state]);
 
+
   useEffect(() => {
     const fetchLearns = async () => {
       try {
-        //const learnData = await getLearns();
-        const learnData = datas;
+        const learnData = await getGamesData(productName);
         setData(learnData);
+        console.log(learnData)
       } catch (error) {
         console.error(error);
       }
