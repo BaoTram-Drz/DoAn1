@@ -319,12 +319,12 @@ const LayoutLearn = () => {
         {data[currentIndex]?.category === 'Game2' && (
           <Game2 data={data[currentIndex]} onSelectAnswer={handleGetAnswerScore} />
         )}
-        {/* {data[currentIndex]?.category === 'Game3' && (
+        {data[currentIndex]?.category === 'Game3' && (
           <Game3 data={data[currentIndex]} onSelectAnswer={handleGetAnswerScore} />
         )}
         {data[currentIndex]?.category === 'Game4' && (
           <Game4 data={data[currentIndex]} onSelectAnswer={handleGetAnswerScore} />
-        )} */}
+        )}
 
       </>
 
