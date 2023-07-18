@@ -205,7 +205,7 @@ const ButtonsContainer = styled.div`
   margin: 3% auto;
 `;
 
-const Text1  = styled.p`
+const Text1 = styled.p`
   width: 40%;
   padding: 12px 24px;
   margin: 0 auto;
@@ -215,9 +215,9 @@ const Text1  = styled.p`
 `;
 
 const LayoutLearn = () => {
-  const [data, setData] = useState([]);  
+  const [data, setData] = useState([]);
   const [productName, setProductName] = useState('Product A');
-  const [currentIndex, setCurrentIndex] = useState(0);  
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [answerData, setAnswerData] = useState();
   const [isAnswerCorrect, setIsAnswerCorrect] = useState(false);
   const [isFireWork, setIsFireWork] = useState(null);
@@ -256,7 +256,7 @@ const LayoutLearn = () => {
       try {
         const learnData = await getGamesData(productName);
 
-       // const learnData = datas;
+        // const learnData = datas;
         setData(learnData);
       } catch (error) {
         console.error(error);
@@ -269,11 +269,11 @@ const LayoutLearn = () => {
     if (currentIndex > 0) {
       setCurrentIndex(currentIndex - 1);
     }
-  };  
+  };
 
   const handleNextButtonClick = () => {
     if (currentIndex < data.length - 1) {
-        setCurrentIndex(currentIndex + 1);
+      setCurrentIndex(currentIndex + 1);
     }
     if (currentIndex < data.length - 1 && isAnswerCorrect) {
       setCurrentIndex(currentIndex + 1);
@@ -282,7 +282,7 @@ const LayoutLearn = () => {
     console.log(data[currentIndex + 1]?.lesson)
 
   };
-  
+
 
   const handleGetAnswerScore = (dataAnswer) => {
     setAnswerData(JSON.parse(dataAnswer));
@@ -296,19 +296,22 @@ const LayoutLearn = () => {
       setIsAnswerCorrect(true);
       setIsFireWork(true);
     } else { //trường hợp so sánh điểm => bằng 0
-      setIsAnswerCorrect(false);    
-      setIsFireWork(false)    
-    }      
+      setIsAnswerCorrect(false);
+      setTimeout(() => {
+        setIsFireWork(false);
+      }, 500);
+      setIsFireWork(null);
+    }
   };
 
   return (
     <>
       <BigText>Word pairing</BigText>
-        <HeadersContainer>
+      <HeadersContainer>
         <Header>{data[currentIndex]?.category}</Header>
         <Header>LESSON {data[currentIndex]?.lesson}</Header>
       </HeadersContainer>
-  
+
       <>
         {data[currentIndex]?.category === 'Game1' && (
           <Game1 data={data[currentIndex]} onSelectAnswer={handleGetAnswerScore} />
@@ -322,18 +325,18 @@ const LayoutLearn = () => {
         {data[currentIndex]?.category === 'Game4' && (
           <Game4 data={data[currentIndex]} onSelectAnswer={handleGetAnswerScore} />
         )} */}
-   
+
       </>
 
-      {isFireWork === true && 
+      {isFireWork === true &&
         <>
-          <MyLottieAnimation/>
+          <MyLottieAnimation />
         </>
       }
       <ButtonsContainer>
         {currentIndex === 0 ? (
           <ButtonLeft to="/vocab" state={{ productname: productName }}>
-            <PreButton/>Pre
+            <PreButton />Pre
           </ButtonLeft>
         ) : (
           <ButtonLeft onClick={handlePrevButtonClick}>Pre</ButtonLeft>
@@ -343,26 +346,26 @@ const LayoutLearn = () => {
 
         {data[currentIndex + 1]?.kind === 'Game' ? (
           <ButtonRight
-            onClick={isAnswerCorrect ? handleNextButtonClick : ""}            
+            onClick={isAnswerCorrect ? handleNextButtonClick : ""}
             isAnswerCorrect={isAnswerCorrect}
           >
-            Next<NextButton/>
+            Next<NextButton />
           </ButtonRight>
         ) : (
-          <ButtonRight 
-            to={isAnswerCorrect ? "/bigtest" : ""} 
-            state={{ productname: productName }} 
+          <ButtonRight
+            to={isAnswerCorrect ? "/bigtest" : ""}
+            state={{ productname: productName }}
             isAnswerCorrect={isAnswerCorrect}
-            >
-              Next<NextButton/>
-            </ButtonRight>
-          
+          >
+            Next<NextButton />
+          </ButtonRight>
+
         )}
       </ButtonsContainer>
 
-      {isFireWork === false && <Incorrect/>}
+      {isFireWork === false && <Incorrect />}
     </>
-   
+
   );
 };
 
