@@ -316,10 +316,10 @@ const LayoutLearn = () => {
         {data[currentIndex]?.category === 'Game1' && (
           <Game1 data={data[currentIndex]} onSelectAnswer={handleGetAnswerScore} />
         )}
-        {/* {data[currentIndex]?.category === 'Game2' && (
+        {data[currentIndex]?.category === 'Game2' && (
           <Game2 data={data[currentIndex]} onSelectAnswer={handleGetAnswerScore} />
         )}
-        {data[currentIndex]?.category === 'Game3' && (
+        {/* {data[currentIndex]?.category === 'Game3' && (
           <Game3 data={data[currentIndex]} onSelectAnswer={handleGetAnswerScore} />
         )}
         {data[currentIndex]?.category === 'Game4' && (
