@@ -15,6 +15,7 @@ import listen3 from './listen3.jpg'
 import story1 from './story1.jpg'
 import story2 from './story2.jpg'
 import story3 from './story3.jpg'
+import {getVideos} from '../../../API/videoApi';
 
 const Container = styled.div`
 
@@ -232,6 +233,7 @@ const Description = styled.p`
   font-weight: 400;
   font-size: 1rem;
   color: #1697A6;
+ 
   @media (max-width: 300px) {
     font-size: 0.7rem;
   }
@@ -368,6 +370,7 @@ function CardList() {
     const fetchCourses = async () => {
       try {
         const courseUserList = await getCoursesVocab();
+        console.log(courseUserList)
         for (let i = 0; i < courseUserList.length; i++) {
           const path = 'courses/' + courseUserList[i].image;
           const downloadURL = await getDownloadURL(ref(storage, path));
@@ -429,22 +432,14 @@ function CardList() {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const courseListenList = await getCoursesVocab();
-        for (let i = 0; i < courseListenList.length; i++) {
-          const path = 'courses/' + courseListenList[i].image;
+        const videos = await getVideos();
+
+        for (let i = 0; i < videos.length; i++) {
+          const path = 'video/' + videos[i].image;
           const downloadURL = await getDownloadURL(ref(storage, path));
-          courseListenList[i].image = downloadURL;
+          videos[i].image = downloadURL;
         }
-        courseListenList[0].image = sintel;
-        courseListenList[1].image = listen2;
-        courseListenList[2].image = listen3;
-        courseListenList[0].name = "Adventure";
-        courseListenList[1].name = "Moana";
-        courseListenList[2].name = "Frozen";
-        courseListenList[0].des = "Luyện nghe 1 đạn ngắn về câu chuyện Cuộc phiêu lưu";
-        courseListenList[1].des = "Luyện nghe 1 đạn ngắn về câu chuyện Moana";
-        courseListenList[2].des = "Luyện nghe 1 đạn ngắn về câu chuyện Frozen";
-        setCoursesListen(courseListenList);
+        setCoursesListen(videos);
 
       } catch (error) {
         console.error(error);
@@ -547,7 +542,7 @@ function CardList() {
               <ImgContainer><Img imageUrl={item.image} alt={item.name} />
               </ImgContainer>
               <Name>{item.name}</Name>
-              <Description>Number of participants: {item.amount}</Description>
+              <Description>Description: {item.des}</Description>
               <LearnBtn
                 onClick={() => {handleLearnCourse(item.name)}}
                 to={

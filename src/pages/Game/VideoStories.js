@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom';
 import { getDownloadURL } from 'firebase/storage';
 import { ref } from 'firebase/storage'
 import { storage } from '../../firebase/firebase'
+import {getVideos} from '../../API/videoApi';
 
 const BigText = styled.div`
   margin: 7% auto;
@@ -69,36 +70,46 @@ const Video = styled.video`
     height: auto;
 `;
 
-const ListenStory = () => {    
+const ListenStory = () => {
   const [productName, setProductName] = useState('Product A');
-  const [video, setVideo] = useState(); 
-  const location = useLocation(); 
+  const [video, setVideo] = useState(null);
+  const location = useLocation();
 
   useEffect(() => {
     if (location.state && location.state.productname) {
       setProductName(location.state.productname);
+    } else {
+      const storedProductName = localStorage.getItem('productName');
+      if (storedProductName) {
+        setProductName(storedProductName);
+      }
     }
   }, [location.state]);
 
   useEffect(() => {
     const fetchVideo = async () => {
       try {
-        const path = 'video/' + 'Baymax.mp4';
-        const downloadURL = await getDownloadURL(ref(storage, path));
-        console.log(downloadURL);
-        setVideo(downloadURL); 
+        const videos = await getVideos();
+        const linkVideo = videos.find((video) => video.name === productName);
+        
+        if (linkVideo) {
+          const path = 'video/' + linkVideo.link;
+          const downloadURL = await getDownloadURL(ref(storage, path));
+          console.log(downloadURL);
+          setVideo(downloadURL);
+        }
       } catch (error) {
         console.error(error);
       }
     };
     fetchVideo();
-  }, []);
+  }, [productName]);
 
   return (
     <>
       <BigText>Listen Story - {productName}</BigText>
       <VideoContainer>
-        <Video source src={video} autoPlay controls /> 
+        {video && <Video src={video} autoPlay controls />}
       </VideoContainer>
     </>
   );
