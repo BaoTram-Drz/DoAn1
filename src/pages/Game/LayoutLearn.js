@@ -304,6 +304,19 @@ const LayoutLearn = () => {
     }
   };
 
+  const handleVoice = (item) => {
+    if ('speechSynthesis' in window) {
+      const utterance = new SpeechSynthesisUtterance(item);
+      window.speechSynthesis.speak(utterance);
+    } else {
+      console.error('Trình duyệt không hỗ trợ SpeechSynthesis API.');
+    }
+  };
+  useEffect(() => {
+    if (isFireWork) {
+      handleVoice('correct'); // Gọi hàm xử lý âm thanh khi isFireWork === true
+    }
+  }, [isFireWork]);
   return (
     <>
       <BigText>Word pairing</BigText>
