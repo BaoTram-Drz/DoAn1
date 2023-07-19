@@ -197,13 +197,7 @@ const BigTest = () => {
 
   const handleGetAnswerScore = (dataAnswer) => {
     const smallAnswerData = JSON.parse(dataAnswer);
-    setAnswerData((prevAnswerData) => {
-      const updatedAnswerData = prevAnswerData.filter(
-        (answer) => answer.id.$oid !== smallAnswerData.id.$oid
-      );
-      updatedAnswerData.push(smallAnswerData);
-      return updatedAnswerData;
-    });
+    setAnswerData((prevData) => [...prevData, smallAnswerData]);
   };
   
   const submitAnswerSelected = () => {
@@ -213,7 +207,8 @@ const BigTest = () => {
 
     const totalScore = answerData.reduce((acc, answerItem) => {
       const item = data.find((dataItem) => dataItem._id.$oid === answerItem.id.$oid);
-      if (answerItem.score !== 0 && item && item.kind === 'Game') {
+      console.log(answerData)
+      if (answerItem.answerState ===true && item && item.kind === 'Game') {
         return acc + answerItem.score;
       } 
       return acc;
