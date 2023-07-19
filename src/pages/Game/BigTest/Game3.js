@@ -81,12 +81,27 @@ const Game3 = ({ data, onSelectAnswer }) => {
   const [state, setState] = useState(false);
   const [score, setScore] = useState(0);
   const [tableData, setTableData] = useState([]);
+  const [buttonKey, setButtonKey] = useState(0);
 
   const dataAnswer = {
     id: data._id,
     answerState: state,
     score: score,
   };
+  useEffect(() => {
+    // Hàm này xử lý việc reset các state khi nhận được data mới
+    const resetData = () => {
+      setDraggedItems([]);
+      setState(false);
+      setScore(0);
+      setTableData([]);
+    };
+
+    resetData(); // Reset data khi nhận được data mới
+    setButtonKey((prevKey) => prevKey + 1);
+
+    // Các xử lý khác khi data thay đổi (nếu cần)
+  }, [data]);
 
   useEffect(() => {
     let matchedPairs = [];
@@ -162,7 +177,7 @@ const Game3 = ({ data, onSelectAnswer }) => {
               if (draggedItems.includes(item.id)) {
                 return null;
               }
-              return <DraggableButton key={item.id} id={item.id} text={item.text} />;
+              return <DraggableButton key={`${item.id}-${buttonKey}`} id={item.id} text={item.text} />;
             })}
         </TablesContainer>
       </DndProvider>
