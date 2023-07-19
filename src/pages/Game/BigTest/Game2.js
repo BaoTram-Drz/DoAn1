@@ -2,64 +2,61 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 const Answers = styled.p`
-  text-align: center;
-  padding: 0px 24px;
-  font: normal 400 28px 'Autour One';
-
-  @media (max-width: 1200px) {
-    font-size: 2rem;
-  }
-
-  @media (max-width: 912px) {
-    font-size: 2rem;
-  }
-
-  @media (max-width: 768px) {
-    font-size: 2rem;
-  }
-  @media (max-width: 540px) {
-    font-size: 1.5rem;
-  }
-
-  @media (max-width: 480px) {
-    font-size: 1.2rem;
-  }
-
-  @media (max-width: 300px) {
-    font-size: 1rem;
-  }
+    text-align: center;
+    padding: 0px 24px;
+    font: normal 400 2rem 'Roboto';
+  
+    @media (max-width: 1200px) {
+      font-size: 2rem;
+    }
+    
+    @media (max-width: 540px) {
+      font-size: 1.5rem;
+    }
+  
+    @media (max-width: 480px) {
+      font-size: 1.2rem;
+    }
+  
+    @media (max-width: 300px) {
+      font-size: 1rem;
+    }
 `;
 const TableWrapper = styled.div`
-  width: 60%;
-  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  width: 80%;
+  margin: 5% auto;
+  gap : 50px;
 
+  @media (max-width: 1024px) {
+    width: 80%;
+    gap : 4rem;
+  }
   @media (max-width: 912px) {
     width: 80%;
   }
 
   @media (max-width: 768px) {
-    width: 100%;
+    width: 90%;
+    gap : 2rem;
   }
   @media (max-width: 540px) {
-    width: 100%;
+    width: 100%;    
+    grid-template-columns: 1fr ;
+    gap : 1rem;
   }
 `;
 
-const Table = styled.table`
-  width: 100%;
-  border-collapse: collapse;
-`;
 
-const TableRow = styled.tr`
-  background-color: white;
-  @media (max-width: 700px) {
-    display: flex;
-    flex-direction: column;
-  }
+const TableRow = styled.div`
+  margin: auto;
 `;
 
 const TableCell = styled.div`
-  width: 90%;
+  width: 100%;
+  max-width: 400px;
   margin: 2% auto;
   padding: 5px 24px;
   text-align: center;
@@ -80,8 +77,8 @@ const TableCell = styled.div`
 `;
 
 const InputCell = styled.input`
-  width: 50%;
-  margin: 2% 20%;
+  width: 80%;
+  margin: 2% auto;
   padding: 5px 24px;
   text-align: center;
   font: normal 400 2rem 'Roboto';
@@ -92,24 +89,23 @@ const InputCell = styled.input`
   @media (max-width: 900px) {
     margin: 2% auto;
     font-size: 2rem;
-    width: 60%;
+    width: 80%;
   }
 
   @media (max-width: 700px) {
-    margin: 2% 3%;
+    margin: 2% auto;
     font-size: 1rem;
-    width: 80%;
   }
   @media (max-width: 540px) {
-    margin: 2% 5%;
+    margin: 2% auto;
     font-size: 1rem;
-    width: 80%;
   }
   @media (max-width: 420px) {
-    margin: 5% 4%;
+    width: 80%;
+    margin: 5% auto;
   }
   @media (max-width: 300px) {
-    margin: 2% 0%;
+    margin: 2% auto;
   }
 `;
 
@@ -160,24 +156,16 @@ const Game2 = ({ data, onSelectAnswer }) => {
     <>
       <Answers>{data.question}</Answers>
       <TableWrapper>
-        <Table>
-          <tbody>
-            <TableRow>
-              <td>
-                <TableCell>
-                  <ImageAns src={data.image} alt="A" />
-                </TableCell>
-                <TableCell>{data.vietnamesePhrase}</TableCell>
-              </td>
-              <td>
-                <InputCell
-                  placeholder="........."
-                  onChange={(e) => setAnswer(e.target.value.toLowerCase())}
-                />
-              </td>
-            </TableRow>
-          </tbody>
-        </Table>
+        <TableRow>
+          <TableCell>
+            <ImageAns src={data.image} alt="A" />
+          </TableCell>
+          <TableCell>{data.vietnamesePhrase}</TableCell>
+        </TableRow>
+        <InputCell
+          placeholder="........."
+          onChange={(e) => setAnswer(e.target.value.toLowerCase())}
+        />
       </TableWrapper>
     </>
   );

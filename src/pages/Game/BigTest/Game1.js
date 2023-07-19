@@ -8,7 +8,7 @@ import D from './image/D.png'
 const Answers = styled.p`
     text-align: center;
     padding: 0px 24px;
-    font: normal 400 2rem 'Autour One';
+    font: normal 400 2rem 'Roboto';
   
     @media (max-width: 1200px) {
       font-size: 2rem;
