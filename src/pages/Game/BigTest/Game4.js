@@ -72,7 +72,6 @@ const Game4 = ({data, onSelectAnswer}) => {
     
     const handleDrop = (id) => {
       setDraggedItems((prev) => [...prev, id]);
-      console.log(draggedItems)
     };
 
     if (!data) {

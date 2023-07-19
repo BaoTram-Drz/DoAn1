@@ -170,7 +170,7 @@ const BigTest = () => {
   const [isFireWork, setIsFireWork] = useState(false);
   const location = useLocation();
   const [correctData, setCorrectData] = useState('');
-  const [wrongData, setWrongData] = useState('');
+  const [wrongData, setWrongData] = useState('Answer: ::: ');
   
   // const  [userScore, setUserScore] = useState('');
 
@@ -209,22 +209,21 @@ const BigTest = () => {
   const submitAnswerSelected = () => {
     setIsFireWork(true);
   
-    let totalScore = 0;
     let allTotalScore = 0;
-  
+
+    const totalScore = answerData.reduce((acc, answerItem) => {
+      const item = data.find((dataItem) => dataItem._id.$oid === answerItem.id.$oid);
+      if (answerItem.score !== 0 && item && item.kind === 'Game') {
+        return acc + answerItem.score;
+      } 
+      return acc;
+    }, 0);
+
     data.forEach((item) => {
-      const answerItem = answerData.find((answer) => answer.id.$oid === item._id.$oid);
-  
-      if (answerItem && answerItem.answerState === true && item.kind === 'Game') {
-        totalScore += answerItem.score;
-        setCorrectData(prevCorrectData => `${prevCorrectData} ${item.question}:::${item.correctText}`);
-      } else if (item.kind === 'Game') {
-        setWrongData(prevWrongData => `${prevWrongData}  ${item.question}: ::: ${item.correctText}  :::`);
-      }
-      if (item.kind === "Game") {        
-        allTotalScore += item.score;
-      }
+      allTotalScore += item.score;
+      setWrongData(prevWrongData => `${prevWrongData}  ${item.question}: ::: ${item.correctText}  :::`);
     });
+
     setAllScore(allTotalScore)
     setAnswerScore(totalScore);
 
@@ -234,12 +233,12 @@ const BigTest = () => {
       user: JSON.parse(localStorage.getItem('user')).name,
       image: JSON.parse(localStorage.getItem('user')).image,
     }
-    try {
-      const response = api.post('/games/saveLeague', userScore);
-      return response.data;
-    } catch (error) {
-      throw new Error(error.message);
-    }
+    // try {
+    //   const response = api.post('/games/saveLeague', userScore);
+    //   return response.data;
+    // } catch (error) {
+    //   throw new Error(error.message);
+    // }
 
   };
  

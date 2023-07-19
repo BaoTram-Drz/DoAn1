@@ -106,8 +106,6 @@ const Game3 = ({ data, onSelectAnswer }) => {
 
     const answerString = JSON.stringify(dataAnswer);
     onSelectAnswer(answerString);
-    console.log(tableData)
-    console.log(dataAnswer)
   }, [tableData, state, score]);
   
 
