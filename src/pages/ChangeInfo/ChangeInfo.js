@@ -267,7 +267,6 @@ const Button = styled.button`
     font-size: 1rem;
   }
 `;
-
 const convertPngToJpg = (pngFile) => {
   return new Promise((resolve, reject) => {
     const img = new Image();
@@ -309,7 +308,11 @@ function ChangeInfo() {
   const [userAva, setUserAva] = useState(null);
   const [passwordPlaceholder, setPasswordPlaceholder] = useState('Enter old password');
 
-  const fetchData = async() => {
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
     const currentUser = JSON.parse(localStorage.getItem('user'));
     const path = `users/${currentUser.image}`;
     try {
@@ -323,7 +326,7 @@ function ChangeInfo() {
       name: currentUser.name,
       email: currentUser.email,
       password: currentUser.password,
-      image: currentUser.image
+      image: currentUser.image,
     };
     setUserAva(data.image);
     setName(data.name);
@@ -331,27 +334,32 @@ function ChangeInfo() {
     setPassword(data.password);
   };
 
-  useEffect(() => {
-    // Gọi hàm fetchData trong useEffect để lấy dữ liệu khi component được render
-    fetchData();
-  }, []);
-
   const handleFileInputChange = async (event) => {
     const file = event.target.files[0];
+    const fileName = file.name;
 
     if (file.type === 'image/png') {
       try {
         const jpgFile = await convertPngToJpg(file);
         const imageUrl = URL.createObjectURL(jpgFile);
         setUserAva(imageUrl);
+        setFileName(fileName);
       } catch (error) {
-        console.error('Lỗi chuyển đổi PNG sang JPG:', error);
+        console.error('Error converting PNG to JPG:', error);
       }
     } else {
       const imageUrl = URL.createObjectURL(file);
       setUserAva(imageUrl);
+      setFileName(fileName);
     }
   };
+
+  const setFileName = (fileName) => {
+    const currentUser = JSON.parse(localStorage.getItem('user'));
+    currentUser.image = fileName;
+    localStorage.setItem('user', JSON.stringify(currentUser));
+  };
+
   const handleCarrotClickChange = () => {
     const fileInput = document.createElement('input');
     fileInput.type = 'file';
@@ -376,25 +384,25 @@ function ChangeInfo() {
     setIsEditablePass(true);
     passwordInputRef.current.focus();
     passwordInputRef.current.style.color = '#FFC24B';
-    setPassword("");
+    setPassword('');
     setPasswordPlaceholder('Enter old password');
   };
 
   const handleSubmit = async () => {
     const currentUser = JSON.parse(localStorage.getItem('user'));
-    try {
-      if (newpassword === renewpassword) {
-        const changeInfo = {
-          _id: currentUser._id,
-          name: name,
-          image: userAva,
-          email: email,
-          password: newpassword,
-        };
-        const response = await saveChangeInfo(changeInfo);
-        console.log('Thay đổi thông tin thành công:', response);
-      } else return alert("mật khẩu không khớp");
 
+    try {
+      if (newpassword === renewpassword && password) {
+        currentUser.name = name;
+        currentUser.email = email;
+        currentUser.password = newpassword;
+
+        const response = await saveChangeInfo(currentUser);
+        localStorage.setItem('user', JSON.stringify(currentUser));
+        console.log('Thay đổi thông tin thành công:', currentUser);
+      } else {
+        alert('Mật khẩu không khớp');
+      }
     } catch (error) {
       console.error('Lỗi thay đổi thông tin:', error);
     }
